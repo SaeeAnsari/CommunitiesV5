@@ -1,26 +1,158 @@
-/*
- * App Global CSS
- * ----------------------------------------------------------------------------
- * Put style rules here that you want to apply globally. These styles are for
- * the entire app and not just one component. Additionally, this file can be
- * used as an entry point to import other CSS/Sass files to be included in the
- * output CSS.
- * For more information on global stylesheets, visit the documentation:
- * https://ionicframework.com/docs/layout/global-stylesheets
- */
-
-/* Core CSS required for Ionic components to work properly */
-@import "~@ionic/angular/css/core.css";
-
-/* Basic CSS for apps built with Ionic */
-@import "~@ionic/angular/css/normalize.css";
-@import "~@ionic/angular/css/structure.css";
-@import "~@ionic/angular/css/typography.css";
+// http://ionicframework.com/docs/theming/
+@import '~@ionic/angular/css/core.css';
+@import '~@ionic/angular/css/normalize.css';
+@import '~@ionic/angular/css/structure.css';
+@import '~@ionic/angular/css/typography.css';
 @import '~@ionic/angular/css/display.css';
+@import '~@ionic/angular/css/padding.css';
+@import '~@ionic/angular/css/float-elements.css';
+@import '~@ionic/angular/css/text-alignment.css';
+@import '~@ionic/angular/css/text-transformation.css';
+@import '~@ionic/angular/css/flex-utils.css';
+.container {
+    text-align: center;
+  }
 
-/* Optional CSS utils that can be commented out */
-@import "~@ionic/angular/css/padding.css";
-@import "~@ionic/angular/css/float-elements.css";
-@import "~@ionic/angular/css/text-alignment.css";
-@import "~@ionic/angular/css/text-transformation.css";
-@import "~@ionic/angular/css/flex-utils.css";
+  ion-content{
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+
+    //background-image: url('http://res.cloudinary.com/http-communities-me/image/upload/v1508561885/Resources/Background/blue_background.png');
+
+    //background-image: url('http://res.cloudinary.com/http-communities-me/image/upload/v1508647726/Resources/Background/Red_Background.png');
+  
+ 
+}
+
+/* ======= Bottom Tab =======*/
+.tabs-md .tab-button {
+    color: #464c5d !important;
+       
+}
+
+.tabs-md .tabbar{ //Bottom Tab Background Image
+    //background-color: rgba(255,255,255,0);
+    background-color: #ffffff;
+}
+  
+//selected color
+.tabs-md .tab-button[aria-selected=true] {
+    color: #eb4c50 !important;
+    font-weight: 400;
+    
+}
+
+.tab-button {
+    color: #141823 !important;
+    
+    font-weight: 300px;
+    font-size: 11pt;
+    background-color: rgba(255,255,255,0);// #9999FF; //#00C5CD; //#1a1a1a #8466f0
+    /*border-top: 1px inset #99FF33;*/
+}
+
+.tabs-md .tab-button-icon{
+    color:#5d6376;
+}
+
+
+
+.tabs-container{
+    width:50%;
+}
+
+
+.tab-container{
+    display: inline-flex;
+}
+
+/* ======= Bottom Tab END =======*/
+
+div {
+    /*color: #141823;*/
+    color: #6b728d; 
+}
+
+.item-md {
+    background: rgba(255,255,255,0.85);
+  }
+
+
+
+
+ion-header{
+    
+    //background: rgba(255,255,255,0);
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,ffffff+48,fc3f55+68,c63631+84,c63631+92,c63631+92,fc3f55+100,fc3f55+100,fc3f55+101&0.8+0,0.07+100 */
+    //background: -moz-linear-gradient(right, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.45) 48%, rgba(252,63,85,0.3) 68%, rgba(198,54,49,0.19) 84%, rgba(198,54,49,0.13) 92%, rgba(252,63,85,0.07) 100%, rgba(252,63,85,0.07) 101%); /* FF3.6-15 */
+    //background: -webkit-linear-gradient(right, rgba(255,255,255,0.8) 0%,rgba(255,255,255,0.45) 48%,rgba(252,63,85,0.3) 68%,rgba(198,54,49,0.19) 84%,rgba(198,54,49,0.13) 92%,rgba(252,63,85,0.07) 100%,rgba(252,63,85,0.07) 101%); /* Chrome10-25,Safari5.1-6 */
+    //background: linear-gradient(to right, rgba(255,255,255,0.8) 0%,rgba(255,255,255,0.45) 48%,rgba(252,63,85,0.3) 68%,rgba(198,54,49,0.19) 84%,rgba(198,54,49,0.13) 92%,rgba(252,63,85,0.07) 100%,rgba(252,63,85,0.07) 101%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    //filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ccffffff', endColorstr='#12fc3f55',GradientType=0 ); /* IE6-9 */
+ }
+
+ .toolbar-title-md{
+    color: #eb4c50;
+ }
+
+ .back-button-icon-md {
+    color: #eb4c50;
+  }
+
+  ion-navbar .btn-link{
+    color: #eb4c50;
+  }
+
+  ion-navbar
+
+ .tabs-ios .tabbar{
+    background: rgba(255,255,255,0);
+ }
+
+ .item.item-trns {
+	//border-color: rgba(0, 0, 0, 0);
+    
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,ffffff+56,cc3333+100&0.8+0,0.07+100 */
+//background: -moz-linear-gradient(top, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.39) 56%, rgba(204,51,51,0.07) 100%); /* FF3.6-15 */
+//background: -webkit-linear-gradient(top, rgba(255,255,255,0.8) 0%,rgba(255,255,255,0.39) 56%,rgba(204,51,51,0.07) 100%); /* Chrome10-25,Safari5.1-6 */
+//background: linear-gradient(to bottom, rgba(255,255,255,0.8) 0%,rgba(255,255,255,0.39) 56%,rgba(204,51,51,0.07) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+//filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ccffffff', endColorstr='#12cc3333',GradientType=0 ); /* IE6-9 */
+}
+
+
+
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://example.com/MaterialIcons-Regular.eot); /* For IE6-8 */
+    src: local('Material Icons'),
+      local('MaterialIcons-Regular'),
+      url(https://example.com/MaterialIcons-Regular.woff2) format('woff2'),
+      url(https://example.com/MaterialIcons-Regular.woff) format('woff'),
+      url(https://example.com/MaterialIcons-Regular.ttf) format('truetype');
+  }
+
+  .material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;  /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+  
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+  
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+  
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+  }

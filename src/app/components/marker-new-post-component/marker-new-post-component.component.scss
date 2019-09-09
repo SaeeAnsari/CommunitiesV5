@@ -1,0 +1,29 @@
+/*================================
+      Marker New Post
+================================*/
+
+.new-post-marker{
+
+    
+    //background: white;
+    //background-color: rgba(255, 255, 255, 0.75);
+    padding-bottom: 10px;
+    background-color: rgba(240, 248, 255, 0.60);
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+}
+
+.new-post-main{
+    display: inline;
+}
+
+.new-post-main > textarea{
+    padding-top: 10px;
+    width: 60%;
+    height: 50px;
+     border: 0;
+    outline: 0;
+    background: transparent;
+    border-bottom: 1px solid #c3c3c3;
+}

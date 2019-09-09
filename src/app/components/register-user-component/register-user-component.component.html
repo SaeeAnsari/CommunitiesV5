@@ -1,0 +1,59 @@
+<ion-header>
+
+
+  <ion-toolbar>
+      <ion-buttons slot="start">
+       
+        <ion-button (click)="closeModal()"> 
+          <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+        </ion-button>
+       
+      </ion-buttons>
+      <ion-title>New Registeration</ion-title>
+    </ion-toolbar>
+
+</ion-header>
+<ion-content padding>
+
+  <form [formGroup]="registerationForm" novalidate (ngSubmit)="saveUser(registerationForm.value, registerationForm.valid)">
+    <div class="containerRegister text-center">
+
+      <ion-item>
+        <ion-input placeholder="First name" formControlName="firstName" [ngClass]="{'has-error':!registerationForm.controls['firstName'].valid}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input placeholder="Last name" formControlName="lastName" [ngClass]="{'has-error':!registerationForm.controls['lastName'].valid}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="email" placeholder="Email"  formControlName="email" [ngClass]="{'has-error':!registerationForm.controls['email'].valid}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="password" placeholder="Password" formControlName="password" [ngClass]="{'has-error':!registerationForm.controls['password'].valid}"></ion-input>
+
+      </ion-item>
+      <ion-item>
+        <ion-input type="password" placeholder="Confirm password" formControlName="confirmPassword" [ngClass]="{'has-error':!registerationForm.controls['confirmPassword'].valid}"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="!passwordMatch">
+        <small class="error-class">Password and Confirm Password should match</small>
+      </ion-item>
+      <ion-item>
+
+        <image-upload ImageCategory="User" UpdateIconImageOnUpload="true" (OnFileSaved)="mediaSelectedForPosting($event)"></image-upload>
+ 
+        <local-gallery-upload ImageCategory="User" UpdateIconImageOnUpload="true" (OnFileSaved) = "mediaSelectedForPosting($event)" ></local-gallery-upload>
+        
+      </ion-item>
+
+
+      <div class="login_form">
+
+          
+          <ion-button class="btn btn-info btn-login" shape="block" type="submit" value="Register" [disabled]="!registerationForm.valid">Register</ion-button>
+        </div>
+
+
+    </div>
+  </form>
+
+</ion-content>

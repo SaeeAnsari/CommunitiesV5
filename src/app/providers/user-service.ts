@@ -1,0 +1,213 @@
+import { Injectable } from '@angular/core';
+import { User } from '../interfaces/user';
+import { Http,  Headers, RequestOptions, URLSearchParams } from '@angular/http';
+
+
+import {BaseLinkProvider} from '../providers/base-link/base-link';
+
+
+import { Observable } from 'rxjs/Observable';
+// Observable class extensions
+import 'rxjs/add/observable/of';
+import 'rxjs/add/observable/throw';
+
+// Observable operators
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/switchMap';
+
+/*
+  Generated class for the UserService provider.
+
+  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
+  for more info on providers and Angular 2 DI.
+*/
+@Injectable({ providedIn: 'root' })
+export class UserService {
+
+  public getLoggedinInUser() {
+
+    
+    let _id = +sessionStorage.getItem('userID');
+    return this.GetUser(_id);
+
+  }
+
+  public GetLoggedInUserID(){
+    return +sessionStorage.getItem('userID');
+  }
+
+  public GetUser(id: number) {
+    return this._http.get(this._url + '/' + id)
+      .map(ret => ret.json())
+      .catch(this.handleError);
+  }
+
+  private _url = BaseLinkProvider.GetBaseUrl() + '/User';
+  headers: Headers;
+
+  options: RequestOptions;
+
+  constructor(private _http: Http) {
+    this.headers = new Headers({
+      'Content-Type': 'application/json',
+      'Accept': 'q=0.8;application/json;q=0.9'
+    });
+    this.options = new RequestOptions({ headers: this.headers });
+  }
+
+  
+  public GetAllActiveUsers(searchVal: string, communityID: number, pageIndex): Observable<any> {
+    return this._http.get(this._url + '/GetSearch?communityID=' + communityID + '&searchTerm=' + searchVal + '&pageIndex=' + pageIndex)
+      .map(ret => ret.json());
+  }
+
+  public EmailUserForgetPassword(email:string){
+    return this._http.get(this._url+ '/UserForgetPassword?email=' + email )
+    .map(ret=> ret.json())
+    .catch(this.handleError);
+  }
+
+  public AddUsertoCommunity(userID: number, communityID: number): Observable<any> {
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+
+
+    let data = new URLSearchParams();
+
+    return this._http.post(
+      this._url + '/AddUsertoCommunity?userID=' + userID + '&communityID=' + communityID,
+      data,
+      { headers: this.headers }
+    ).map(res => res.json())
+      .catch(this.handleError)
+
+  }
+
+
+  public RemoveUserFromCommunity(userID: number, communityID: number) {
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+
+
+    let data = new URLSearchParams();
+
+    return this._http.post(
+      this._url + '/RemoveUserFromCommunity?userID=' + userID + '&communityID=' + communityID,
+      data,
+      { headers: this.headers }
+    ).map(res => res.json())
+      .catch(this.handleError)
+  }
+
+  private handleError(error: any) {
+    let errMsg = (error.message) ? error.message :
+      error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+    console.error(errMsg);
+    console.log(error._body);
+    return Observable.throw(errMsg);
+  }
+
+  public RegisterUser(user: User) {
+
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    let data = {
+      ID: user.id,
+      FirstName: user.firstName,
+      LastName: user.lastName,
+      Email: user.email,
+      ImageURL: user.imageURL,
+      AuthPortal: user.authenticationPortalID,
+      Password: user.password
+    }
+
+    return this._http.post(
+      this._url,
+      data,
+      { headers: this.headers }
+    )
+      .map(res => res.json())
+      .catch(this.handleError)
+
+  }
+
+  public AuthenticateThirdPartyUser(thirdPartyUserID: string){
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+      return this._http.get(
+      this._url + '/AuthenticateThirdPartyUser?thirdPartyUserID=' + thirdPartyUserID,
+      { headers: this.headers }
+    )
+      .map(res => res.json())
+      .catch(this.handleError)
+  }
+
+
+  public RegisterSocialAuthUser(user: User) {
+
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    let data = {
+      ID: user.id,
+      FirstName: user.firstName,
+      LastName: user.lastName,
+      Email: user.email,
+      ImageURL: user.imageURL,
+      AuthPortal: user.authenticationPortalID,
+      Password: user.password,
+      Gender: user.gender,
+      ThirdPartyAuthID: user.thirdPartyAuthID
+    }
+
+    return this._http.post(
+      this._url,
+      data,
+      { headers: this.headers }
+    )
+      .map(res => res.json())
+      .catch(this.handleError)
+
+  }
+
+
+
+
+  public SaveUserLocation(userId: number, lattitude, longitude) {
+
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    return this._http.post(
+      this._url + '/SaveUserLocation?userID=' + userId + '&latitude=' + lattitude + '&longitude=' + longitude,
+      null,
+      { headers: this.headers }
+    )
+      .map(res => res.json())
+      .catch(this.handleError)
+  }
+
+  public LoginUser(email: string, password: string): Observable<any> {
+
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    return this._http.post(
+      this._url + '/LoginUser?username=' + email + '&password=' + password,
+      null,
+      { headers: this.headers }
+    )
+      .map(res => res.json())
+      .catch(this.handleError)
+
+  }
+}

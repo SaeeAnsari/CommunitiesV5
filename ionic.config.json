@@ -1,5 +1,7 @@
 {
   "name": "CommunitiesV5",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

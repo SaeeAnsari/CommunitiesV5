@@ -1,0 +1,87 @@
+/*.master-tag-background{
+    background-image: url('http://res.cloudinary.com/http-communities-me/image/upload/v1508084649/Resources/StoryHeaderRed.png');
+    background-repeat: no-repeat;
+    padding-bottom: 10px;
+    margin-bottom: 2px;
+    background-size: 200px 120px;
+}
+*/
+
+
+.feed_post_photo {
+    float: left;
+    height: 40px;
+    margin-right: 10px;
+    width: 40px;
+  }
+  
+  .feed_post_photo img {
+      border: 1px solid #07e5d8;
+      border-radius: 50%;
+      box-shadow: 0 0 2px #000;
+      height: 100%;
+      width: 100%;
+      margin-left:5px;
+      margin-top:5px;
+  }
+  
+  .feed_post_user {
+    margin-top: 5px;
+    display: inline-flex;
+  }
+  
+  .feed_post_user_name {
+      //color: #07e5d8;
+      color:#a4a4;
+      font-weight: bold;
+      font-size: 15px;
+  }
+  .feed_post_date {
+      color: #666666;
+      font-size: 10px;
+      margin-top: 5px;
+      margin-left: 8px;
+  }
+  .feed_post_date i.fa {
+      margin-left: 10px;
+  }
+  
+  .feed_right_circle > a {
+      color: #9d9d9d;
+      -webkit-transition: .5s;
+      transition: .5s;
+  }
+  .feed_right_circle > a:hover {
+    color: #07e5d8;
+  }
+  .feed_right_circle {
+      display: inline-block;
+      position: absolute;
+      right: 15px;
+      top: 5px;
+  }
+  
+  
+  
+  
+  /* Medium Layout: 1280px. */
+  @media only screen and (min-width: 992px) and (max-width: 1200px) { 
+   
+  }
+  /* Tablet Layout: 768px. */
+  @media only screen and (min-width: 768px) and (max-width: 991px) { 
+  
+     
+      
+   }
+  /* Mobile Layout: 320px. */
+  @media only screen and (max-width: 767px) { 
+      
+      .feed_post_user {
+          text-align: left;
+      }
+  }
+  /* Wide Mobile Layout: 480px. */
+  @media only screen and (min-width: 480px) and (max-width: 767px) { 
+  
+   }

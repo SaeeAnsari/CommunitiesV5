@@ -1,0 +1,70 @@
+/*================================
+      User Post Component
+================================*/
+
+.no-padding {
+    padding: 0px !important;
+}
+
+.feed_post_message {
+  color: #6b728d;
+  
+  
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 15px;
+  padding-left: 10px;
+  padding-bottom: 5px;
+  padding-top: 10px;
+  font-family: 'Lato', sans-serif;
+  min-height: 40px;
+  
+   white-space: normal;
+}
+
+.feed_post_content img {
+  /*border: 1px solid #dcdcdc;
+  /*border-radius: 5px;*/
+  width: auto;
+  
+  max-height: 480px; 
+}
+
+.feed_post_content video {
+  
+  height: auto;
+  width: 80vh;
+  background-color: #fff;
+}
+
+
+
+#feed_post {
+  margin-bottom: 100px;
+}
+
+.content-centered{
+ 
+ text-align: center;
+}
+
+.videos img {
+  width:100%;
+  height:auto;
+}
+
+a.video span {
+  width: 70%;
+  height: 60%;
+  position: absolute;
+  background: url("http://res.cloudinary.com/http-communities-me/image/upload/v1507337528/if_play-tape-logo_2201717_thzu2a.png") no-repeat;
+  background-position: 50% 50%;
+  background-size: 60%;
+}
+
+
+@media only screen and (max-width: 767px) { 
+	.feed_post_content p {
+		text-align: left;
+	}
+}

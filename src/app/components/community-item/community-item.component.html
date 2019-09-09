@@ -1,0 +1,32 @@
+<ion-card>
+
+  <ion-card-content>
+
+    <div class="cardContainer communityList">
+
+
+      <div (click)="navigate()"><img src="{{ImageURL}}" alt="" class="image-object img-no-border"></div>
+      <div (click)="navigate()">
+        <div class="message-text_Communities text-botom"><strong>{{HeaderText}}</strong>
+         
+            <div *ngIf="UserCount > 0">{{UserCount}} Members</div>
+         
+        </div>
+
+      </div>
+
+      <div class="communityListItem-buttons">
+        <div *ngIf="Member == 'false'">
+          <button class="btn btn-success" (click)="joinCommunity()">Join</button>
+        </div>
+
+        <div *ngIf="Member == 'true'">
+          <button class="btn btn-warning" (click)="leaveCommunity()">Remove</button>
+        </div>
+      </div>
+
+
+    </div>
+
+  </ion-card-content>
+</ion-card>

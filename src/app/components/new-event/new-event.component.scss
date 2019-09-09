@@ -1,0 +1,57 @@
+
+.eventForm{
+    padding:10px;
+}
+
+.eventForm > h4{
+    padding-top:15px;
+    color:#373D3F;
+   
+    padding-bottom: 15px;
+}
+
+.eventForm input::-webkit-input-placeholder{
+    font-size: 10pt;
+}
+
+.eventForm textarea::-webkit-input-placeholder{
+    font-size: 10pt;
+}
+
+.event-label {
+    font-size: 10pt;
+}
+
+.event-country-lable{
+    padding-left: 10px;
+    font-size: 10pt;
+}
+
+.Go-Button-New-Event
+{
+    position: absolute;
+    right:10px;
+}
+.event-submit-height{
+    height: 100px;
+}
+
+.event-image-selection:first-child{
+    font-size: 15pt;
+}
+
+.event-image-selection img{
+    width:150px;
+    height: auto;
+}
+
+.event-image-selection-marker{ 
+    display: inline;
+    position: absolute;
+    bottom: 0; 
+    color: #B8B8B8;
+}
+
+.error-class{
+    color: red;
+}

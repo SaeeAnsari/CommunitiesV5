@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-toolbar transparent>
+
+    <ion-buttons left>
+      <button ion-button block class="btn btn-link" (click)="closeModal()" icon-left>
+        <ion-icon name="return-left"></ion-icon>Back
+      </button>
+    </ion-buttons>
+    <ion-title>New Comments</ion-title>
+    <ion-buttons right>
+      <button ion-button (click)="post()" color="primary">
+        <b>Post</b>
+      </button>
+    </ion-buttons>
+
+
+
+  </ion-toolbar>
+</ion-header>
+
+
+
+
+<ion-content padding>
+
+  <div>
+    <section id="feed_post">
+      <div class="containerNewComment">
+        <div class="feed_post_area">
+        
+          <div>
+            <div class="form-group">
+
+              <ion-item>
+                <ion-label>
+                  <i class="fa fa-users"></i> Communities</ion-label>
+                <ion-select [(ngModel)]="optionsModel" multiple="true">
+                  <ion-select-option *ngFor="let item of userCommunities" value="{{item.id}}" [selected]="item.id == activeCommunity">{{item.name}}</ion-select-option>
+                </ion-select>
+              </ion-item>
+
+            </div>
+
+            <div class="form-group">
+              <div *ngIf="graphFound == false">
+
+                <div *ngIf="uploaded">
+                  <uploaded-media-post PostMediaURL="{{uploadedMediaURL}}" Type="{{mediaType}}"></uploaded-media-post>
+                  <br>
+                </div>
+                <div *ngIf="!uploaded">
+                  <local-gallery-upload (OnFileSaved)="mediaSelectedForPosting($event)"></local-gallery-upload>
+                  <video-upload (OnFileSaved)="mediaSelectedForPosting($event)"></video-upload>
+                  <image-upload ImageCategory="Story" (OnFileSaved)="mediaSelectedForPosting($event)"></image-upload>
+                </div>
+              </div>
+
+
+              <div class="post-body">
+
+                <div *ngIf="graphFound == true">
+                  <div class="newMedia">
+                    <img class="d-flex mr-3" src="{{graphImage}}" alt="Generic placeholder image">
+                  </div>
+                </div>
+
+                <textarea [ngClass]="{textAreaSmall: graphFound == true}" rows="3" placeholder="Whats on your mind?" [(ngModel)]="postText"
+                  [formControl]="PostTextControl">
+                  </textarea>
+              </div>
+            </div>
+          </div>         
+        </div>
+      </div>
+    </section>
+  </div>
+</ion-content>
