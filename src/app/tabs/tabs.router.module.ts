@@ -13,7 +13,17 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () =>
-              import('../tab1/tab1.module').then(m => m.Tab1PageModule)
+              import('../pages/live-feed/live-feed.module').then(m => m.LiveFeedPageModule)
+          }
+        ]
+      },
+      {
+        path: 'tab1/:communityID',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../pages/live-feed/live-feed.module').then(m => m.LiveFeedPageModule)
           }
         ]
       },
@@ -46,7 +56,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/tabs/tab1',
+    redirectTo: '/login',
     pathMatch: 'full'
   }
 ];

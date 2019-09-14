@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {  NavController, NavParams, ModalController } from '@ionic/angular';
+import {  NavController, ModalController } from '@ionic/angular';
 
 import { UserPost } from '../../interfaces/user-post';
 import { StoryService } from '../../providers/story-service';
@@ -37,7 +37,6 @@ export class LiveFeedPage implements OnInit {
 
   constructor(
     public navCtrl: NavController,
-    public navParams: NavParams,
     private _storyService: StoryService,
     private _communityService: CommunityService,
     private _userService: UserService,

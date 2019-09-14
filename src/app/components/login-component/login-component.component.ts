@@ -71,8 +71,8 @@ export class LoginComponent {
         if (sub > 0) {
           this.storage.set("userID", sub);
           sessionStorage.setItem("userID", sub);//Temporary removeit later
-          this.nav.navigateForward('/tabs');
-          this.vc.dismiss();
+          this.nav.navigateForward('/tabs/tab1/' + sub);
+          this.vc.dismiss({isRegistering: false});
         }
         else{
           this.presentToast("Incorrect Email or Password");

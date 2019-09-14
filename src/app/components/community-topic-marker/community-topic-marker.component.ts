@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommunityPage } from '../../pages/community/community.page';
-import { PopoverController, NavController, NavParams, AlertController} from '@ionic/angular';
+import { PopoverController, NavController, AlertController} from '@ionic/angular';
 import { CreateTopicComponent } from '../../components/create-topic/create-topic.component';
 import { ViewTopicsComponent } from '../../components/view-topics/view-topics.component';
 import { SocialSharingPopoverComponent } from '../../components/social-sharing-popover/social-sharing-popover.component';
@@ -58,7 +58,6 @@ export class CommunityTopicMarkerComponent implements OnInit {
   constructor(
 
     public navCtrl: NavController,
-    public navParams: NavParams,
     public popoverCtrl: PopoverController,
     private _communityService: CommunityService,
     private alertCtrl: AlertController

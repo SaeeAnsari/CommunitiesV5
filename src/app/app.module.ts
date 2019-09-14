@@ -38,20 +38,20 @@ import { TabsPage } from './pages/tabs/tabs.page';
 import { CreateTopicComponent } from '../app/components/create-topic/create-topic.component';
 import { ForgetPasswordComponent } from '../app/components/forget-password/forget-password.component';
 import { LoginComponent } from '../app/components/login-component/login-component.component';
-import { MarkerNewPostComponent } from '../app/components/marker-new-post-component/marker-new-post-component.component';
+
 import { NewCommentComponent } from '../app/components/new-comment-component/new-comment-component.component';
 import { NewEventComponent } from '../app/components/new-event/new-event.component';
 import { RegisterUserComponent } from '../app/components/register-user-component/register-user-component.component';
 import { SocialSharingPopoverComponent } from '../app/components/social-sharing-popover/social-sharing-popover.component';
 import { UserCommentsComponent } from '../app/components/user-comments-component/user-comments-component.component';
-import { UserPostsComponent } from '../app/components/user-posts-component/user-posts-component.component';
+
 import { ViewTopicsComponent } from '../app/components/view-topics/view-topics.component';
-import { UserTagComponent } from './components/user-tag-component/user-tag-component.component';
+
 import { UploadedMediaPostComponent } from './components/uploaded-media-post/uploaded-media-post.component';
 import { LocalGalleryUploadComponent } from './components/local-gallery-upload/local-gallery-upload.component';
 import { VideoUploadComponent } from './components/video-upload/video-upload.component';
 import { ImageUploadComponent } from './components/image-upload/image-upload.component';
-import { UserPostActionComponent } from './components/user-post-action-component/user-post-action-component.component';
+
 import { HttpModule } from '@angular/http';
 //import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import {IonicStorageModule} from '@ionic/storage';
@@ -62,33 +62,31 @@ import {IonicStorageModule} from '@ionic/storage';
     CreateTopicComponent,
     ForgetPasswordComponent,
     LoginComponent,
-    MarkerNewPostComponent,
+    
     NewCommentComponent,
     NewEventComponent,
     RegisterUserComponent,
     SocialSharingPopoverComponent,
     UserCommentsComponent,
-    UserPostsComponent,
+   
     ViewTopicsComponent,
-    UserTagComponent,
     UploadedMediaPostComponent,
     LocalGalleryUploadComponent,
     VideoUploadComponent,
     ImageUploadComponent,
-    UserPostActionComponent
   ],
   entryComponents: [
     AppComponent,    
     CreateTopicComponent,
     ForgetPasswordComponent,
     LoginComponent,
-    MarkerNewPostComponent,
+    
     NewCommentComponent,
     NewEventComponent,
     RegisterUserComponent,
     SocialSharingPopoverComponent,
     UserCommentsComponent,
-    UserPostsComponent,
+
     ViewTopicsComponent
   ],
   imports: [
