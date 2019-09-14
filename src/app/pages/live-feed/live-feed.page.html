@@ -6,6 +6,7 @@
 -->
 <ion-header>
 
+  <!--
   <ion-toolbar transparent>
 
     <div id="left" class="live-feed-header">
@@ -30,7 +31,22 @@
 
 
   </ion-toolbar>
+-->
 
+  <ion-toolbar>
+      <ion-buttons slot="start">
+
+        <ion-button (click)="addUserToCommunity()">
+          <ion-icon slot="icon-only" name="menu"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-buttons slot="secondary">
+        <ion-button (click)="addUserToCommunity()">
+          <ion-icon slot="icon-only" name="contacts"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title><div>{{communityName}}</div></ion-title>
+  </ion-toolbar>
 </ion-header>
 
 
@@ -43,7 +59,7 @@
         <communities-slides ></communities-slides>
       </div>
     -->
-      <div >
+      <div>
         <community-topic-marker CommunityID="{{communityID}}"></community-topic-marker>
       </div>
 
@@ -62,10 +78,12 @@
 
           <div class="feed_post_area item item-trns">
             <div class="feed_post_header">
-              <app-user-tag ID="{{post.userID}}" ImageURL="{{post.userProfileImage}}" Name="{{post.userFullName}}" PostDate="{{post.postDate}}"></app-user-tag>
-              <app-user-post PostMessage="{{post.text}}" PostMediaURL="{{post.imageURL}}" StoryID="{{post.storyID}}" LikeCount="{{post.likeCount}}"
-                CommentCount="{{post.commentsCount}}" UserID="userID" StoryExternalURL={{post.storyExternalURL}} MediaType={{post.mediaType}}
-                [StoryImages]="[post.images]" EventID="{{post.eventID}}"></app-user-post>
+              <app-user-tag ID="{{post.userID}}" ImageURL="{{post.userProfileImage}}" Name="{{post.userFullName}}"
+                PostDate="{{post.postDate}}"></app-user-tag>
+              <app-user-post PostMessage="{{post.text}}" PostMediaURL="{{post.imageURL}}" StoryID="{{post.storyID}}"
+                LikeCount="{{post.likeCount}}" CommentCount="{{post.commentsCount}}" UserID="userID"
+                StoryExternalURL={{post.storyExternalURL}} MediaType={{post.mediaType}} [StoryImages]="[post.images]"
+                EventID="{{post.eventID}}"></app-user-post>
 
 
 

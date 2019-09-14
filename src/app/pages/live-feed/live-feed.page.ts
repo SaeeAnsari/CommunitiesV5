@@ -26,6 +26,7 @@ import { UserSearchPage } from '../../pages/user-search/user-search.page';
 @Component({
   selector: 'page-live-feed',
   templateUrl: 'live-feed.page.html',
+  styleUrls: ['./live-feed.page.scss'],
   providers: [StoryService, CommunityService, UserService]
 })
 export class LiveFeedPage implements OnInit {
@@ -98,14 +99,14 @@ export class LiveFeedPage implements OnInit {
   }
 
   ngOnInit() {
-    if (this.navParams.get('communityID')) {
+    /*if (this.navParams.get('communityID')) {
       this.communityID = this.navParams.get('communityID');
-    }    
+    } */   
   }
 
   ionViewDidEnter(){
   
-    if (this.navParams.get('communityID')) {
+    /*if (this.navParams.get('communityID')) {
       this.communityID = this.navParams.get('communityID');
 
     }
@@ -113,7 +114,7 @@ export class LiveFeedPage implements OnInit {
       this.communityID = parseInt(sessionStorage.getItem('activeCommunity'));
 
     }*/
-    else {
+    /*else*/ {
       this._userService.getLoggedinInUser().subscribe(sub => {
 
         this.communityID = sub.DefaultCommunityID;        

@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
-import {ModalController, NavParams, NavController, ToastController } from '@ionic/angular';
+import { ModalController, NavParams, NavController, ToastController } from '@ionic/angular';
+import { Router, NavigationExtras } from '@angular/router';
 //import { NativeStorage } from '@ionic-native/native-storage/ngx';
 
-import {Storage} from '@ionic/storage';
+import { Storage } from '@ionic/storage';
 
 import { UserService } from '../../providers/user-service';
 
@@ -41,7 +42,9 @@ export class LoginComponent {
     public vc: ModalController,
     public navParams: NavParams,
     private toastCtrl: ToastController,
-    public popoverCtrl: PopoverController) {
+    public popoverCtrl: PopoverController,
+    private router: Router
+  ) {
 
     this.loginForm = this._fb.group({
       email: ['', [<any>Validators.required, <any>Validators.minLength(5)]],
@@ -71,17 +74,20 @@ export class LoginComponent {
         if (sub > 0) {
           this.storage.set("userID", sub);
           sessionStorage.setItem("userID", sub);//Temporary removeit later
-          this.nav.navigateForward('/tabs/tab1/' + sub);
-          this.vc.dismiss({isRegistering: false});
+
+          this.router.navigate(['tabs/tab1']);
+
+          //this.nav.navigateForward('/tabs/tab1');
+          this.vc.dismiss({ isRegistering: false });
         }
-        else{
+        else {
           this.presentToast("Incorrect Email or Password");
         }
       })
-    }    
+    }
   }
 
-  async presentToast(message:string) {
+  async presentToast(message: string) {
     let toast = await this.toastCtrl.create({
       message: message,
       duration: 3000,
@@ -96,8 +102,8 @@ export class LoginComponent {
   }
 
 
-  forgetPassword(event){
-    
+  forgetPassword(event) {
+
     let data = {
       forgetPassword: true
     };
