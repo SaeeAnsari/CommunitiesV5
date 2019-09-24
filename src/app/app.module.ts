@@ -24,6 +24,16 @@ import { Firebase } from '@ionic-native/firebase/ngx';
 import { LaunchNavigator } from '@ionic-native/launch-navigator/ngx';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 
+// -- FONT AWESOME START
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {library} from '@fortawesome/fontawesome-svg-core';
+
+import {fas} from '@fortawesome/free-solid-svg-icons';
+import {far} from '@fortawesome/free-regular-svg-icons';
+import {fab} from '@fortawesome/free-brands-svg-icons';
+
+library.add(fas, far, fab);
+// -- FONT AWESOME END
 
 import { OpenGraphServiceProvider } from '../app/providers/open-graph-service/open-graph-service';
 import { GeoProviderServiceProvider } from '../app/providers/geo-provider-service/geo-provider-service';

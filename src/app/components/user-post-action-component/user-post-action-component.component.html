@@ -1,14 +1,26 @@
 <div class="post_like" *ngIf="FeedType=='Story'">
   <ul>
     <li>
-      <button type="button" id="actionLikeButton" [ngClass]="likeClicked ? 'btn btn-link fa fa-gratipay fa-2x' : 'btn btn-link fa fa-gratipay fa-2x'"
-        (click)="setLike(StoryID)"> <span class="action-button">{{LikeCount}}</span></button>
+        <ion-button fill="clear" (click)="setLike(StoryID)">
+            
+            <span class="action-button">{{LikeCount}}</span><fa-icon icon="thumbs-up" slot="end" pull="right" > </fa-icon>
+            
+          </ion-button>      
     </li>
     <li>
-      <button type="button" class="btn btn-link fa fa-comments" (click)="viewComments(StoryID)"> <span class="action-button">{{CommentCount}}</span></button>
+
+      <ion-button fill="clear" (click)="viewComments(StoryID)">
+        <span class="action-button">{{CommentCount}}</span>
+        <fa-icon icon="comments" slot="end" pull="right" > </fa-icon>
+      </ion-button>
+
+
     </li>
     <li>
-      <button type="button" class="btn btn-link fa fa-share-alt" (click)="presentPopover($event)"> <span class="action-button">Share</span></button>
+      <ion-button fill="clear" (click)="presentPopover($event)">
+        <fa-icon icon="share-alt" slot="end" pull="right" > </fa-icon>
+        
+      </ion-button>
     </li>
   </ul>
 

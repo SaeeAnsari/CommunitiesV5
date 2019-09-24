@@ -12,6 +12,8 @@ import { UserTagComponent } from 'src/app/components/user-tag-component/user-tag
 import { UserPostsComponent } from 'src/app/components/user-posts-component/user-posts-component.component';
 import { UserPostActionComponent } from 'src/app/components/user-post-action-component/user-post-action-component.component';
 
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+
 const routes: Routes = [
   {
     path: '',
@@ -24,7 +26,8 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    FontAwesomeModule
   ],
   declarations: [LiveFeedPage, CommunityTopicMarkerComponent, MarkerNewPostComponent, UserTagComponent, UserPostsComponent, UserPostActionComponent]
 })
