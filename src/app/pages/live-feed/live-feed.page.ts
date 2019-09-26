@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {  NavController, ModalController } from '@ionic/angular';
+import {IonInfiniteScroll} from '@ionic/angular';
 
 import { UserPost } from '../../interfaces/user-post';
 import { StoryService } from '../../providers/story-service';
@@ -147,11 +148,11 @@ export class LiveFeedPage implements OnInit {
     //this.navCtrl.push(CommunityPage, { communityID: this.communityID });
   }
 
-  dynamicLoadStories(): Promise<any> {
+  dynamicLoadStories(event){
 
-
-    return new Promise((resolve) => {
       setTimeout(() => {
+
+        event.target.complete();
 
         this._storyService.GetStoriesByCommunity(this.communityID, this.pageIndex)
           .subscribe(postS => {
@@ -180,13 +181,8 @@ export class LiveFeedPage implements OnInit {
                 images: element.Images
               });
             });
-          });
-
-
-
-        resolve();
+          });        
       }, 500);
-    })
   }
 
   addUserToCommunity() {
