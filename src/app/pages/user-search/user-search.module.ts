@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
-
 import { IonicModule } from '@ionic/angular';
+
 
 import { UserSearchPage } from './user-search.page';
 import { UserSearchItemComponent } from 'src/app/components/user-search-item-component/user-search-item-component.component';

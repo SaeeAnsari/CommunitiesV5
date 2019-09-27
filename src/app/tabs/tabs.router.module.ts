@@ -33,7 +33,7 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () =>
-              import('../tab2/tab2.module').then(m => m.Tab2PageModule)
+              import('../pages/user-search/user-search.module').then(m => m.UserSearchPageModule)
           }
         ]
       },

@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import {  NavController, ModalController } from '@ionic/angular';
 import {IonInfiniteScroll} from '@ionic/angular';
+import { Router, NavigationExtras } from '@angular/router';
 
 import { UserPost } from '../../interfaces/user-post';
+
 import { StoryService } from '../../providers/story-service';
 import { CommunityService } from '../../providers/community-service';
 import { UserService } from '../../providers/user-service';
 
 import { CommunityPage } from '../../pages/community/community.page';
-
-
 import { UserSearchPage } from '../../pages/user-search/user-search.page';
 
 
@@ -42,7 +42,8 @@ export class LiveFeedPage implements OnInit {
     private _storyService: StoryService,
     private _communityService: CommunityService,
     private _userService: UserService,
-    public modalCtrl: ModalController
+    public modalCtrl: ModalController,
+    private router: Router
   ) {
 
 
@@ -182,12 +183,13 @@ export class LiveFeedPage implements OnInit {
               });
             });
           });        
-      }, 500);
+      }, 500); 
   }
 
   addUserToCommunity() {
 
-    this.navCtrl.navigateForward('/user-search/' + this.communityID);
+    this.router.navigate(['tabs/tab2']);
+    //this.navCtrl.navigateForward('/user-search/' + this.communityID);
     //this.navCtrl.push(UserSearchComponent, { communityID: this.communityID });
   }
 

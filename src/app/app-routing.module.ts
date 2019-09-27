@@ -22,7 +22,7 @@ const routes: Routes = [
   { path: 'tabs/:communityID', loadChildren: './pages/tabs/tabs.module#TabsPageModule' },
   { path: 'user-location', loadChildren: './pages/user-location/user-location.module#UserLocationPageModule' },
   { path: 'user-search-component', loadChildren: './pages/user-search-component/user-search-component.module#UserSearchComponentPageModule' },
-  { path: 'user-search', loadChildren: './user-search/user-search.module#UserSearchPageModule' }
+  { path: 'user-search', loadChildren: './pages/user-search/user-search.module#UserSearchPageModule' }
 
 ];
 @NgModule({

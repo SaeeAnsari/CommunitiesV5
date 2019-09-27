@@ -19,7 +19,7 @@ import { Camera } from '@ionic-native/camera/ngx';
 import { Keyboard } from '@ionic-native/keyboard/ngx';
 import { MediaCapture } from '@ionic-native/media-capture/ngx';
 import { FileTransfer } from '@ionic-native/file-transfer/ngx';
-import { File } from '@ionic-native//file/ngx';
+import { File } from '@ionic-native/file/ngx';
 import { Firebase } from '@ionic-native/firebase/ngx';
 import { LaunchNavigator } from '@ionic-native/launch-navigator/ngx';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
