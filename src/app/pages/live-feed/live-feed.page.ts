@@ -187,10 +187,6 @@ export class LiveFeedPage implements OnInit {
   }
 
   addUserToCommunity() {
-
-    this.router.navigate(['tabs/tab2']);
-    //this.navCtrl.navigateForward('/user-search/' + this.communityID);
-    //this.navCtrl.push(UserSearchComponent, { communityID: this.communityID });
+    this.router.navigate(['tabs/UserSearch']);    
   }
-
 }

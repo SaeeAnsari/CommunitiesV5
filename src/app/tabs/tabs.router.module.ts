@@ -28,7 +28,17 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'tab2',
+        path: 'UserSearch',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../pages/user-search/user-search.module').then(m => m.UserSearchPageModule)
+          }
+        ]
+      },
+      {
+        path: 'UserSearch/:communityID',
         children: [
           {
             path: '',

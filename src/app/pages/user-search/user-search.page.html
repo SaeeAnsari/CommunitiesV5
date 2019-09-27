@@ -6,26 +6,15 @@
 -->
 <ion-header>
 
-  <ion-toolbar transparent>
+    <ion-toolbar>       
+        <ion-buttons slot="secondary">
+          <ion-button (click)="navigateToFeed()">
+            Done
+          </ion-button>
+        </ion-buttons>
+        <ion-title><div>Add Friends</div></ion-title>
+    </ion-toolbar>  
 
-    
-      <div id="left">
-          <ion-title>Add Friends</ion-title>
-        </div>
-        <div id="right">
-            <div class="user-search-AddIconRight" (click)="navigateToFeed()"><button type="button" class="btn btn-link">Done</button></div>
-        </div>
-    
-  </ion-toolbar>
-
- <!-- <ion-toolbar>
-    
-      
-      <div> Add Friends</div>
-      <div class="user-search-AddIconRight" (click)="navigateToFeed()">Done</div>
-   
-  </ion-toolbar>
--->
 </ion-header>
 
 
@@ -36,9 +25,11 @@
       <div class="login_form">
         <form action="#" method="post">
           <div class="search_feild">
-            <input class="form-control" type="search" name="search" id="search" value="" placeholder="lookup bud!..." [(ngModel)]="searchVal"
+
+            <input class="form-control" type="search" name="search" id="search" value="" placeholder="lookup by name!..." [(ngModel)]="searchVal"
               [formControl]="searchInput">
             <button type="submit"><i class="fa fa-search" (click)="searchUsers()"></i></button>
+            
           </div>
         </form>
       </div>

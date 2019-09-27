@@ -35,12 +35,19 @@ export class UserSearchPage implements OnInit {
   private nextPageIndex: number = 1;
 
 
-  constructor(private userService: UserService, public navCtrl: NavController, public navParams: NavParams) {
+  constructor
+    (
+      private userService: UserService, 
+      public navCtrl: NavController
+      //, public navParams: NavParams
+    ) {
 
     this.searchVal = "";
+    /*
     if (navParams.get('communityID')) {
       this.communityID = navParams.get('communityID');
     }
+    */
   }
 
   initialBindUsers() {
