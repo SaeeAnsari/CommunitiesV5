@@ -1,8 +1,10 @@
-<div class="fileUpload btn btn-outline-info md-new-comment" (click)="imagePickerClick()">
-  <span >
+<div class="item-inline">
+  <div class="fileUpload btn btn-outline-info md-new-comment" (click)="imagePickerClick()">
+    <span>
       <ion-icon name="image"></ion-icon>
+    </span>
+  </div>
+  <span *ngIf="replaceIconWithImage">
+    <img src="{{cloudFileURL}}" alt="">
   </span>
 </div>
-<span *ngIf="replaceIconWithImage">
-  <img src="{{cloudFileURL}}" alt="">
-</span>
