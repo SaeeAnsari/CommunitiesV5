@@ -6,14 +6,16 @@
 -->
 <ion-header>
 
-    <ion-toolbar>       
-        <ion-buttons slot="secondary">
-          <ion-button (click)="navigateToFeed()">
-            Done
-          </ion-button>
-        </ion-buttons>
-        <ion-title><div>Add Friends</div></ion-title>
-    </ion-toolbar>  
+  <ion-toolbar>
+    <ion-buttons slot="secondary">
+      <ion-button (click)="navigateToFeed()">
+        Done
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      <div>Add Friends</div>
+    </ion-title>
+  </ion-toolbar>
 
 </ion-header>
 
@@ -26,10 +28,9 @@
         <form action="#" method="post">
           <div class="search_feild">
 
-            <input class="form-control" type="search" name="search" id="search" value="" placeholder="lookup by name!..." [(ngModel)]="searchVal"
-              [formControl]="searchInput">
-            <button type="submit"><i class="fa fa-search" (click)="searchUsers()"></i></button>
-            
+            <ion-searchbar [formControl]="searchInput">
+            </ion-searchbar>
+
           </div>
         </form>
       </div>
@@ -37,12 +38,13 @@
 
       <ion-list>
         <div *ngFor="let item of userItems">
-          <user-search-item-component ID="{{item.id}}" Name='{{item.firstName + " " + item.lastName}}' Image='{{item.imageURL}}' AlreadyMember='{{item.alreadyMember}}'
-            CommunityID='{{communityID}}' (UserAction)="userAddedorRemoved()"></user-search-item-component>
+          <user-search-item-component ID="{{item.id}}" Name='{{item.firstName + " " + item.lastName}}'
+            Image='{{item.imageURL}}' AlreadyMember='{{item.alreadyMember}}' CommunityID='{{communityID}}'
+            (UserAction)="userAddedorRemoved()"></user-search-item-component>
         </div>
       </ion-list>
 
-       <ion-infinite-scroll (ionInfinite)="$event.waitFor(bindUserList_Paging())">
+      <ion-infinite-scroll (ionInfinite)="$event.waitFor(bindUserList_Paging())">
         <ion-infinite-scroll-content></ion-infinite-scroll-content>
       </ion-infinite-scroll>
 

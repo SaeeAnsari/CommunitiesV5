@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 import { ModalController, NavParams, NavController, ToastController } from '@ionic/angular';
-import { Router, NavigationExtras } from '@angular/router';
+import { Router } from '@angular/router';
 //import { NativeStorage } from '@ionic-native/native-storage/ngx';
 
 import { Storage } from '@ionic/storage';
@@ -74,7 +74,6 @@ export class LoginComponent {
         if (sub > 0) {
           this.storage.set("userID", sub);
           sessionStorage.setItem("userID", sub);//Temporary removeit later
-
           this.router.navigate(['tabs/tab1']);
 
           //this.nav.navigateForward('/tabs/tab1');

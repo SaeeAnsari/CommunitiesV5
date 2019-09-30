@@ -4,7 +4,7 @@ import { UserService } from '../../providers/user-service';
 import { User } from '../../interfaces/user';
 
 import { Observable } from 'rxjs/Observable';
-import { FormGroup, FormControl } from '@angular/forms'
+import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms'
 import { LiveFeedPage } from '../live-feed/live-feed.page';
 
 // Observable class extensions
@@ -19,6 +19,7 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-search',
@@ -27,10 +28,9 @@ import 'rxjs/add/operator/switchMap';
 })
 export class UserSearchPage implements OnInit {
   private communityID: number = -1;
-
+  public searchInput: FormControl;
   private userItems: User[] = [];
   searchVal: string;
-  searchInput = new FormControl();
 
   private nextPageIndex: number = 1;
 
@@ -38,11 +38,19 @@ export class UserSearchPage implements OnInit {
   constructor
     (
       private userService: UserService, 
-      public navCtrl: NavController
+      public navCtrl: NavController,
+      private activeRoute: ActivatedRoute, private router: Router
       //, public navParams: NavParams
     ) {
 
-    this.searchVal = "";
+      this.activeRoute.queryParams.subscribe(params => {
+        if (this.router.getCurrentNavigation().extras.state) {
+          this.communityID = this.router.getCurrentNavigation().extras.state.communityID;
+        }        
+      });
+
+      this.searchInput = new FormControl();
+      this.searchVal = "";
     /*
     if (navParams.get('communityID')) {
       this.communityID = navParams.get('communityID');
@@ -161,8 +169,18 @@ export class UserSearchPage implements OnInit {
 
   ngOnInit() {
     this.nextPageIndex = 1;
-    this.initialBindUsers();
 
+    console.log('ionViewDidLoad UserSearchComponent');
+    this.searchInput.valueChanges
+      .debounceTime(1000)
+      .distinctUntilChanged()
+      .subscribe(va => {
+        this.searchVal = va;
+        this.nextPageIndex = 1;
+        this.initialBindUsers();
+      });
+      
+      this.initialBindUsers();
   }
 
   userAddedorRemoved() {
@@ -185,4 +203,5 @@ export class UserSearchPage implements OnInit {
   navigateToFeed() {
     this.navCtrl.navigateBack('/live-feed');
   }
+
 }

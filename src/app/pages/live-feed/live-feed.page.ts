@@ -13,10 +13,6 @@ import { CommunityPage } from '../../pages/community/community.page';
 import { UserSearchPage } from '../../pages/user-search/user-search.page';
 
 
-
-
-
-
 /**
  * Generated class for the LiveFeed page.
  *
@@ -187,6 +183,12 @@ export class LiveFeedPage implements OnInit {
   }
 
   addUserToCommunity() {
-    this.router.navigate(['tabs/UserSearch']);    
+    let navigationExtras: NavigationExtras= {
+      state: {
+        communityID: this.communityID
+      }
+    };
+
+    this.router.navigate(['tabs/UserSearch'], navigationExtras);    
   }
 }
