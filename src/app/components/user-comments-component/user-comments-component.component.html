@@ -1,16 +1,17 @@
 <ion-header>
 
-  <ion-toolbar transparent>
 
 
-    <ion-buttons left>
-      <button ion-button block (click)="closeModal()" class="btn btn-link" icon-left>
-        <ion-icon name="return-left"></ion-icon>Back
-      </button>
-    </ion-buttons>
-    <ion-title>Join the Conversation!</ion-title>
+    <ion-toolbar>
+      <ion-buttons slot="start">
 
-  </ion-toolbar>
+        <ion-button (click)="closeModal()">
+          <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+        </ion-button>
+
+      </ion-buttons>
+      <ion-title>Join the Conversation!</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 
@@ -35,29 +36,29 @@
       <p [innerHTML]="postMessage"></p>
 
       <div class="comment-address" *ngIf="eventID > 0">
-       
-          <div class='addressSection customWell' (click)="launchMaps()">
-            <address>
-              <div class='address float-left' >
-                <h2>
-                  <i class='fa fa-map-marker' aria-hidden='true'></i>&nbsp;
-                  <b>Location:</b>
-                </h2>
-                <div class='location' >{{eventAddress}}</div>
+
+        <div class='addressSection customWell' (click)="launchMaps()">
+          <address>
+            <div class='address float-left'>
+              <h2>
+                <i class='fa fa-map-marker' aria-hidden='true'></i>&nbsp;
+                <b>Location:</b>
+              </h2>
+              <div class='location'>{{eventAddress}}</div>
+            </div>
+            <div class='event-date-section float-left'>
+              <h2>
+                <i class='fa fa-calendar-o'>&nbsp;
+                  <b>On: </b>
+                </i>
+              </h2>
+              <div class='start-end-dates float-left'>
+                <span>{{eventDate}}</span>
               </div>
-              <div class='event-date-section float-left'>
-                <h2>
-                  <i class='fa fa-calendar-o'>&nbsp;
-                    <b>On: </b>
-                  </i>
-                </h2>
-                <div class='start-end-dates float-left'>
-                  <span>{{eventDate}}</span>
-                </div>
-              </div>
-            </address>
-          </div>
-        
+            </div>
+          </address>
+        </div>
+
       </div>
 
       <div *ngIf="MediaType=='Image'">
@@ -80,56 +81,60 @@
       <div *ngFor="let comment of comments">
         <ion-card>
           <ion-card-content>
-            
-            <div class="cardContainer" *ngIf="!comment.commentParentID" >
+
+            <div class="cardContainer" *ngIf="!comment.commentParentID">
               <img class="image-object" src="{{comment.user.imageURL}}" alt="...">
               <div class="message-text text-botom">
                 <strong>{{comment.user.displayName}}</strong> {{comment.commentParentID}} -- {{comment.comment}}
                 <!--<div class="">-->
-                  <ul class="comments_reply ">
+                <ul class="comments_reply ">
+                  <li>
+                    <button type="button" ion-button clear (click)="setLike(comment.storyID, comment.id)">
+                      {{comment.actions.supportCount}} Like</button>
+                  </li>
+                  <li>
+                    <button type="button" ion-button clear
+                      (click)="setReply(comment.storyID, comment.id)">Reply</button>
+                  </li>
+                  <div class="text-botom comment_day_difference">
                     <li>
-                      <button type="button" ion-button clear (click)="setLike(comment.storyID, comment.id)"> {{comment.actions.supportCount}} Like</button>
+                      <a href="#">{{comment.displayTimeDiff}}</a>
                     </li>
-                    <li>
-                      <button type="button" ion-button clear (click)="setReply(comment.storyID, comment.id)">Reply</button>
-                    </li>
-                      <div class="text-botom comment_day_difference">  
-                        <li>
-                           <a href="#">{{comment.displayTimeDiff}}</a>
-                        </li>
-                    </div>
-                  </ul>
-                 
+                  </div>
+                </ul>
+
                 <!--</div>-->
               </div>
-            
+
               <div class="reply-container" *ngIf="comment.id == replyParentID">
                 <div class="col-lg-6">
                   <div class="input-group post-comment">
-                    <ion-input type="text" value="" placeholder="Get in the Conversation..." [(ngModel)]="commentPost"></ion-input>
+                    <ion-input type="text" value="" placeholder="Get in the Conversation..." [(ngModel)]="commentPost">
+                    </ion-input>
                     <span class="input-group-btn">
                       <button class="btn btn-primary" type="button" (click)="postComment()">Post</button>
                     </span>
                   </div>
-                </div>            
-              </div>
-            </div>
-            <div class="cardContainer reply-container" *ngIf="comment.commentParentID >0" >
-                <img class="image-object" src="{{comment.user.imageURL}}" alt="...">
-                <div class="message-text text-botom">
-                  <strong>{{comment.user.displayName}}</strong> reply-- {{comment.comment}}
-                  <ul class="comments_reply ">
-                    <li>
-                      <button type="button" ion-button clear (click)="setLike(comment.storyID, comment.id)"> {{comment.actions.supportCount}} Like</button>
-                    </li>
-                      <div class="text-botom comment_day_difference">  
-                        <li>
-                           <a href="#">{{comment.displayTimeDiff}}</a>
-                        </li>
-                    </div>
-                  </ul>
                 </div>
               </div>
+            </div>
+            <div class="cardContainer reply-container" *ngIf="comment.commentParentID >0">
+              <img class="image-object" src="{{comment.user.imageURL}}" alt="...">
+              <div class="message-text text-botom">
+                <strong>{{comment.user.displayName}}</strong> reply-- {{comment.comment}}
+                <ul class="comments_reply ">
+                  <li>
+                    <button type="button" ion-button clear (click)="setLike(comment.storyID, comment.id)">
+                      {{comment.actions.supportCount}} Like</button>
+                  </li>
+                  <div class="text-botom comment_day_difference">
+                    <li>
+                      <a href="#">{{comment.displayTimeDiff}}</a>
+                    </li>
+                  </div>
+                </ul>
+              </div>
+            </div>
           </ion-card-content>
         </ion-card>
       </div>

@@ -80,6 +80,8 @@ ion-input{
 .commentPostContainer p{
     font-size: 11pt;
     padding-bottom: 5px;
+    padding-left: 25px;
+    text-align: left;
 }
 
 
@@ -144,3 +146,7 @@ ion-input{
   margin-top: 5px;
 }
 
+.post-comment{
+    text-align: left;
+    padding-left: 10px;
+}
