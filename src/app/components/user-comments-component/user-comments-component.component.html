@@ -2,27 +2,32 @@
 
 
 
-    <ion-toolbar>
-      <ion-buttons slot="start">
+  <ion-toolbar>
+    <ion-buttons slot="start">
 
-        <ion-button (click)="closeModal()">
-          <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
-        </ion-button>
+      <ion-button (click)="closeModal()">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
 
-      </ion-buttons>
-      <ion-title>Join the Conversation!</ion-title>
-    </ion-toolbar>
+    </ion-buttons>
+    <ion-title>Join the Conversation!</ion-title>
+  </ion-toolbar>
 </ion-header>
 
 
 <ion-content>
   <div class="comments">
 
+    <ion-item>
+      <div class="comment-post">
+        <ion-input placeholder="Get in the conv.."></ion-input>
+        <ion-button color="primary" (click)="postComment()">Post</ion-button>
+      </div>
+    </ion-item>
+
     <div class="col-lg-6">
       <div class="input-group post-comment">
-        <ion-input type="text" value="" placeholder="Get in the Conversation..." [(ngModel)]="commentPost"></ion-input>
         <span class="input-group-btn">
-          <button class="btn btn-primary" type="button" (click)="postComment()">Post</button>
         </span>
       </div>
     </div>
