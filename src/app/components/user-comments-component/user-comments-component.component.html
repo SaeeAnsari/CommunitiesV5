@@ -20,7 +20,7 @@
 
     <ion-item>
       <div class="comment-post">
-        <ion-input placeholder="Get in the conv.."></ion-input>
+        <ion-input placeholder="Get in the conv.." [(ngModel)]="commentPost"></ion-input>
         <ion-button color="primary" (click)="postComment()">Post</ion-button>
       </div>
     </ion-item>
@@ -94,13 +94,16 @@
                 <!--<div class="">-->
                 <ul class="comments_reply ">
                   <li>
-                    <button type="button" ion-button clear (click)="setLike(comment.storyID, comment.id)">
-                      {{comment.actions.supportCount}} Like</button>
-                  </li>
+
+                    <ion-button fill="clear" size="small"  (click)="setLike(comment.storyID, comment.id)">{{comment.actions.supportCount}} Like</ion-button>
+
+                  
+                    </li>
                   <li>
-                    <button type="button" ion-button clear
-                      (click)="setReply(comment.storyID, comment.id)">Reply</button>
-                  </li>
+                
+                    <ion-button fill="clear" size="small"  (click)="setReply(comment.storyID, comment.id)">Reply</ion-button>
+                  
+                </li>
                   <div class="text-botom comment_day_difference">
                     <li>
                       <a href="#">{{comment.displayTimeDiff}}</a>
@@ -114,10 +117,13 @@
               <div class="reply-container" *ngIf="comment.id == replyParentID">
                 <div class="col-lg-6">
                   <div class="input-group post-comment">
+
+                    
+
                     <ion-input type="text" value="" placeholder="Get in the Conversation..." [(ngModel)]="commentPost">
                     </ion-input>
                     <span class="input-group-btn">
-                      <button class="btn btn-primary" type="button" (click)="postComment()">Post</button>
+                      <ion-button size="small" (click)="postComment()">Post</ion-button>
                     </span>
                   </div>
                 </div>
@@ -129,8 +135,8 @@
                 <strong>{{comment.user.displayName}}</strong> reply-- {{comment.comment}}
                 <ul class="comments_reply ">
                   <li>
-                    <button type="button" ion-button clear (click)="setLike(comment.storyID, comment.id)">
-                      {{comment.actions.supportCount}} Like</button>
+                    <ion-button size="small"  fill="clear"   (click)="setLike(comment.storyID, comment.id)">
+                      {{comment.actions.supportCount}} Like</ion-button>
                   </li>
                   <div class="text-botom comment_day_difference">
                     <li>
