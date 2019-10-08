@@ -201,7 +201,7 @@ export class UserSearchPage implements OnInit {
   }
 
   navigateToFeed() {
-    this.navCtrl.navigateBack('/live-feed');
+    this.navCtrl.navigateBack('/tabs/tab1');
   }
 
 }
