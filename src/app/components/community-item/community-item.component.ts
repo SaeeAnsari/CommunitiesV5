@@ -1,8 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { NavController, NavParams } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
 import { UserService } from '../../providers/user-service';
 import {CommunityService} from '../../providers/community-service';
 import {LiveFeedPage} from '../../pages/live-feed/live-feed.page'
+import {Router, NavigationExtras} from '@angular/router';
+import { ThrowStmt } from '@angular/compiler';
 
 
 /**
@@ -49,8 +51,8 @@ export class CommunityItemComponent implements OnInit {
   constructor(
     private _userService: UserService,
     public navCtrl: NavController,
-    public navParams: NavParams,
-    public _communityService: CommunityService) {
+    public _communityService: CommunityService,
+    public router: Router) {
 
   }
 
@@ -88,8 +90,18 @@ export class CommunityItemComponent implements OnInit {
    
 
     if (this.Member == "true") {
+
+      let navigationExtras: NavigationExtras= {
+        state: {
+          communityID: this.ID
+        }
+      };
+
+      this.router.navigate(['tabs/tab1'], navigationExtras);
+
+
       //sessionStorage.setItem('activeCommunity', this.ID);
-      this.navCtrl.navigateForward('livefeed/' + this.ID);
+      //this.navCtrl.navigateForward('livefeed/' + this.ID);
     }
   }
 }

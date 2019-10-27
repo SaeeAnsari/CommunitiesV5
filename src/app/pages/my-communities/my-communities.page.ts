@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
 import { CommunityService } from '../../providers/community-service';
 import { UserService } from '../../providers/user-service';
 import { Community } from '../../interfaces/community';
@@ -168,7 +168,6 @@ export class MyCommunitiesPage implements OnInit {
 
   constructor(
     public navCtrl: NavController,
-    public navParams: NavParams,
     private _searchService: CommunityService,
     private _userService: UserService
   ) {

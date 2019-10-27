@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {  NavController, ModalController } from '@ionic/angular';
-import {IonInfiniteScroll} from '@ionic/angular';
-import { Router, NavigationExtras } from '@angular/router';
+import { NavController, ModalController } from '@ionic/angular';
+import { IonInfiniteScroll } from '@ionic/angular';
+import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 
 import { UserPost } from '../../interfaces/user-post';
 
@@ -39,11 +39,16 @@ export class LiveFeedPage implements OnInit {
     private _communityService: CommunityService,
     private _userService: UserService,
     public modalCtrl: ModalController,
-    private router: Router
+    private router: Router,
+    private activatedRout: ActivatedRoute
   ) {
 
-
-
+    this.activatedRout.queryParams.subscribe(params => {
+      if (this.router.getCurrentNavigation().extras.state) {
+        this.communityID = this.router.getCurrentNavigation().extras.state.communityID;
+        this.BootstrapFeed();
+      }
+    });
   }
 
 
@@ -75,23 +80,23 @@ export class LiveFeedPage implements OnInit {
             totalViews: element.ActionSummary.ViewCount,
             userID: element.StoryUser.ID,
             postDate: element.Timestamp,
-            userProfileImage: element.StoryUser.ImageURL.replace('/upload/','/upload/w_40,h_40,c_thumb,r_max/'),
+            userProfileImage: element.StoryUser.ImageURL.replace('/upload/', '/upload/w_40,h_40,c_thumb,r_max/'),
             userFullName: element.StoryUser.DisplayName,
             storyExternalURL: element.StoryExternalURL,
             mediaType: element.MediaType,
             images: element.Images,
-            eventID: element.EventID == undefined? 0: element.EventID
+            eventID: element.EventID == undefined ? 0 : element.EventID
           });
         });
 
       });
   }
 
-  getImageURLTransformed(img:string ): string{
-    if(img != null){
-      return img.replace('/upload/','/upload/h_800,c_scale/');    
+  getImageURLTransformed(img: string): string {
+    if (img != null) {
+      return img.replace('/upload/', '/upload/h_800,c_scale/');
     }
-    else{
+    else {
       return '';
     }
   }
@@ -99,11 +104,19 @@ export class LiveFeedPage implements OnInit {
   ngOnInit() {
     /*if (this.navParams.get('communityID')) {
       this.communityID = this.navParams.get('communityID');
-    } */   
+    } */
   }
 
-  ionViewDidEnter(){
-  
+  ionViewDidEnter() {
+
+    if (this.communityID == null ||  this.communityID < 1){
+        this._userService.getLoggedinInUser().subscribe(sub => {
+          this.communityID = sub.DefaultCommunityID;
+          this.BootstrapFeed();
+        });
+      }
+
+
     /*if (this.navParams.get('communityID')) {
       this.communityID = this.navParams.get('communityID');
 
@@ -111,8 +124,8 @@ export class LiveFeedPage implements OnInit {
     /*else if (sessionStorage.getItem('activeCommunity')) {
       this.communityID = parseInt(sessionStorage.getItem('activeCommunity'));
 
-    }*/
-    /*else*/ {
+    }
+    else {
       this._userService.getLoggedinInUser().subscribe(sub => {
 
         this.communityID = sub.DefaultCommunityID;        
@@ -124,6 +137,7 @@ export class LiveFeedPage implements OnInit {
     if (this.communityID > 0) {
       this.BootstrapFeed();
     }
+    */
   }
 
   BootstrapFeed() {
@@ -141,54 +155,54 @@ export class LiveFeedPage implements OnInit {
 
   editCommunities() {
     this.navCtrl.navigateForward('/community/' + this.communityID);
-    
+
     //this.navCtrl.push(CommunityPage, { communityID: this.communityID });
   }
 
-  dynamicLoadStories(event){
+  dynamicLoadStories(event) {
 
-      setTimeout(() => {
+    setTimeout(() => {
 
-        event.target.complete();
+      event.target.complete();
 
-        this._storyService.GetStoriesByCommunity(this.communityID, this.pageIndex)
-          .subscribe(postS => {
+      this._storyService.GetStoriesByCommunity(this.communityID, this.pageIndex)
+        .subscribe(postS => {
 
-            if (postS.length > 0) {
-              this.pageIndex = this.pageIndex + 1;
-            }
+          if (postS.length > 0) {
+            this.pageIndex = this.pageIndex + 1;
+          }
 
-            postS.forEach(element => {
+          postS.forEach(element => {
 
-              this.posts.push({
-                storyID: element.ID,
-                title: element.Title,
-                text: element.LongDescription,
-                imageURL: element.MediaType == 'Video' ? element.Video.VideoIdentifier : element.ImageURL,
-                likeCount: element.ActionSummary.SupportCount,
-                dislikeCount: element.ActionSummary.DisagreeCount,
-                commentsCount: element.ActionSummary.CommentCount,
-                totalViews: element.ActionSummary.ViewCount,
-                userID: element.StoryUser.ID,
-                postDate: element.Timestamp,
-                userProfileImage: element.StoryUser.ImageURL,
-                userFullName: element.StoryUser.DisplayName,
-                storyExternalURL: element.StoryExternalURL,
-                mediaType: element.MediaType,
-                images: element.Images
-              });
+            this.posts.push({
+              storyID: element.ID,
+              title: element.Title,
+              text: element.LongDescription,
+              imageURL: element.MediaType == 'Video' ? element.Video.VideoIdentifier : element.ImageURL,
+              likeCount: element.ActionSummary.SupportCount,
+              dislikeCount: element.ActionSummary.DisagreeCount,
+              commentsCount: element.ActionSummary.CommentCount,
+              totalViews: element.ActionSummary.ViewCount,
+              userID: element.StoryUser.ID,
+              postDate: element.Timestamp,
+              userProfileImage: element.StoryUser.ImageURL,
+              userFullName: element.StoryUser.DisplayName,
+              storyExternalURL: element.StoryExternalURL,
+              mediaType: element.MediaType,
+              images: element.Images
             });
-          });        
-      }, 500); 
+          });
+        });
+    }, 500);
   }
 
   addUserToCommunity() {
-    let navigationExtras: NavigationExtras= {
+    let navigationExtras: NavigationExtras = {
       state: {
         communityID: this.communityID
       }
     };
 
-    this.router.navigate(['tabs/UserSearch'], navigationExtras);    
+    this.router.navigate(['tabs/UserSearch'], navigationExtras);
   }
 }
