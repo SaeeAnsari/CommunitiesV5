@@ -9,7 +9,7 @@ import { EventFeedPage } from '../event-feed/event-feed.page';
 import { MyCommunitiesPage } from '../my-communities/my-communities.page';
 import { UserSearchPage } from '../user-search/user-search.page';
 import { NotificationsPage } from '../notifications/notifications.page';
-import { Firebase } from '@ionic-native/firebase/ngx';
+import { FCM } from '@ionic-native/fcm/ngx';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { StoryService } from '../../providers/story-service';
@@ -37,7 +37,7 @@ export class TabsPage {
   tab3Root = NotificationsPage;
 
   constructor(
-    private firebaseIonic: Firebase,
+    private firebaseIonic: FCM,
     private platform: Platform,
     private toast: ToastController,
     private ev: Events,
@@ -130,7 +130,7 @@ export class TabsPage {
 
       await this.platform.ready();
 
-      this.firebaseIonic.onNotificationOpen().subscribe(sub => {
+      this.firebaseIonic.onNotification().subscribe(sub => {
         console.log("Notification Opened");
         console.log(sub);
         this.notifications.push(sub);

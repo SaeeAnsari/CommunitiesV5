@@ -8,7 +8,7 @@ import { RegisterUserComponent } from '../../components/register-user-component/
 import { UserLocationPage } from '../user-location/user-location.page';
 import { UserService } from '../../providers/user-service';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
-import { Firebase } from '@ionic-native/firebase/ngx';
+import { FCM } from '@ionic-native/fcm/ngx';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 
 import { ErrorLogServiceProvider } from '../../providers/error-log-service/error-log-service';
@@ -19,6 +19,7 @@ import { ErrorLogServiceProvider } from '../../providers/error-log-service/error
 import { ForgetPasswordComponent } from '../../components/forget-password/forget-password.component';
 
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
+import { Router } from '@angular/router';
 
 
 
@@ -42,10 +43,11 @@ export class LoginPage {
     private fb: Facebook,
     private err: ErrorLogServiceProvider,
     private platform: Platform,
-    private firebaseIonic: Firebase,
+    private firebaseIonic: FCM,
     private googlePlus: GooglePlus,
     public loadingCtrl: LoadingController,
-    private androidPermissions: AndroidPermissions
+    private androidPermissions: AndroidPermissions,
+    private router: Router
   ) {
     //this.onNotification();
 
@@ -121,9 +123,8 @@ export class LoginPage {
       this._userService.AuthenticateThirdPartyUser(data.id).subscribe(sub => {
         console.log("RAW got : " + sub)
         if (sub != null && +sub > 0) {
-          console.log("Found the User : " + sub);
-          this.storage.set('userID', sub);
-          this.ionViewDidLoad();
+          console.log("Found the User : " + sub);          
+          this.ionViewDidLoad(sub);
         }
         else {
           var user = {
@@ -141,9 +142,8 @@ export class LoginPage {
           console.log(user);
 
           this._userService.RegisterSocialAuthUser(user).subscribe(sub => {
-            console.log("loaded :" + sub);
-            this.storage.set('userID', sub);
-            this.ionViewDidLoad();
+            console.log("loaded :" + sub);            
+            this.ionViewDidLoad(sub);
           });
         }
         loading.dismiss();
@@ -170,9 +170,8 @@ export class LoginPage {
     this._userService.AuthenticateThirdPartyUser(user.thirdPartyAuthID).subscribe(sub => {
       console.log("RAW got : " + sub)
       if (sub != null && +sub > 0) {
-        console.log("Found the User : " + sub);
-        this.storage.set('userID', sub);
-        this.ionViewDidLoad();
+        console.log("Found the User : " + sub);        
+        this.ionViewDidLoad(sub);
       }
       else {
         var user2 = {
@@ -190,9 +189,8 @@ export class LoginPage {
         console.log(user2);
 
         this._userService.RegisterSocialAuthUser(user2).subscribe(sub => {
-          console.log("loaded :" + sub);
-          this.storage.set('userID', sub);
-          this.ionViewDidLoad();
+          console.log("loaded :" + sub);          
+          this.ionViewDidLoad(sub);
         });
       }
     })
@@ -252,32 +250,33 @@ export class LoginPage {
     registerModal.present();
   }
 
-  ionViewDidLoad() {
+  ionViewDidLoad(userID: number) {
+    console.log("User Loaded: " + this.userLoaded);
     if (!this.userLoaded) {
-      if (this.storage.get('userID').then(id => {
-        sessionStorage.setItem("userID", id);//Temporary removeit later
+      console.log("Loading User");      
+      if (userID > 0){
+        console.log("selected UserID from Storage");
+        console.log("User ID: " + userID);
+        sessionStorage.setItem("userID", userID.toString());//Temporary removeit later
+        console.log("Saved User to Session");
         this._userService.getLoggedinInUser().subscribe(s => {
           if (s != null && s.ID > 0) {
-
+            console.log("Got The Logged in User: " + JSON.stringify(s));
             this.err.logError("Login: Clearing the server: got something from server");
 
             if (s.DefaultCommunityID <= 0) {
               this.err.logError("Login: No default Location found, we neeed the user to sett the location");
               //this.navCtrl.push(UserLocation);
-              this.navCtrl.navigateForward("/user-location");
-            }
-            else {
-
-              let communityID = s.DefaultCommunityID;
-              this.userLoaded = true;
-              this.navCtrl.navigateForward("/tabs/" + communityID);
-              //this.navCtrl.push(TabsPage, { communityID: communityID });
               
+              this.navCtrl.navigateForward("/tabs/tab1");
+            }
+            else {              
+              this.userLoaded = true;             
+              this.navCtrl.navigateForward("/tabs/tab1/");           
             }
           }
         });
-      }))
-
+      }
         console.log('ionViewDidLoad Login');
     }
 
@@ -322,13 +321,14 @@ export class LoginPage {
 
         loading.message = "Signing on ...";
 
+        console.log("About to Call AthenticateThirdPartyUser");
+
         this._userService.AuthenticateThirdPartyUser(_googleID).subscribe(sub => {
           console.log("RAW got : " + sub);
 
           if (sub != null && +sub > 0) {
-            console.log("Found the User : " + sub);
-            this.storage.set('userID', sub);
-            this.ionViewDidLoad();
+            console.log("Found the User : " + sub);            
+            this.ionViewDidLoad(sub);
           }
           else {
 
@@ -347,10 +347,9 @@ export class LoginPage {
             console.log(user);
 
             this._userService.RegisterSocialAuthUser(user).subscribe(sub => {
-              console.log("loaded :" + sub);
-              this.storage.set('userID', sub);
+              console.log("loaded :" + sub);              
               loading.dismiss();
-              this.ionViewDidLoad();
+              this.ionViewDidLoad(sub);
             });
           }
         });

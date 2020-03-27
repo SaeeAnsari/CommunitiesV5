@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { StoryService } from '../../providers/story-service';
 import { UserService } from '../../providers/user-service';
-import { Firebase } from '@ionic-native/firebase/ngx'
+import { FirebaseMessagingProvider } from '../../providers/firebase-messaging/firebase-messaging';
 
 import { PopoverController } from '@ionic/angular';
 
@@ -40,7 +40,7 @@ export class UserPostActionComponent implements OnInit {
   constructor(private _storyService: StoryService,
     private _userService: UserService,
     public popoverCtrl: PopoverController,
-    private firebase: Firebase) { }
+    private firebase: FirebaseMessagingProvider) { }
 
   ngOnInit() {
     if (this.FeedType == "") {
@@ -49,15 +49,15 @@ export class UserPostActionComponent implements OnInit {
   }
 
   setLike(storyID: number) {
-    
+
     let userID = this._userService.GetLoggedInUserID();
 
-    this.firebase.subscribe(storyID.toString()).then(data => {
-      this._storyService.SetLike(storyID, userID).subscribe(sub => {
-        if (sub != undefined && sub == true) {
-          this.LikeCount++;
-        }
-      });
+    this.firebase.SubscibeToTopic(storyID.toString());
+
+    this._storyService.SetLike(storyID, userID).subscribe(sub => {
+      if (sub != undefined && sub == true) {
+        this.LikeCount++;
+      }
     });
 
   }
@@ -82,7 +82,7 @@ export class UserPostActionComponent implements OnInit {
           imageURL = sub.Images[0];
         }
 
-        let popover =  await this.popoverCtrl.create({
+        let popover = await this.popoverCtrl.create({
           component: SocialSharingPopoverComponent,
           componentProps: {
             storyID: sub.ID,
@@ -92,8 +92,8 @@ export class UserPostActionComponent implements OnInit {
             storyExternalURL: sub.StoryExternalURL
           }
         });
-        
-        
+
+
         return popover.present();
       });
 

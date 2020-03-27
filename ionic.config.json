@@ -1,7 +1,8 @@
 {
   "name": "CommunitiesV5",
   "integrations": {
-    "cordova": {}
+    "cordova": {},
+    "capacitor": {}
   },
   "type": "angular"
 }

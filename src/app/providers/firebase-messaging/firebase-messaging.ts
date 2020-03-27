@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { Firebase } from '@ionic-native/firebase/ngx';
+import { FCM } from '@ionic-native/fcm/ngx';
 
 
 // Observable class extensions
@@ -29,7 +29,7 @@ export class FirebaseMessagingProvider {
   private _url: string = 'https://fcm.googleapis.com/v1/projects/communities-386e8/messages:send';
   private messagingToken: string;
   
-    constructor(public http: Http,public firebaseIonic:Firebase) {
+    constructor(public http: Http,public firebaseIonic:FCM) {
       
     }
 
@@ -38,7 +38,7 @@ export class FirebaseMessagingProvider {
 
     public SubscibeToTopic(topic:string){
       
-      this.firebaseIonic.subscribe(topic).then(ret=>{
+      this.firebaseIonic.subscribeToTopic(topic).then(ret=>{
         console.log(ret);
       })
       .catch(this.handleError);
