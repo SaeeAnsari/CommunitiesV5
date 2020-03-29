@@ -5,12 +5,17 @@
 .no-padding {
     padding: 0px !important;
 }
+.user-post{
+  width: 100%;
+  margin-left: 50px;
+}
 
 .feed_post_message {
-  color: #6b728d;
+  color: #000000;
   
   
-  font-size: 13px;
+  font-size: 15px;
+  font-weight: 400;
   font-weight: 300;
   line-height: 15px;
   padding-left: 10px;
@@ -33,10 +38,9 @@
 .feed_post_content video {
   
   height: auto;
-  width: 80vh;
+  width: 80vw;
   background-color: #fff;
 }
-
 
 
 #feed_post {
@@ -45,7 +49,8 @@
 
 .content-centered{
  
- text-align: center;
+ text-align: right;
+ width: 100vw;
 }
 
 .videos img {

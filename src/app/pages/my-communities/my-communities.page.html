@@ -6,14 +6,39 @@
 -->
 <ion-header>
 
+  <!--
   <ion-toolbar transparent>
     <ion-title>Communities
-      <div class="my-communities-AddIconRight" (click)="addCommunities()"><i class="fa fa-plus-square" aria-hidden="true"></i></div>
-    </ion-title>
-    
-    
-    
+      
+    </ion-title>    
   </ion-toolbar>
+-->
+
+
+<ion-toolbar>  
+
+  <ion-buttons slot="secondary">
+    
+    <ion-button (click)="addCommunities()">
+      <ion-icon slot="icon-only" name="md-add-circle"></ion-icon>
+    </ion-button>
+  </ion-buttons> 
+  <ion-title>Communities</ion-title>
+ 
+ <!--
+  <ion-title>Communities</ion-title>
+  <ion-buttons slot="primary">
+    
+
+      <ion-button color="secondary" (click)="addCommunities()">
+        <ion-icon slot="icon-only" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon>
+      </ion-button>          
+      
+    
+  </ion-buttons>
+
+-->
+</ion-toolbar>
 
 </ion-header>
 
@@ -49,10 +74,14 @@
 
 
       </ion-list>
-      
-      <ion-infinite-scroll (ionInfinite)="$event.waitFor(bindCommunitiesList_Paging())">
-        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+            
+
+      <ion-infinite-scroll threshold="100px" (ionInfinite) = "bindCommunitiesList_Paging($event)">
+        <ion-infinite-scroll-content 
+        loadingSpinner="bubbles" >
+        </ion-infinite-scroll-content>
       </ion-infinite-scroll>
+
 
     </div>
   </section>

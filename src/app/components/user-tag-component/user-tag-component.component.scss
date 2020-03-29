@@ -16,9 +16,9 @@
   }
   
   .feed_post_photo img {
-      border: 1px solid #07e5d8;
+      border: 0.5px solid #07e5d8;
       border-radius: 50%;
-      box-shadow: 0 0 2px #000;
+      //box-shadow: 0 0 2px #000;
       height: 100%;
       width: 100%;
       margin-left:5px;
@@ -32,7 +32,8 @@
   
   .feed_post_user_name {
       //color: #07e5d8;
-      color:#a4a4;
+      //color:#a4a4;
+      color: 000000;
       font-weight: bold;
       font-size: 15px;
   }

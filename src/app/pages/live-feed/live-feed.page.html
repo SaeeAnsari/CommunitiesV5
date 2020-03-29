@@ -79,18 +79,14 @@
             <div class="feed_post_header">
               <app-user-tag ID="{{post.userID}}" ImageURL="{{post.userProfileImage}}" Name="{{post.userFullName}}"
                 PostDate="{{post.postDate}}"></app-user-tag>
-              <app-user-post PostMessage="{{post.text}}" PostMediaURL="{{post.imageURL}}" StoryID="{{post.storyID}}"
+              
+                <app-user-post PostMessage="{{post.text}}" PostMediaURL="{{post.imageURL}}" StoryID="{{post.storyID}}"
                 LikeCount="{{post.likeCount}}" CommentCount="{{post.commentsCount}}" UserID="userID"
                 StoryExternalURL={{post.storyExternalURL}} MediaType={{post.mediaType}} [StoryImages]="[post.images]"
                 EventID="{{post.eventID}}"></app-user-post>
-
-
-
             </div>
           </div>
-          <div class="bottom-bar"></div>
-
-        </ion-item>
+        </ion-item>             
       </ion-list>
 
 

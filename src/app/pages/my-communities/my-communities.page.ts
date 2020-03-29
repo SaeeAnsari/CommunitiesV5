@@ -68,90 +68,82 @@ export class MyCommunitiesPage implements OnInit {
     if (this.searchVal == undefined)
       this.searchVal = '';
 
-    
+
+    let userID = this._userService.GetLoggedInUserID();
+
+    this._searchService.GetAllCommunities(this.searchVal, userID, this.pageIndex)
+      .subscribe(sub => {
+
+        this.pageIndex = this.pageIndex + 1;
+
+        sub.forEach(element => {
+
+
+          var community = {
+            id: element.ID,
+            name: element.Name,
+            description: element.Description,
+            ownerID: element.OwnerID,
+            ownerName: element.OwnerName,
+            typeID: 1,
+            typeName: 'City',
+            imageURL: element.ImageURL,
+            lastUpdate: null,
+            isMember: element.isMember,
+            userCount: element.UserCount
+          };
+
+          this.searchItems.push(community);
+        });
+      });
+
+  }
+
+
+  bindCommunitiesList_Paging(event) {
+
+    event.target.complete();
+
+    setTimeout(() => {
+      //this.searchItems = [];
+
+      if (this.searchVal == undefined)
+        this.searchVal = '';
+
       let userID = this._userService.GetLoggedInUserID();
 
       this._searchService.GetAllCommunities(this.searchVal, userID, this.pageIndex)
         .subscribe(sub => {
 
-          this.pageIndex = this.pageIndex + 1;
+          if (sub.length > 0) {
+            this.pageIndex = this.pageIndex + 1;
 
-          sub.forEach(element => {
+            //reset back to zero when all items are exhausted
+            /*else if (sub.length == 0 && this.pageIndex > 0){
+              this.pageIndex = 0;
+              this.initialBindCommunitiesList();
+            }*/
 
+            sub.forEach(element => {
+              var community = {
+                id: element.ID,
+                name: element.Name,
+                description: element.Description,
+                ownerID: element.OwnerID,
+                ownerName: element.OwnerName,
+                typeID: 1,
+                typeName: 'City',
+                imageURL: element.ImageURL,
+                lastUpdate: null,
+                isMember: element.isMember,
+                userCount: element.UserCount
+              };
 
-            var community = {
-              id: element.ID,
-              name: element.Name,
-              description: element.Description,
-              ownerID: element.OwnerID,
-              ownerName: element.OwnerName,
-              typeID: 1,
-              typeName: 'City',
-              imageURL: element.ImageURL,
-              lastUpdate: null,
-              isMember: element.isMember,
-              userCount: element.UserCount
-            };
-
-            this.searchItems.push(community);
-          });
-        });
-
-  }
-
-
-  bindCommunitiesList_Paging(): Promise<any> {
-
-
-    return new Promise((resolve) => {
-      setTimeout(() => {
-
-        //this.searchItems = [];
-
-
-
-        if (this.searchVal == undefined)
-          this.searchVal = '';
-
-        
-          let userID = this._userService.GetLoggedInUserID();
-
-          this._searchService.GetAllCommunities(this.searchVal, userID, this.pageIndex)
-            .subscribe(sub => {
-
-              if (sub.length > 0) {
-                this.pageIndex = this.pageIndex + 1;
-
-                //reset back to zero when all items are exhausted
-                /*else if (sub.length == 0 && this.pageIndex > 0){
-                  this.pageIndex = 0;
-                  this.initialBindCommunitiesList();
-                }*/
-
-                sub.forEach(element => {
-                  var community = {
-                    id: element.ID,
-                    name: element.Name,
-                    description: element.Description,
-                    ownerID: element.OwnerID,
-                    ownerName: element.OwnerName,
-                    typeID: 1,
-                    typeName: 'City',
-                    imageURL: element.ImageURL,
-                    lastUpdate: null,
-                    isMember: element.isMember,
-                    userCount: element.UserCount
-                  };
-
-                  this.searchItems.push(community);
-                });
-              }
+              this.searchItems.push(community);
             });
-        
-
-        resolve();
-      }, 500);
-    })
+          }
+        });      
+    }, 500);
   }
 
   userJoinedCommunity(data) {
@@ -182,27 +174,27 @@ export class MyCommunitiesPage implements OnInit {
 
 
     if (this.searchVal == "") {//handling first load
-      this.initialBindCommunitiesList();      
+      this.initialBindCommunitiesList();
     }
   }
 
   ionViewDidLoad() {
 
-    
+
     this.searchInput.valueChanges
-    .debounceTime(1000)
-    .distinctUntilChanged()
-    .subscribe(va => {
+      .debounceTime(1000)
+      .distinctUntilChanged()
+      .subscribe(va => {
 
-      if ( this.lastSearchVal != va) {
-        this.lastSearchVal = va;
-        this.searchItems = [];
-        this.pageIndex = 0;
-        this.initialBindCommunitiesList();
-        this.communitiesLoadedEmptySearh = false;
-      }
+        if (this.lastSearchVal != va) {
+          this.lastSearchVal = va;
+          this.searchItems = [];
+          this.pageIndex = 0;
+          this.initialBindCommunitiesList();
+          this.communitiesLoadedEmptySearh = false;
+        }
 
-    });
+      });
 
     console.log("My Communities View Loaded");
 
