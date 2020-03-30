@@ -185,6 +185,7 @@ export class MyCommunitiesPage implements OnInit {
       .debounceTime(1000)
       .distinctUntilChanged()
       .subscribe(va => {
+        this.searchVal = va;
 
         if (this.lastSearchVal != va) {
           this.lastSearchVal = va;
@@ -193,7 +194,6 @@ export class MyCommunitiesPage implements OnInit {
           this.initialBindCommunitiesList();
           this.communitiesLoadedEmptySearh = false;
         }
-
       });
 
     console.log("My Communities View Loaded");

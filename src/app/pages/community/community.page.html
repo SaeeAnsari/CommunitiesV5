@@ -13,7 +13,7 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content class="ion-padding">
 
   <div class="container new-community">
 
@@ -38,17 +38,22 @@
       </ion-item>
       <ion-item>
         <div class="community-image-upload" no-lines>
-          <local-gallery-upload UpdateIconImageOnUpload="true" (OnFileSaved)="mediaSelectedForPosting($event)" Type="Community" UploadedImage="{{communityImage}}"></local-gallery-upload>
+          <app-local-gallery-upload-community UpdateIconImageOnUpload="true" (OnFileSaved)="mediaSelectedForPosting($event)" Type="Community" UploadedImage="22"></app-local-gallery-upload-community>
           <div *ngIf="uploaded">Image Uploaded!</div>
         </div>
       </ion-item>
+
      <ion-item no-lines>
-        <div class="community-location">
+        <div class="community-location2">
          <div class="pull-left zip-postal-text">
-            <div class="input-group input-group-lg" *ngIf="location== null">
-              <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-map-marker fa-2x" aria-hidden="true"></i></span>
+
+          <div class="md-form">
+            <div class="input-group input-group-lg" *ngIf="location== null">              
               <input type="text" class="form-control" placeholder="Zip or Postal" aria-describedby="sizing-addon1" formControlName="zip_postal">
+              <ion-icon name="person" color="primary" slot="end"></ion-icon>
             </div>
+          </div>
+
           </div>
             <div *ngIf="gotLocationEntry" class="pull-left community-location-text">
               <label >Thank you - Location Selected &nbsp;</label><i class="fa fa-thumb-tack" aria-hidden="true"></i>              

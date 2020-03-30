@@ -154,9 +154,14 @@ export class LiveFeedPage implements OnInit {
   }
 
   editCommunities() {
-    this.navCtrl.navigateForward('/community/' + this.communityID);
 
-    //this.navCtrl.push(CommunityPage, { communityID: this.communityID });
+    let navigationExtras: NavigationExtras= {
+      state: {
+        communityID: this.communityID
+      }
+    };
+
+    this.router.navigate(['/community/'], navigationExtras);        
   }
 
   dynamicLoadStories(event) {

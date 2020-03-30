@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {  NavController, NavParams } from '@ionic/angular';
 
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
-
-
+import { Router, NavigationExtras, ActivatedRoute} from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import { CommunityService } from '../../providers/community-service';
 import { MediaPostService } from '../../providers/media-post-service';
@@ -26,6 +24,7 @@ import { UserSearchPage} from '../user-search/user-search.page';
 @Component({
   selector: 'page-community',
   templateUrl: 'community.page.html',
+  //providers: [CommunityService, MediaPostService, UserService, GeoProviderServiceProvider, NavParams]
   providers: [CommunityService, MediaPostService, UserService, GeoProviderServiceProvider]
 })
 export class CommunityPage implements OnInit {
@@ -46,12 +45,14 @@ export class CommunityPage implements OnInit {
 
   constructor(
     private _fb: FormBuilder,
-    public navCtrl: NavController,
-    public navParams: NavParams,
+    //public navCtrl: NavController,
+    
     private _communityService: CommunityService,
     private _userService: UserService,
     private _geoService: GeoProviderServiceProvider,
-    private _geolocation: Geolocation
+    private _geolocation: Geolocation,
+    private router: Router,
+    private activeRoute: ActivatedRoute
   ) {
   }
 
@@ -62,10 +63,12 @@ export class CommunityPage implements OnInit {
       zip_postal: ['']
     });
 
-    if (this.navParams.get('communityID')) {
-      this.id = +this.navParams.get("communityID");
-      this.loadCommunity();
-    }
+    this.activeRoute.queryParams.subscribe(sub=>{
+      if (this.router.getCurrentNavigation().extras.state) {
+        this.id = this.router.getCurrentNavigation().extras.state.communityID;
+        this.loadCommunity();      
+      }
+    });
   }
 
 
@@ -123,15 +126,18 @@ export class CommunityPage implements OnInit {
   }
 
   SaveCommunityFinal(model, userID) {
-
-
     this._communityService.SaveCommunity(model, userID)
-      .subscribe(sub => {
-        this.id = sub;
+    .subscribe(sub => {
+      this.id = sub;
 
-        this.navCtrl.navigateForward('/usersearch/' + this.id );
-      })
+      let navigationExtras: NavigationExtras= {
+        state: {
+          communityID: this.id
+        }
+      };
 
+      this.router.navigate(['/usersearch/'], navigationExtras);        
+    })
   }
 
 

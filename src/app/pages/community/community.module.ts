@@ -1,13 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
+
+
 
 import { IonicModule } from '@ionic/angular';
 
 import { CommunityPage } from './community.page';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
-import {LocalGalleryUploadComponent} from '../../components/local-gallery-upload/local-gallery-upload.component';
+
+import {LocalGalleryUploadCommunityComponent} from '../../components/local-gallery-upload-community/local-gallery-upload-community.component'
 
 const routes: Routes = [
   {
@@ -20,9 +24,13 @@ const routes: Routes = [
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    FontAwesomeModule
   ],
-  declarations: [CommunityPage, LocalGalleryUploadComponent]
+  declarations: [CommunityPage, LocalGalleryUploadCommunityComponent]
+  //declarations: [CommunityPage]
+
 })
 export class CommunityPageModule {}
