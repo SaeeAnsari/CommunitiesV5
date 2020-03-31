@@ -24,6 +24,7 @@ import { UserSearchPage} from '../user-search/user-search.page';
 @Component({
   selector: 'page-community',
   templateUrl: 'community.page.html',
+  styleUrls: ['./community.page.scss'],
   //providers: [CommunityService, MediaPostService, UserService, GeoProviderServiceProvider, NavParams]
   providers: [CommunityService, MediaPostService, UserService, GeoProviderServiceProvider]
 })
