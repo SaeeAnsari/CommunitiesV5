@@ -6,7 +6,12 @@
 -->
 <ion-header>
 
+  
+
   <ion-toolbar transparent>
+    <ion-buttons slot="start">       
+      <ion-back-button [text]="buttonText" [icon]="buttonIcon"></ion-back-button>
+    </ion-buttons>    
     <ion-title>Create new community</ion-title>
   </ion-toolbar>
 
@@ -53,21 +58,23 @@
 
       <ion-item>
         <div class="community-location">
-          <div class="pull-left zip-postal-text">
+          <div *ngIf="!gotLocationEntry" class="pull-left zip-postal-text">
             <ion-input type="text" placeholder="Zip or Postal" formControlName="zip_postal"></ion-input>
           </div>
 
-       
+
           <div *ngIf="gotLocationEntry" class="pull-left community-location-text">
-            <label>Thank you - Location Selected &nbsp;</label><i class="fa fa-thumb-tack" aria-hidden="true"></i>
+            <label>Thank you - Location Selected</label>&nbsp;&nbsp;<ion-icon ios="ios-locate"  md="md-locate"></ion-icon>
+            
           </div>
-      
-          <div class="pull-right community-locate-me">
-       
-            <button type="button" class="btn btn-success" (click)="locateMe()"><i class="fa fa-compass fa-2x"
-                aria-hidden="true"></i><span class="community-locate-text">Locate Me</span></button>
-          
-              </div>
+
+          <div *ngIf="!gotLocationEntry" class="pull-right community-locate-me">
+
+            <button type="button" class="btn btn-success" (click)="locateMe()">
+              <fa-icon icon="compass" slot="end"></fa-icon>
+              &nbsp;<span class="community-locate-text">Locate Me</span>
+            </button>
+          </div>
         </div>
       </ion-item>
       <ion-item *ngIf="(!gotLocationEntry  && submitted)">
@@ -77,10 +84,8 @@
       <br>
       <br>
 
-      <div>
-        <button ion-button block type="submit" color="primary">
-          <span>Continue ></span>
-        </button>
+      <div >
+        <ion-button color="primary" expand="full" type="submit">Continue ></ion-button>
       </div>
 
     </form>

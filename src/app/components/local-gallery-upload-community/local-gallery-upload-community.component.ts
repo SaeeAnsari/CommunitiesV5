@@ -28,6 +28,10 @@ export class LocalGalleryUploadCommunityComponent implements OnInit {
 
     console.log("local upload image: " + this.cloudFileURL);
 
+    //this.UpdateIconImageOnUpload = "true";
+    //this.cloudFileURL = "https://res.cloudinary.com/http-communities-me/image/upload/v1552792766/oaksldnzc7e5gsxwkqzt.jpg";
+
+
     this.SetImageReplaceParam();
   }
 
