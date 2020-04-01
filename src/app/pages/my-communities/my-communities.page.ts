@@ -37,6 +37,7 @@ import 'rxjs/add/operator/switchMap';
 @Component({
   selector: 'page-my-communities',
   templateUrl: 'my-communities.page.html',
+  styleUrls: ['./my-communities.page.scss'],
   providers: [CommunityService, UserService]
 })
 
@@ -56,6 +57,20 @@ export class MyCommunitiesPage implements OnInit {
 
   ngOnInit(): void {
 
+    this.searchInput.valueChanges
+      .debounceTime(1000)
+      .distinctUntilChanged()
+      .subscribe(va => {
+        this.searchVal = va;
+
+        if (this.lastSearchVal != va) {
+          this.lastSearchVal = va;
+          this.searchItems = [];
+          this.pageIndex = 0;
+          this.initialBindCommunitiesList();
+          this.communitiesLoadedEmptySearh = false;
+        }
+      });
 
     console.log("My Communities Initializing");
   }
@@ -163,6 +178,8 @@ export class MyCommunitiesPage implements OnInit {
     private _searchService: CommunityService,
     private _userService: UserService
   ) {
+
+    console.log("inside the constructor")
   }
 
   ionViewDidEnter() {
@@ -181,20 +198,7 @@ export class MyCommunitiesPage implements OnInit {
   ionViewDidLoad() {
 
 
-    this.searchInput.valueChanges
-      .debounceTime(1000)
-      .distinctUntilChanged()
-      .subscribe(va => {
-        this.searchVal = va;
-
-        if (this.lastSearchVal != va) {
-          this.lastSearchVal = va;
-          this.searchItems = [];
-          this.pageIndex = 0;
-          this.initialBindCommunitiesList();
-          this.communitiesLoadedEmptySearh = false;
-        }
-      });
+    
 
     console.log("My Communities View Loaded");
 

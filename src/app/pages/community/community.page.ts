@@ -135,9 +135,9 @@ export class CommunityPage implements OnInit {
         state: {
           communityID: this.id
         }
-      };
+      };     
 
-      this.router.navigate(['/usersearch/'], navigationExtras);        
+      this.router.navigate(['tabs/UserSearch/'], navigationExtras);        
     })
   }
 

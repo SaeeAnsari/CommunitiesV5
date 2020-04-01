@@ -9,6 +9,7 @@ import {Storage} from '@ionic/storage';
 @Component({
   selector: 'page-notifications',
   templateUrl: 'notifications.page.html',
+  styleUrls: ['./notifications.page.scss'],  
   providers: [StoryService]
 })
 export class NotificationsPage {

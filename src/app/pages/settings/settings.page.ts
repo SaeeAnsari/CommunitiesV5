@@ -17,6 +17,7 @@ import {FirebaseMessagingProvider} from '../../providers/firebase-messaging/fire
 @Component({
   selector: 'page-settings',
   templateUrl: 'settings.page.html',
+  styleUrls: ['./settings.page.scss'],  
   providers: [FirebaseMessagingProvider]
 })
 export class SettingsPage {

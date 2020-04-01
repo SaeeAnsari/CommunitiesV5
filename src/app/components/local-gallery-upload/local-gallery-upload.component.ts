@@ -1,12 +1,11 @@
 import { Component, EventEmitter, Output, Input, OnInit } from '@angular/core';
 
-//import { ImagePicker } from '@ionic-native/image-picker';
+import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { File } from '@ionic-native/file/ngx';
 
 import { BaseLinkProvider } from '../../providers/base-link/base-link';
 import { LoadingController } from '@ionic/angular';
-
 
 /**
  * Generated class for the LocalGalleryUploadComponent component.
@@ -18,7 +17,7 @@ import { LoadingController } from '@ionic/angular';
   selector: 'local-gallery-upload',
   templateUrl: 'local-gallery-upload.component.html',
   styleUrls: ['./local-gallery-upload.component.scss'],
-  providers: [File]
+  providers: [File, ImagePicker]
 })
 export class LocalGalleryUploadComponent implements OnInit {
 
@@ -59,7 +58,7 @@ export class LocalGalleryUploadComponent implements OnInit {
 
 
   constructor(
-    //private imagePicker: ImagePicker,
+    private imagePicker: ImagePicker,
     private transfer: FileTransfer,
     private file: File,
     public loadingCtrl: LoadingController
@@ -70,7 +69,7 @@ export class LocalGalleryUploadComponent implements OnInit {
 
   public imagePickerClick() {
 
-    //this.getImages({ maximumImagesCount: 1 });
+    this.getImages({ maximumImagesCount: 1 });
     //this.DummyShowImage();
   }
 
@@ -91,16 +90,21 @@ export class LocalGalleryUploadComponent implements OnInit {
     });
   }
 
-  /*
-  private getImages(options) {
+  async getImages(options) {
     console.log("Inside the Image Picker");
 
-    this.imagePicker.getPictures(options).then((results) => {
-      let loading = this.loadingCtrl.create({
-        content: 'Uploading...',
-        spinner: 'dots'
-      });
+    let loading = this.loadingCtrl.create({
+      message: 'Uploading...',
+      spinner: 'dots'
+    });
 
+
+    (await loading).present().then(present=>{
+      console.log("Launching Modal");
+    });
+
+    this.imagePicker.getPictures(options).then((results) => {
+      
       console.log("Showing Results");
 
       if (results.length > 0 && results[0] == "O") {
@@ -122,8 +126,6 @@ export class LocalGalleryUploadComponent implements OnInit {
           params: {}
         };
 
-        loading.present();
-
         let url = BaseLinkProvider.GetBaseUrl() + "/Image?type=" + this.Type;
         this.file_transfer.upload(
           encodeURI(uri),
@@ -140,11 +142,14 @@ export class LocalGalleryUploadComponent implements OnInit {
 
           this.cloudFileURL = fileName;
           if (this.cloudFileURL != null) {
-            this.cloudFileURL = this.cloudFileURL.replace('/upload/', '/upload/h_60,c_scale/');
+            //this.cloudFileURL = this.cloudFileURL.replace('/upload/', '/upload/h_60,c_scale/');
           }
           this.SetImageReplaceParam();
 
-          loading.dismiss();
+          loading.then(ret=>{
+            console.log("Dismissing Modal");
+            ret.dismiss();
+          })
 
           this.OnFileSaved.emit({
             mediaType: "Image",
@@ -157,14 +162,16 @@ export class LocalGalleryUploadComponent implements OnInit {
           });
         })
           .catch(error => {
-            loading.dismiss();
+            loading.then(ret=>{
+              console.log("Dismissing Modal");
+              ret.dismiss();
+            })
             console.log("FILE TARNSFER ERROR : " + JSON.stringify(error));
           })
       }
 
     }, (err) => {
       console.log("Image Picker Error: " + JSON.stringify(err));
-    });
+    })   
   }
-  */
 }

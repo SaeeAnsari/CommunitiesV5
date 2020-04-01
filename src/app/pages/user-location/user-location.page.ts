@@ -14,6 +14,7 @@ import { TabsPage } from '../../pages/tabs/tabs.page';
 @Component({
   selector: 'page-user-location',
   templateUrl: 'user-location.page.html',
+  styleUrls: ['./user-location.page.scss'],  
   providers: [UserService]
 })
 export class UserLocationPage {
