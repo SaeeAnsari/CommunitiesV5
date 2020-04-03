@@ -27,6 +27,8 @@ export class CommunityTopicMarkerComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    console.log("NgOnInit -- community-topic-marker");
     if (this.CommunityID > 0) {
 
       let userID = +sessionStorage.getItem('userID');
