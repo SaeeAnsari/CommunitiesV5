@@ -27,18 +27,21 @@
    white-space: normal;
 }
 
+
+
 .feed_post_content img {
   /*border: 1px solid #dcdcdc;
   /*border-radius: 5px;*/
-  width: auto;
+  width: 100vw;
+  max-height: auto; 
+
   
-  max-height: 480px; 
 }
 
 .feed_post_content video {
   
   height: auto;
-  width: 80vw;
+  width: 100vw;
   background-color: #fff;
 }
 

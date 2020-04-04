@@ -104,10 +104,6 @@ position: absolute;
    
 }
 
-.feed_post_area {
-  //background: #fff none repeat scroll 0 0;
-  
-}
 .feed_post_header {
   overflow: hidden;
   position: relative;
@@ -120,9 +116,11 @@ position: absolute;
    margin: 0;
 }
 
-.item-inner {
-   padding-right: 0px!important;
-}
+ion-item {
+    --padding-end: 0px;
+    --inner-padding-end: 0px;
+    // here other custom CSS from documentation
+  }
 /*===================
       ENDED
 ====================*/
