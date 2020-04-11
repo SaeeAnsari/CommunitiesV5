@@ -25,7 +25,8 @@ import 'rxjs/add/observable/fromEvent';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { FirebaseMessagingProvider } from '../../providers/firebase-messaging/firebase-messaging';
-
+import { WebView } from '@ionic-native/ionic-webview/ngx';
+import { BaseLinkProvider } from 'src/app/providers/base-link/base-link';
 
 
 
@@ -33,7 +34,7 @@ import { FirebaseMessagingProvider } from '../../providers/firebase-messaging/fi
   selector: 'new-comment-component',
   templateUrl: 'new-comment-component.component.html',
   styleUrls: ['./new-comment-component.component.scss'],
-  providers: [UserService, FirebaseMessagingProvider, StoryService, MediaPostService, CommunityService, OpenGraphServiceProvider, CameraPluginProvider]
+  providers: [UserService, FirebaseMessagingProvider, StoryService, MediaPostService, CommunityService, OpenGraphServiceProvider, CameraPluginProvider, WebView]
 })
 export class NewCommentComponent implements OnInit {
 
@@ -89,6 +90,7 @@ export class NewCommentComponent implements OnInit {
     private cameraPluginServices: CameraPluginProvider,
     private keyboard: Keyboard,
     private fcm: FirebaseMessagingProvider,
+    private webview: WebView,
     private ev: Events
   ) {
 
@@ -182,10 +184,13 @@ export class NewCommentComponent implements OnInit {
   }
 
 
-  mediaSelectedForPosting(data) {
+  private dataMediaType : string = '';
 
+  mediaSelectedForPosting(data) {
     if (data != null) {
       console.log("Got Data: " + JSON.stringify(data));
+
+      this.dataMediaType = data.mediaType;
 
       if (data.mediaType == "Video") {
 
@@ -197,9 +202,7 @@ export class NewCommentComponent implements OnInit {
           versionID: data.versionID
         }
 
-       
-
-        this.uploadedMediaURL = data.fileName;
+        this.uploadedMediaURL = this.webview.convertFileSrc(data.fileName);
         this.videoMimeType = data.mimeType;
       }
       else if (data.mediaType == "Image") {
@@ -214,13 +217,13 @@ export class NewCommentComponent implements OnInit {
             }
           )
 
-          this.uploadedMediaURL = element.fileName;
+          this.uploadedMediaURL = this.webview.convertFileSrc(element.fileName);
         });
 
       }
 
       this.mediaType = data.mediaType;
-      this.uploaded = true;
+      this.uploaded = true;      
     }
   }
 
@@ -253,9 +256,9 @@ export class NewCommentComponent implements OnInit {
         this.imageSelected = false;
 
 
-        this.vc.dismiss({ storyID: id });
+        this.vc.dismiss({ storyID: -1 });
 
-        this.optionsModel = [];
+        /*this.optionsModel = [];
         this.optionsModel.push(this.user.defaultCommunityID);
 
         if (this.user.defaultCommunityID > 0) {
@@ -265,12 +268,154 @@ export class NewCommentComponent implements OnInit {
             activeCommunity = +sessionStorage.getItem("activeCommunity")
           }
         }
+        */
 
-        this.ev.publish('newVideoUpload', JSON.stringify(videoPost));
+        let options = {
+          fileKey: 'file',
+          fileName: this.videoObj.url,
+          mimeType: this.videoMimeType,
+          chunkedMode: false,
+          headers: {
+            'Content-Type': undefined
+          },
+          params: {}
+        };
+
+
+        console.log("New Comment: VideoURL" + this.videoObj.url);
+        console.log(options);
+
+        var results = this._storyService.uploadMedia(this.videoObj.url, options, "Story", this.dataMediaType);
+        console.log("New Comment: Uploaded Result " + results);
+        results.then(result => {
+
+
+          console.log("New Comment: Video Uploaded");
+          var parsingString = result.response;
+
+          var fileName = parsingString.substring(parsingString.indexOf("<FileName>"), parsingString.indexOf("</FileName>")).replace("<FileName>", "");
+          var publicID = parsingString.substring(parsingString.indexOf("<PublicID>"), parsingString.indexOf("</PublicID>")).replace("<PublicID>", "");
+          var versionID = parsingString.substring(parsingString.indexOf("<VersionID>"), parsingString.indexOf("</VersionID>")).replace("<VersionID>", "")
+          var videoThumbURL = parsingString.substring(parsingString.indexOf("<ThumbURL>"), parsingString.indexOf("</ThumbURL>")).replace("<ThumbURL>", "")
+
+          console.log("New Comment : FileName " + fileName);
+      
+          //var vidExt =  fileName.split('.').pop();//Get the last item after .
+          //Renaming the Video extension to something more compatibl on mobile and web systems
+          //fileName = fileName.replace('.' + vidExt, '.3gp');
+          this.videoObj.url = fileName; 
+          this.videoObj.publicID = publicID;
+          this.videoObj.versionID = versionID;
+
+          console.log("New Comment : FileName" + fileName);
+
+          this._storyService.SavePost(this.user.id,
+            storyText, "Video", this.optionsModel, this.videoObj, this.imageListObj, this.graphExternalURL).subscribe(sub => {              
+
+              console.log("New Comment : Story Saved - StoryID = " + sub)
+              console.log("VIdeo Obj : " + JSON.stringify(this.videoObj));
+
+              let id = sub;
+              this.uploaded = false;
+              this.postText = "";
+              this.postTextUploaded = "";
+              this.mediaType = "";
+              this.videoSelected = false;
+              this.imageSelected = false;
+
+              this.fcm.SubscibeToTopic(id.toString());
+
+              this.optionsModel = [];
+              this.optionsModel.push(this.user.defaultCommunityID);
+
+              if (this.user.defaultCommunityID > 0) {
+
+                let activeCommunity = this.user.defaultCommunityID;
+
+                if (sessionStorage.getItem("activeCommunity") != null) {
+
+                  activeCommunity = +sessionStorage.getItem("activeCommunity")
+                }
+              }
+            });
+        });
       }
-      else {
+      else if (this.mediaType == "Image") {
+        this.imageListObj.forEach(element => {
+
+          let options = {
+            fileKey: 'file',
+            fileName: element.url,
+            mimeType: 'image/jpeg',
+            chunkedMode: false,
+            headers: {
+              'Content-Type': undefined
+            },
+            params: {}
+          };
+
+          console.log("New Comment : URI " + element.url);
+
+          //this.ev.publish("post:ImagePost", JSON.stringify(options));          
+          let results = this._storyService.uploadMedia(element.url, options, "Story", this.dataMediaType);
+          console.log("New Comment: Uploaded Result " + results);
+          results.then(result => {
+            console.log("Return variable");
+            console.log(result);
+
+            var parsingString = result.response;
+            var fileName = parsingString.substring(parsingString.indexOf("<FileName>"), parsingString.indexOf("</FileName>")).replace("<FileName>", "");
+            var publicID = parsingString.substring(parsingString.indexOf("<PublicID>"), parsingString.indexOf("</PublicID>")).replace("<PublicID>", "");
+            var versionID = parsingString.substring(parsingString.indexOf("<VersionID>"), parsingString.indexOf("</VersionID>")).replace("<VersionID>", "")
+            console.log("New Comment : Filename " + fileName);
+            console.log(fileName);
+
+            this.imageListObj[0].url = fileName;
+            console.log(this.imageListObj);
+
+            console.log("New Comment: Commnunities Selected ");
+            console.log(this.optionsModel);
+
+            this._storyService.SavePost(this.user.id,
+              storyText, this.mediaType, this.optionsModel, this.videoObj, this.imageListObj, this.graphExternalURL).subscribe(sub => {
+
+                console.log("New Comment : Story Saved - StoryID = " + sub)
+                let id = sub;
+                this.uploaded = false;
+                this.postText = "";
+                this.postTextUploaded = "";
+                this.mediaType = "";
+                this.videoSelected = false;
+                this.imageSelected = false;
+
+                this.fcm.SubscibeToTopic(id.toString());
+
+                this.vc.dismiss({ storyID: id });
+
+
+                this.optionsModel = [];
+                this.optionsModel.push(this.user.defaultCommunityID);
+
+                if (this.user.defaultCommunityID > 0) {
+
+                  let activeCommunity = this.user.defaultCommunityID;
+
+                  if (sessionStorage.getItem("activeCommunity") != null) {
+
+                    activeCommunity = +sessionStorage.getItem("activeCommunity")
+                  }
+                }
+              });
+          })
+
+          this.vc.dismiss({ storyID: -1 });
+        });
+      }
+      else{
         this._storyService.SavePost(this.user.id,
           storyText, this.mediaType, this.optionsModel, this.videoObj, this.imageListObj, this.graphExternalURL).subscribe(sub => {
+
+            console.log("New Comment : Story Saved - StoryID = " + sub)
             let id = sub;
             this.uploaded = false;
             this.postText = "";
@@ -295,13 +440,11 @@ export class NewCommentComponent implements OnInit {
 
                 activeCommunity = +sessionStorage.getItem("activeCommunity")
               }
-
             }
           });
       }
     }
   }
-
 
   closeModal() {
 

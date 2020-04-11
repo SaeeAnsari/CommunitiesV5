@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http,  Headers, URLSearchParams } from '@angular/http';
+import { Http, Headers, URLSearchParams } from '@angular/http';
 import { BaseLinkProvider } from '../providers/base-link/base-link';
 import { Observable } from 'rxjs/Observable';
 
@@ -15,6 +15,7 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
+import { FileTransferObject, FileTransfer } from '@ionic-native/file-transfer/ngx';
 
 
 /*
@@ -27,9 +28,12 @@ import 'rxjs/add/operator/switchMap';
 export class StoryService {
 
   private _url = BaseLinkProvider.GetBaseUrl() + '/Story';
+
+  private file_transfer: FileTransferObject = this.transfer.create();
+
   headers: Headers;
 
-  constructor(private _http: Http) {
+  constructor(private _http: Http, private transfer: FileTransfer) {
 
 
   }
@@ -85,7 +89,23 @@ export class StoryService {
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
-   
+
+
+    let logObject = {
+      userID: userID,
+      postText : postText,
+      mediaType: mediaType,
+      selectedCommunities : selectedCommunities,
+      video: video,
+      images: images,
+      storyExternalURL: storyExternalURL
+    }
+
+    console.log("Story Service : SavePost");
+    console.log(logObject);
+
+
+
     let videoTag;
     let imageURL = '';
 
@@ -170,18 +190,40 @@ export class StoryService {
       .catch(this.handleError)
   }
 
-  GetStoryByEventID(eventID:number): Observable<any> {
+  GetStoryByEventID(eventID: number): Observable<any> {
 
     return this._http.get(this._url + '?eventID=' + eventID)
       .map(post => post.json())
       .catch(this.handleError);
   }
 
-  GetEventAddressByStoryID(storyID:number): Observable<any> {
-    
-        return this._http.get(this._url + '/GetEventAddressByStoryID' + '?storyID=' + storyID)
-          .map(post => post.json())
-          .catch(this.handleError);
-      }
+  GetEventAddressByStoryID(storyID: number): Observable<any> {
 
+    return this._http.get(this._url + '/GetEventAddressByStoryID' + '?storyID=' + storyID)
+      .map(post => post.json())
+      .catch(this.handleError);
+  }
+
+
+  public async uploadMedia(uri, options, type, mediaType) {
+
+    let url = BaseLinkProvider.GetBaseUrl() + "/Image?type=" + type;
+    if(mediaType == "Video"){
+      url = BaseLinkProvider.GetBaseUrl() + "/Video?type=" + type;
+    }    
+
+    console.log("Story Service: URL = " + url);
+    
+    let result = await this.file_transfer.upload(
+      encodeURI(uri),
+      encodeURI(url),
+      options,
+      false
+    )
+
+    console.log("File Upload Results");
+    console.log(result);    
+    return result;
+
+  }
 }

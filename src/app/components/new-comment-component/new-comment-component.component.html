@@ -39,6 +39,20 @@
             </div>
 
             <div class="form-group">
+
+              <div class="post-body">
+                
+                <div *ngIf="graphFound == true">
+                  <div class="newMedia">
+                    <img class="d-flex mr-3" src="{{graphImage}}" alt="Generic placeholder image">
+                  </div>
+                </div>
+
+                <textarea [ngClass]="{textAreaSmall: graphFound == true}" rows="3" placeholder="Post here..."
+                  [(ngModel)]="postText" [formControl]="PostTextControl">
+                  </textarea>
+              </div>
+
               <div *ngIf="graphFound == false">
 
                 <div *ngIf="uploaded">
@@ -50,21 +64,7 @@
                   <video-upload (OnFileSaved)="mediaSelectedForPosting($event)"></video-upload>
                   <image-upload ImageCategory="Story" (OnFileSaved)="mediaSelectedForPosting($event)"></image-upload>
                 </div>
-              </div>
-
-
-              <div class="post-body">
-                
-                <div *ngIf="graphFound == true">
-                  <div class="newMedia">
-                    <img class="d-flex mr-3" src="{{graphImage}}" alt="Generic placeholder image">
-                  </div>
-                </div>
-
-                <textarea [ngClass]="{textAreaSmall: graphFound == true}" rows="3" placeholder="Whats on your mind?"
-                  [(ngModel)]="postText" [formControl]="PostTextControl">
-                  </textarea>
-              </div>
+              </div>             
             </div>
           </div>
         </div>

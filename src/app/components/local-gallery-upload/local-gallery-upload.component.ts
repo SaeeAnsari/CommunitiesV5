@@ -1,11 +1,8 @@
 import { Component, EventEmitter, Output, Input, OnInit } from '@angular/core';
 
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
-import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer/ngx';
-import { File } from '@ionic-native/file/ngx';
-
 import { BaseLinkProvider } from '../../providers/base-link/base-link';
-import { LoadingController } from '@ionic/angular';
+
 
 /**
  * Generated class for the LocalGalleryUploadComponent component.
@@ -17,7 +14,7 @@ import { LoadingController } from '@ionic/angular';
   selector: 'local-gallery-upload',
   templateUrl: 'local-gallery-upload.component.html',
   styleUrls: ['./local-gallery-upload.component.scss'],
-  providers: [File, ImagePicker]
+  providers: [ImagePicker]
 })
 export class LocalGalleryUploadComponent implements OnInit {
 
@@ -44,8 +41,6 @@ export class LocalGalleryUploadComponent implements OnInit {
   }
 
 
-  private file_transfer: FileTransferObject = this.transfer.create();
-
 
   @Input() Type: string = "";
   @Input() UpdateIconImageOnUpload: string = "";
@@ -58,10 +53,7 @@ export class LocalGalleryUploadComponent implements OnInit {
 
 
   constructor(
-    private imagePicker: ImagePicker,
-    private transfer: FileTransfer,
-    private file: File,
-    public loadingCtrl: LoadingController
+    private imagePicker: ImagePicker
   ) {
     console.log('Hello LocalGalleryUploadComponent Component');
 
@@ -69,7 +61,8 @@ export class LocalGalleryUploadComponent implements OnInit {
 
   public imagePickerClick() {
 
-    this.getImages({ maximumImagesCount: 1 });
+    this.getImages({ maximumImagesCount: 1 }).then(ret => {      
+    });
     //this.DummyShowImage();
   }
 
@@ -93,18 +86,8 @@ export class LocalGalleryUploadComponent implements OnInit {
   async getImages(options) {
     console.log("Inside the Image Picker");
 
-    let loading = this.loadingCtrl.create({
-      message: 'Uploading...',
-      spinner: 'dots'
-    });
-
-
-    (await loading).present().then(present=>{
-      console.log("Launching Modal");
-    });
-
     this.imagePicker.getPictures(options).then((results) => {
-      
+
       console.log("Showing Results");
 
       if (results.length > 0 && results[0] == "O") {
@@ -114,64 +97,19 @@ export class LocalGalleryUploadComponent implements OnInit {
       for (var i = 0; i < results.length; i++) {
 
         let uri = results[i];
-
-        let options = {
-          fileKey: 'file',
-          fileName: uri.split('/').pop(),
-          mimeType: 'image/jpeg',
-          chunkedMode: false,
-          headers: {
-            'Content-Type': undefined
-          },
-          params: {}
-        };
-
-        let url = BaseLinkProvider.GetBaseUrl() + "/Image?type=" + this.Type;
-        this.file_transfer.upload(
-          encodeURI(uri),
-          encodeURI(url),
-          options,
-          false
-        ).then(result => {
-          var parsingString = result.response;
-          var fileName = parsingString.substring(parsingString.indexOf("<FileName>"), parsingString.indexOf("</FileName>")).replace("<FileName>", "");
-          var publicID = parsingString.substring(parsingString.indexOf("<PublicID>"), parsingString.indexOf("</PublicID>")).replace("<PublicID>", "");
-          var versionID = parsingString.substring(parsingString.indexOf("<VersionID>"), parsingString.indexOf("</VersionID>")).replace("<VersionID>", "")
-
-          console.log("FileName: " + fileName + ", publicID: " + publicID + ", versionID: " + versionID);
-
-          this.cloudFileURL = fileName;
-          if (this.cloudFileURL != null) {
-            //this.cloudFileURL = this.cloudFileURL.replace('/upload/', '/upload/h_60,c_scale/');
-          }
-          this.SetImageReplaceParam();
-
-          loading.then(ret=>{
-            console.log("Dismissing Modal");
-            ret.dismiss();
-          })
-
-          this.OnFileSaved.emit({
-            mediaType: "Image",
-            imageList: [{
-              id: -1,
-              fileName: fileName,
-              publicID: publicID,
-              versionID: versionID
-            }]
-          });
-        })
-          .catch(error => {
-            loading.then(ret=>{
-              console.log("Dismissing Modal");
-              ret.dismiss();
-            })
-            console.log("FILE TARNSFER ERROR : " + JSON.stringify(error));
-          })
+       
+        this.OnFileSaved.emit({
+          mediaType: "Image",
+          imageList: [{
+            id: -1,
+            fileName: uri,
+            publicID: '',
+            versionID: ''
+          }]
+        });             
       }
-
     }, (err) => {
       console.log("Image Picker Error: " + JSON.stringify(err));
-    })   
-  }
+    })
+  } 
 }

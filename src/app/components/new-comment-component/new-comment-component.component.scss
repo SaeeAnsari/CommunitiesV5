@@ -16,13 +16,16 @@
 
 .post-body > textarea{
     height: 50px;
-     border-radius: 10px;
+    border-radius: 3px;
     font-size: 15px;
     margin-bottom: 5px;
     min-height: 30px;
     padding-left: 10px;
     margin-left: 10px;
     width: 95%;
+
+    border: 0px none;
+    border-bottom: 0.5px solid grey;
 }   
 
 .textAreaSmall{

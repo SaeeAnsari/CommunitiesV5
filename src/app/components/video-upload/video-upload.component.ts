@@ -108,10 +108,7 @@ export class VideoUploadComponent {
         versionID: '111111',
         mimeType: this.mimeType
       });
-    } catch (e) {
-      /*
-      loading.dismiss();
-      */
+    } catch (e) {     
       console.log("Error : " + JSON.stringify(e));
     }
   }
