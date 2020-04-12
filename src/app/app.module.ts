@@ -67,6 +67,7 @@ import { ImageUploadComponent } from './components/image-upload/image-upload.com
 import { HttpModule } from '@angular/http';
 //import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import {IonicStorageModule} from '@ionic/storage';
+import {MenuComponent} from '../app/components/menu/menu.component';
 
 @NgModule({
   declarations: [
@@ -86,6 +87,7 @@ import {IonicStorageModule} from '@ionic/storage';
     LocalGalleryUploadComponent,
     VideoUploadComponent,
     ImageUploadComponent,
+    MenuComponent
   ],
   entryComponents: [
     AppComponent,    

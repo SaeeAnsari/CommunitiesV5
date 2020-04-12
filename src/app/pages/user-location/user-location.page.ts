@@ -1,8 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { NavController, NavParams, ModalController} from '@ionic/angular';
+import { NavController, ModalController} from '@ionic/angular';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { UserService } from '../../providers/user-service';
 import { TabsPage } from '../../pages/tabs/tabs.page';
+import { Router } from '@angular/router';
 
 /**
  * Generated class for the UserLocation page.
@@ -25,15 +26,13 @@ export class UserLocationPage {
 
   constructor(
     public navCtrl: NavController,
-    public navParams: NavParams,
     private _geolocation: Geolocation,
     private _userService: UserService,
-    private vc: ModalController
+    private vc: ModalController,
+    private router: Router
   ) {
 
-    if (this.navParams.get("launchType")) {
-      this.LaunchType = this.navParams.get("launchType");
-    }
+
   }
 
   ionViewDidLoad() {
@@ -61,14 +60,16 @@ export class UserLocationPage {
   }
 
   SendUserToApp() {
-    if (this.LaunchType == "Registration") {
-      this.navCtrl.navigateRoot("/tabs/" + this.defaultCommunityID)
+    //f (this.LaunchType == "Registration") {
+
+    this.router.navigate(['tabs/tab1']);
+      //this.navCtrl.navigateRoot("/tabs/" + this.defaultCommunityID)
       //this.navCtrl.push(TabsPage, { communityID: this.defaultCommunityID });
       //communityID
-    }
-    else if (this.LaunchType == "Settings") {
-      this.vc.dismiss();
-    }
+    //}
+    //else if (this.LaunchType == "Settings") {
+      //this.vc.dismiss();
+    //}
   }
 
 }

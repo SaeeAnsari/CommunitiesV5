@@ -1,0 +1,32 @@
+<ion-menu side="start" menuId="first" content-id="main">
+
+  <ion-content>
+    <ion-list>
+
+      <ion-item (click)="SignOut()">
+        <ion-label>Sign Out</ion-label>
+      </ion-item>
+      <ion-item>
+        My Profile
+      </ion-item>
+      <ion-item (click)="launchUpdateLocation()">
+        Update my home location
+      </ion-item>
+      <ion-item (click)="SubscribeTest()">
+        Subscription Test
+      </ion-item>
+
+      <!--
+
+
+      <button ion-item>
+        My Profile
+      </button>
+
+      <button ion-item menuClose (click)="launchUpdateLocation()"> Update my Location</button>
+
+      <button ion-item menuClose (click)="SubscribeTest()"> Subscribe to 1338</button>
+      -->
+    </ion-list>
+  </ion-content>
+</ion-menu>
