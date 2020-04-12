@@ -14,6 +14,7 @@ import { CameraPluginProvider } from '../../providers/camera-plugin/camera-plugi
 
 import { ModalController, NavParams, NavController, Events } from '@ionic/angular';
 import { OpenGraphServiceProvider } from '../../providers/open-graph-service/open-graph-service';
+import { UserMessageService } from '../../providers/user-message.service';
 
 import { Keyboard } from '@ionic-native/keyboard/ngx';
 
@@ -91,7 +92,8 @@ export class NewCommentComponent implements OnInit {
     private keyboard: Keyboard,
     private fcm: FirebaseMessagingProvider,
     private webview: WebView,
-    private ev: Events
+    private ev: Events,
+    private messaging: UserMessageService
   ) {
 
 
@@ -184,7 +186,7 @@ export class NewCommentComponent implements OnInit {
   }
 
 
-  private dataMediaType : string = '';
+  private dataMediaType: string = '';
 
   mediaSelectedForPosting(data) {
     if (data != null) {
@@ -223,7 +225,7 @@ export class NewCommentComponent implements OnInit {
       }
 
       this.mediaType = data.mediaType;
-      this.uploaded = true;      
+      this.uploaded = true;
     }
   }
 
@@ -255,7 +257,7 @@ export class NewCommentComponent implements OnInit {
         this.videoSelected = false;
         this.imageSelected = false;
 
-
+        this.messaging.presentToast("Saving your post, just a sec...");
         this.vc.dismiss({ storyID: -1 });
 
         /*this.optionsModel = [];
@@ -299,44 +301,21 @@ export class NewCommentComponent implements OnInit {
           var videoThumbURL = parsingString.substring(parsingString.indexOf("<ThumbURL>"), parsingString.indexOf("</ThumbURL>")).replace("<ThumbURL>", "")
 
           console.log("New Comment : FileName " + fileName);
-      
+
           //var vidExt =  fileName.split('.').pop();//Get the last item after .
           //Renaming the Video extension to something more compatibl on mobile and web systems
           //fileName = fileName.replace('.' + vidExt, '.3gp');
-          this.videoObj.url = fileName; 
+          this.videoObj.url = fileName;
           this.videoObj.publicID = publicID;
           this.videoObj.versionID = versionID;
 
           console.log("New Comment : FileName" + fileName);
 
           this._storyService.SavePost(this.user.id,
-            storyText, "Video", this.optionsModel, this.videoObj, this.imageListObj, this.graphExternalURL).subscribe(sub => {              
+            storyText, "Video", this.optionsModel, this.videoObj, this.imageListObj, this.graphExternalURL).subscribe(sub => {
 
-              console.log("New Comment : Story Saved - StoryID = " + sub)
               console.log("VIdeo Obj : " + JSON.stringify(this.videoObj));
-
-              let id = sub;
-              this.uploaded = false;
-              this.postText = "";
-              this.postTextUploaded = "";
-              this.mediaType = "";
-              this.videoSelected = false;
-              this.imageSelected = false;
-
-              this.fcm.SubscibeToTopic(id.toString());
-
-              this.optionsModel = [];
-              this.optionsModel.push(this.user.defaultCommunityID);
-
-              if (this.user.defaultCommunityID > 0) {
-
-                let activeCommunity = this.user.defaultCommunityID;
-
-                if (sessionStorage.getItem("activeCommunity") != null) {
-
-                  activeCommunity = +sessionStorage.getItem("activeCommunity")
-                }
-              }
+              this.postPostActions(sub);
             });
         });
       }
@@ -379,71 +358,52 @@ export class NewCommentComponent implements OnInit {
             this._storyService.SavePost(this.user.id,
               storyText, this.mediaType, this.optionsModel, this.videoObj, this.imageListObj, this.graphExternalURL).subscribe(sub => {
 
-                console.log("New Comment : Story Saved - StoryID = " + sub)
-                let id = sub;
-                this.uploaded = false;
-                this.postText = "";
-                this.postTextUploaded = "";
-                this.mediaType = "";
-                this.videoSelected = false;
-                this.imageSelected = false;
-
-                this.fcm.SubscibeToTopic(id.toString());
-
-                this.vc.dismiss({ storyID: id });
-
-
-                this.optionsModel = [];
-                this.optionsModel.push(this.user.defaultCommunityID);
-
-                if (this.user.defaultCommunityID > 0) {
-
-                  let activeCommunity = this.user.defaultCommunityID;
-
-                  if (sessionStorage.getItem("activeCommunity") != null) {
-
-                    activeCommunity = +sessionStorage.getItem("activeCommunity")
-                  }
-                }
+                this.postPostActions(sub);
               });
           })
 
+          this.messaging.presentToast("Saving your post, just a sec...");
           this.vc.dismiss({ storyID: -1 });
         });
       }
-      else{
+      else {
         this._storyService.SavePost(this.user.id,
           storyText, this.mediaType, this.optionsModel, this.videoObj, this.imageListObj, this.graphExternalURL).subscribe(sub => {
 
-            console.log("New Comment : Story Saved - StoryID = " + sub)
-            let id = sub;
-            this.uploaded = false;
-            this.postText = "";
-            this.postTextUploaded = "";
-            this.mediaType = "";
-            this.videoSelected = false;
-            this.imageSelected = false;
-
-            this.fcm.SubscibeToTopic(id.toString());
-
-            this.vc.dismiss({ storyID: id });
-
-
-            this.optionsModel = [];
-            this.optionsModel.push(this.user.defaultCommunityID);
-
-            if (this.user.defaultCommunityID > 0) {
-
-              let activeCommunity = this.user.defaultCommunityID;
-
-              if (sessionStorage.getItem("activeCommunity") != null) {
-
-                activeCommunity = +sessionStorage.getItem("activeCommunity")
-              }
-            }
+            this.postPostActions(sub);
           });
       }
     }
+  }
+
+  postPostActions(sub) {
+    console.log("New Comment : Story Saved - StoryID = " + sub)
+    let id = sub;
+    this.uploaded = false;
+    this.postText = "";
+    this.postTextUploaded = "";
+    this.mediaType = "";
+    this.videoSelected = false;
+    this.imageSelected = false;
+
+    this.fcm.SubscibeToTopic(id.toString());
+
+    this.vc.dismiss({ storyID: id });
+
+
+    this.optionsModel = [];
+    this.optionsModel.push(this.user.defaultCommunityID);
+
+    if (this.user.defaultCommunityID > 0) {
+
+      let activeCommunity = this.user.defaultCommunityID;
+
+      if (sessionStorage.getItem("activeCommunity") != null) {
+
+        activeCommunity = +sessionStorage.getItem("activeCommunity")
+      }
+    }
+
   }
 
   closeModal() {

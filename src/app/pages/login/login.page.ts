@@ -279,6 +279,10 @@ export class LoginPage {
       }
         console.log('ionViewDidLoad Login');
     }
+    else{
+      this.navCtrl.navigateForward("/tabs/tab1");
+    }
+
 
     /*this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.CAMERA).then(
       result => console.log('Has permission?',result.hasPermission),
