@@ -56,6 +56,9 @@ export class UserPostActionComponent implements OnInit {
 
     this._storyService.SetLike(storyID, userID).subscribe(sub => {
       if (sub != undefined && sub == true) {
+        this.firebase.SubscibeToTopic(storyID.toString());
+        this.firebase.SendNotificationToTopic(storyID, "Someone liked a post you interacted on");
+        console.log("fcm: User-Post-Action:: Someone liked your comment");
         this.LikeCount++;
       }
     });

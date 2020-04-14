@@ -49,7 +49,7 @@ export class FirebaseMessagingProvider {
       this.messagingToken = sessionStorage.getItem("messagingToken");
       
 
-      console.log("Firebase Token: " + this.messagingToken);
+      console.log("fcm : " + this.messagingToken);
       var headers = new Headers();
       headers.append('Content-Type', 'application/json');
       headers.append('Authorization', 'Bearer ' + this.messagingToken);
@@ -84,8 +84,8 @@ export class FirebaseMessagingProvider {
     private handleError(error: any) {
       let errMsg = (error.message) ? error.message :
         error.status ? `${error.status} - ${error.statusText}` : 'Server error';
-      console.error(errMsg);
-      console.log(error._body);
+      console.error("fcm: " + errMsg);
+      console.log("fcm: " + error._body);
       return Observable.throw(errMsg);
     }
 

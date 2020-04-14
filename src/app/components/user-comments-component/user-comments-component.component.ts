@@ -87,7 +87,8 @@ export class UserCommentsComponent implements OnInit {
     public navParams: NavParams,
     private iab: InAppBrowser,
     private platform: Platform,
-    private launchNavigator: LaunchNavigator
+    private launchNavigator: LaunchNavigator,
+    private firebase: FirebaseMessagingProvider
     
   ) {
 
@@ -157,6 +158,10 @@ export class UserCommentsComponent implements OnInit {
       this._storyService.SetLike(storyID, userID, commentID).subscribe(sub => {
         if (sub != undefined && sub == true) {
 
+          //this.firebase.SubscibeToTopic(storyID.toString());
+          this.firebase.SendNotificationToTopic(storyID, "People are liking what you said");
+          console.log("fcm: User Comment: Fired of Firebase notification");
+
           this.comments.forEach(function (element, index) {
             if (element.id == commentID) {
               elemIndex = index;
@@ -188,6 +193,10 @@ export class UserCommentsComponent implements OnInit {
 
       let userID = this._userService.GetLoggedInUserID();
       this._commentService.PostComment(this.storyID, userID, this.commentPost, this.replyParentID).subscribe(ret => {
+
+        this.firebase.SendNotificationToTopic(this.storyID, this.commentPost);
+        this.firebase.SubscibeToTopic(this.storyID.toString());
+        console.log("fcm: New Comment : Subscribed to Story: " + this.storyID.toString());
 
         this.loadComments();
         this.replyParentID = null;

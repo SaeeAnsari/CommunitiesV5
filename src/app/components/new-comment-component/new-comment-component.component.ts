@@ -258,19 +258,7 @@ export class NewCommentComponent implements OnInit {
         this.imageSelected = false;
 
         this.messaging.presentToast("Saving your post, just a sec...");
-        this.vc.dismiss({ storyID: -1 });
-
-        /*this.optionsModel = [];
-        this.optionsModel.push(this.user.defaultCommunityID);
-
-        if (this.user.defaultCommunityID > 0) {
-          let activeCommunity = this.user.defaultCommunityID;
-          if (sessionStorage.getItem("activeCommunity") != null) {
-
-            activeCommunity = +sessionStorage.getItem("activeCommunity")
-          }
-        }
-        */
+        this.vc.dismiss({ storyID: -1 });     
 
         let options = {
           fileKey: 'file',
@@ -378,15 +366,17 @@ export class NewCommentComponent implements OnInit {
 
   postPostActions(sub) {
     console.log("New Comment : Story Saved - StoryID = " + sub)
-    let id = sub;
+    let id = sub;    
+
+    this.fcm.SubscibeToTopic(id.toString());
+    console.log("New Comment : Subscribed to Story: " + id.toString());    
+
     this.uploaded = false;
     this.postText = "";
     this.postTextUploaded = "";
     this.mediaType = "";
     this.videoSelected = false;
     this.imageSelected = false;
-
-    this.fcm.SubscibeToTopic(id.toString());
 
     this.vc.dismiss({ storyID: id });
 
