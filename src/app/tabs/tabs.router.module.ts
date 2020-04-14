@@ -58,6 +58,16 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'Notifications',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../pages/notifications/notifications.module').then(m => m.NotificationsPageModule)
+          }
+        ]
+      },
+      {
         path: '',
         redirectTo: '/tabs/tab1',
         pathMatch: 'full'

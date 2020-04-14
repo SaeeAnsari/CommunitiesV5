@@ -26,6 +26,8 @@ export class TabsPage {
   async onNotification() {
     try {
 
+      console.log("TABS: Inside Notification...");
+
       let notificationsString = sessionStorage.getItem("userNotification");
 
       if (notificationsString != null && notificationsString.length > 3) {
@@ -34,15 +36,21 @@ export class TabsPage {
 
       await this.platform.ready();
 
+      this.firebaseIonic.onNotification().subscribe(data => {
+        if(data.wasTapped){
+          console.log("Received in background");
+        } else {
+          console.log("Received in foreground");
+        };
+      });
+      
       /*
-
       this.firebaseIonic.onNotification().subscribe(sub => {
         console.log("Notification Opened");
         console.log(sub);
         this.notifications.push(sub);
       });
       */
-
     }
     catch (e) {
       console.log('erroring');

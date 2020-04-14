@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController } from '@ionic/angular';
+import { NavController, ModalController } from '@ionic/angular';
 import { UserCommentsComponent } from '../../components/user-comments-component/user-comments-component.component';
 import { StoryService } from '../../providers/story-service';
 //import { NativeStorage} from '@ionic-native/native-storage/ngx';
@@ -21,7 +21,6 @@ export class NotificationsPage {
 
   constructor(
     public navCtrl: NavController,
-    public navParams: NavParams,
     public storyService: StoryService,
     public modalCtrl: ModalController) {
   }

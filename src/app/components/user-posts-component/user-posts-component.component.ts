@@ -5,6 +5,10 @@ import { StoryService } from '../../providers/story-service';
 import { EventProvider } from '../../providers/event/event';
 import { ModalController } from '@ionic/angular';
 
+import {EnterAnimation} from '../../animations/enter-animation.service';
+import {LeaveAnimation} from '../../animations/leave-animation.service';
+
+
 /**
  * Generated class for the UserPostsComponent component.
  *
@@ -90,6 +94,8 @@ export class UserPostsComponent implements OnInit {
 
     let commentsModal = await this.modalCtrl.create({
       component: UserCommentsComponent,
+      enterAnimation: EnterAnimation,
+      leaveAnimation: LeaveAnimation,
       componentProps:{ storyID: this.StoryID, postMediaURL: type == "Image" ? this.fixedImagesforStory : this.PostMediaURL, postMessage: this.PostMessage, storyExternalURL: this.StoryExternalURL, type: type, eventAddress: this.EventAddress, eventDate: this.EventDate, eventID: this.EventID } 
     });
     
