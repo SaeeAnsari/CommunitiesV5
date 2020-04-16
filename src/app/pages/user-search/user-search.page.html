@@ -6,7 +6,7 @@
 -->
 <ion-header>
 
-  <ion-toolbar>
+  <ion-toolbar color="dark">
     <ion-buttons slot="secondary">
       <ion-button (click)="navigateToFeed()">
         Done
@@ -35,15 +35,20 @@
         </form>
       </div>
 
-
+      <div *ngFor="let item of userItems">
+        <user-search-item-component ID="{{item.id}}" Name='{{item.firstName + " " + item.lastName}}'
+            Image='{{item.imageURL}}' AlreadyMember='{{item.alreadyMember}}' CommunityID='{{communityID}}'
+            (UserAction)="userAddedorRemoved()"></user-search-item-component>
+      </div>
+<!--
       <ion-list>
-        <div *ngFor="let item of userItems">
+        <ion-item *ngFor="let item of userItems">
           <user-search-item-component ID="{{item.id}}" Name='{{item.firstName + " " + item.lastName}}'
             Image='{{item.imageURL}}' AlreadyMember='{{item.alreadyMember}}' CommunityID='{{communityID}}'
             (UserAction)="userAddedorRemoved()"></user-search-item-component>
-        </div>
+        </ion-item>
       </ion-list>
-
+-->
       <ion-infinite-scroll (ionInfinite)="$event.waitFor(bindUserList_Paging())">
         <ion-infinite-scroll-content></ion-infinite-scroll-content>
       </ion-infinite-scroll>

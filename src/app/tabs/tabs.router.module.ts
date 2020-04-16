@@ -68,6 +68,11 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'Settings',
+        redirectTo: '/tabs/tab1',
+        pathMatch: 'full'
+      },
+      {
         path: '',
         redirectTo: '/tabs/tab1',
         pathMatch: 'full'

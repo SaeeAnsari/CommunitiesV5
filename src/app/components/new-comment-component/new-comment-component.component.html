@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="dark">
     <ion-buttons slot="start">
 
       <ion-button (click)="closeModal()">
@@ -10,8 +10,8 @@
     <ion-title>New Registeration</ion-title>
 
     <ion-buttons slot="secondary">
-      <ion-button ion-button (click)="post()" color="primary" >
-        <b>Post</b>
+      <ion-button ion-button (click)="post()"  >
+        <u><b>Post</b></u>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -25,9 +25,9 @@
         <div class="feed_post_area">
 
           <div>
-            <div class="form-group">
+            <div class="form-group" >
 
-              <ion-item>
+              <ion-item color="dark">
                 <ion-label>
                   <i class="fa fa-users"></i> Communities</ion-label>
                 <ion-select [(ngModel)]="optionsModel" multiple="true">

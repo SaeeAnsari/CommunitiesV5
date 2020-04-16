@@ -2,7 +2,7 @@
 
 
 
-  <ion-toolbar>
+  <ion-toolbar color="dark">
     <ion-buttons slot="start">
 
       <ion-button (click)="closeModal()">
@@ -15,13 +15,14 @@
 </ion-header>
 
 
-<ion-content>
+<ion-content >
   <div class="comments">
 
-    <ion-item>
+    <ion-item color="dark">
       <div class="comment-post">
         <ion-input placeholder="Get in the conv.." [(ngModel)]="commentPost"></ion-input>
-        <ion-button color="primary" (click)="postComment()">Post</ion-button>
+        <button ion-button (click)="postComment()" color="danger" slot="end">Post</button>
+
       </div>
     </ion-item>
 
@@ -84,7 +85,7 @@
 
     <ul class="media-list">
       <div *ngFor="let comment of comments">
-        <ion-card>
+        <ion-card color ="dark">
           <ion-card-content>
 
             <div class="cardContainer" *ngIf="!comment.commentParentID">
@@ -95,13 +96,13 @@
                 <ul class="comments_reply ">
                   <li>
 
-                    <ion-button fill="clear" size="small"  (click)="setLike(comment.storyID, comment.id)">{{comment.actions.supportCount}} Like</ion-button>
+                    <ion-button color="none"  (click)="setLike(comment.storyID, comment.id)">{{comment.actions.supportCount}} Like</ion-button>
 
                   
                     </li>
                   <li>
                 
-                    <ion-button fill="clear" size="small"  (click)="setReply(comment.storyID, comment.id)">Reply</ion-button>
+                    <ion-button color="none"  (click)="setReply(comment.storyID, comment.id)">Reply</ion-button>
                   
                 </li>
                   <div class="text-botom comment_day_difference">
@@ -135,7 +136,7 @@
                 <strong>{{comment.user.displayName}}</strong> reply-- {{comment.comment}}
                 <ul class="comments_reply ">
                   <li>
-                    <ion-button size="small"  fill="clear"   (click)="setLike(comment.storyID, comment.id)">
+                    <ion-button color="none"   (click)="setLike(comment.storyID, comment.id)">
                       {{comment.actions.supportCount}} Like</ion-button>
                   </li>
                   <div class="text-botom comment_day_difference">

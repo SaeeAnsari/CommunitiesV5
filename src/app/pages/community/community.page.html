@@ -8,7 +8,7 @@
 
   
 
-  <ion-toolbar transparent>
+  <ion-toolbar color="dark" >
     <ion-buttons slot="start">       
       <ion-back-button [text]="buttonText" [icon]="buttonIcon"></ion-back-button>
     </ion-buttons>    
@@ -23,21 +23,23 @@
   <div class="container new-community">
 
     <form [formGroup]="communityForm" novalidate (ngSubmit)="saveCommunity(communityForm.value, communityForm.valid)">
-      <ion-item no-lines>
+      
+      <ion-item color="dark">&nbsp;</ion-item>
+      <ion-item no-lines color="dark">
 
         <div class="community-text-blurb">
           Super Exciting!.. Lets make magic
         </div>
       </ion-item>
-      <ion-item>
+      <ion-item color="dark" >
         <ion-input type="text" maxlength="20" placeholder="Name of you Community?" formControlName="name"
           [class.invalid]="!communityForm.controls.name.valid && (communityForm.controls.name.dirty || submitted)">
         </ion-input>
       </ion-item>
-      <ion-item *ngIf="!communityForm.controls.name.valid  && (communityForm.controls.name.valid || submitted)">
+      <ion-item   *ngIf="!communityForm.controls.name.valid  && (communityForm.controls.name.valid || submitted)">
         <small class="error-class">Please enter a name for your new Community</small>
       </ion-item>
-      <ion-item>
+      <ion-item  color="dark">
         <ion-input type="text" placeholder="What will it about?" formControlName="description"
           [class.invalid]="!communityForm.controls.description.valid && (communityForm.controls.description.dirty || submitted)">
         </ion-input>
@@ -46,7 +48,7 @@
         *ngIf="!communityForm.controls.description.valid  && (communityForm.controls.description.valid || submitted)">
         <small class="error-class">Please enter a Description</small>
       </ion-item>
-      <ion-item>
+      <ion-item color="dark" >
         <div class="community-image-upload" no-lines>
           <app-local-gallery-upload-community UpdateIconImageOnUpload="true"
             (OnFileSaved)="mediaSelectedForPosting($event)" Type="Community" UploadedImage="22">
@@ -57,7 +59,7 @@
 
       
 
-      <ion-item>
+      <ion-item color="dark" >
         <div class="community-location">
           <div *ngIf="!gotLocationEntry" class="pull-left zip-postal-text">
             <ion-input type="text" placeholder="Zip or Postal" formControlName="zip_postal"></ion-input>
@@ -81,6 +83,8 @@
       <ion-item *ngIf="(!gotLocationEntry  && submitted)">
         <small class="error-class">Please click "Locate Me" or enter a Zip/Postal Code</small>
       </ion-item>
+
+      <ion-item color="dark">&nbsp;</ion-item>
 
       <br>
       <br>

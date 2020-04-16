@@ -1,6 +1,6 @@
 <ion-header>
 
-  <ion-toolbar>
+  <ion-toolbar color="dark">
     <ion-buttons slot="start">
      
       <ion-button (click)="closeModal()"> 
@@ -12,7 +12,7 @@
   </ion-toolbar>
 
 </ion-header>
-<ion-content class="ion-padding">
+<ion-content class="ion-padding" >
   <form [formGroup]="loginForm" novalidate (ngSubmit)="loginUser(loginForm.value, loginForm.valid)">
 
     <div class="containerLogin text-center container">
@@ -20,13 +20,13 @@
         <img src="assets/images/login/logo.png" alt="logo">
       </a>
 
-      <ion-item>
+      <ion-item color="dark">
         <ion-label color="primary" position="stacked">Email</ion-label>
         <ion-input type="email" placeholder="Email" formControlName="email"
           [ngClass]="{'has-error':!loginForm.controls['email'].valid}"></ion-input>
       </ion-item>
 
-      <ion-item>
+      <ion-item color="dark">
         <ion-label color="primary" position="stacked">Password</ion-label>
         <ion-input type="password" placeholder="Password" formControlName="password"
           [ngClass]="{'has-error':!loginForm.controls['password'].valid}"></ion-input>

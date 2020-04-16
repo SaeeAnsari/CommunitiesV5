@@ -101,7 +101,8 @@ import {MenuComponent} from '../app/components/menu/menu.component';
     SocialSharingPopoverComponent,
     UserCommentsComponent,
 
-    ViewTopicsComponent
+    ViewTopicsComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule, 

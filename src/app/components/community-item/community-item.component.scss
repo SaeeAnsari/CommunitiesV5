@@ -52,10 +52,30 @@
 }
 
 .image-object {
-    border: 1px solid #07e5d8;
-    border-radius: 50%;
-    height: 30px;
+    //border: 1px solid #000000;
+    //border-radius: 50%;
+    height: auto;
     margin: 1px;
-    width: 30px;
+    width: 40px;
     
+}
+
+ion-card-content {
+    --background-color: #000000;
+}
+
+.list-md {
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    background: #000;
+}
+
+ion-label{
+    margin-left: 10px;
 }

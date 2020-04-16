@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { UserService } from '../providers/user-service';
-import { NavController, Platform } from '@ionic/angular';
+import { NavController, Platform, ModalController, PopoverController } from '@ionic/angular';
 import { FCM } from '@ionic-native/fcm/ngx';
+import { MenuComponent } from '../components/menu/menu.component';
 
 @Component({
   selector: 'app-tabs',
@@ -12,8 +13,8 @@ export class TabsPage {
 
   public notifications = [];
 
-  constructor(userService: UserService, navCtrl: NavController, private firebaseIonic: FCM,
-    private platform: Platform, ) {
+  constructor(userService: UserService, navCtrl: NavController, private firebaseIonic: FCM, private modal: ModalController,
+    private platform: Platform, private popoverCtrl: PopoverController) {
 
     this.onNotification();
 
@@ -77,4 +78,22 @@ export class TabsPage {
     }
   }
 
+  async launchSettingsModel(){
+
+
+
+    let popover = await this.popoverCtrl.create({
+      component: MenuComponent      
+    });
+
+
+    popover.present();
+
+    /*
+    let menu = await this.modal.create({
+      component: MenuComponent
+    });    
+    menu.present();
+    */
+  }
 }

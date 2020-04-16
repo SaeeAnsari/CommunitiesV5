@@ -59,10 +59,11 @@
 
 .cardContainer > p {
     font-size: 5pt;
+    color: white;
 }
 
 ion-input{
-    border-bottom: 1px solid #333333;
+    border-bottom: 1px solid #ffffff;
 }
 
 
@@ -87,6 +88,7 @@ ion-input{
     padding-bottom: 5px;
     padding-left: 25px;
     text-align: left;
+    color: white;
 }
 
 
@@ -95,7 +97,7 @@ ion-input{
 ================================*/
 .comments {
     //background-color: #202020;
-    background-color: rgba(255, 255, 255, 0.75);
+    //background-color: rgba(255, 255, 255, 0.75);
     
     text-align:center;
     padding-top: 20px;

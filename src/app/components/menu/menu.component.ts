@@ -39,16 +39,9 @@ export class MenuComponent implements OnInit {
     //this.navCtrl.push(Login);
   }
 
-  async launchUpdateLocation() {
-    /*
-    let userLocationModal = await this.modalCtrl.create({
-      component: UserLocationPage
-    });
-    //let userLocationModal = this.modalCtrl.create(UserLocation, {launchType:"Settings"} , { showBackdrop: true, enableBackdropDismiss: true });
-    userLocationModal.present();
-    */
-   this.menu.close();
-   this.router.navigate(["/user-location"])
+  async launchUpdateLocation() {    
+   this.router.navigate(["/user-location"]);
+   this.modalCtrl.dismiss();
   }
 
   SubscribeTest(){

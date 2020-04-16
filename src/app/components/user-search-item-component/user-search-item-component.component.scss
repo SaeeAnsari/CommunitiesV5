@@ -12,10 +12,7 @@
     margin: 10px 0;
   }
   
-  .single_item {
-      position: relative;
-      top: 50%;
-  }
+  
   .single_item > div > button {
       background: #dcdcdc none repeat scroll 0 0;
       border-radius: 5px;
@@ -33,14 +30,20 @@
   }
   
   
-  .single_item img {
-      border-radius: 50%;
-      float: left;
-      height: 50px;
-      margin-right: 11px;
-      width: 50px;
-  }
   
   .divUserName{
       width: 70%;
   }
+
+  .image-object {
+    //border: 1px solid #000000;
+    //border-radius: 50%;
+    height: auto;
+    margin: 1px;
+    width: 40px;
+    
+}
+
+ion-label{
+    padding-left: 10px;
+}

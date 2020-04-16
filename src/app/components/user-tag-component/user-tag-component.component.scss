@@ -28,17 +28,19 @@
   .feed_post_user {
     margin-top: 5px;
     display: inline-flex;
+    padding-left: 10px;
   }
   
   .feed_post_user_name {
       //color: #07e5d8;
       //color:#a4a4;
-      color: 000000;
+      //color: 000000;
+      color: #ffffff;
       font-weight: bold;
       font-size: 15px;
   }
   .feed_post_date {
-      color: #666666;
+      //color: #666666;
       font-size: 10px;
       margin-top: 5px;
       margin-left: 8px;
