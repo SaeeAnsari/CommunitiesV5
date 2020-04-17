@@ -98,11 +98,17 @@ position: absolute;
 /*================================
 			Feed Post
 ================================*/
+
+ion-title{
+    padding-left: 5px;
+}
+
 #feed_post .container{
     //background: #dcdcdc;
     //background-color: rgba(240, 248, 255, 0.60);
    
 }
+
 
 .feed_post_header {
   overflow: hidden;

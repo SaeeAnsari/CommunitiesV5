@@ -210,4 +210,12 @@ export class LiveFeedPage implements OnInit {
 
     this.router.navigate(['tabs/UserSearch'], navigationExtras);
   }
+
+  userchangedCommunity(data){
+    if (data) {
+      this.communityID = data.communityID;
+          
+      this.BootstrapFeed();
+    }
+  }
 }

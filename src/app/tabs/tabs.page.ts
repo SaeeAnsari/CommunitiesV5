@@ -78,12 +78,14 @@ export class TabsPage {
     }
   }
 
-  async launchSettingsModel(){
+  async launchSettingsModel(ev: any){
 
 
 
     let popover = await this.popoverCtrl.create({
-      component: MenuComponent      
+      component: MenuComponent,
+      event: ev,
+      translucent: true
     });
 
 

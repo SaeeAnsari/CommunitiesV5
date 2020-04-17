@@ -34,7 +34,8 @@
 -->
 
   <ion-toolbar color="dark">
-      <ion-buttons slot="start"> 
+     
+    <!--<ion-buttons slot="start"> 
         <ion-menu-toggle>
           <ion-button >
             <ion-icon slot="icon-only" name="menu"></ion-icon>
@@ -42,19 +43,25 @@
         </ion-menu-toggle>         
            
       </ion-buttons>
+
+    -->
       <ion-buttons slot="secondary">
         <ion-button (click)="addUserToCommunity()">
           <ion-icon slot="icon-only" name="contacts"></ion-icon>
         </ion-button>
       </ion-buttons>
-      <ion-title><div>{{communityName}}</div></ion-title>
+      <ion-title>{{communityName}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 
 <ion-content>
-  <section id="feed_post">
+  <section id="feed_post" >
     <div class="container">
+
+      <ion-item color="dark">
+        <app-communities-slides-v2 (CommunityChanged)="userchangedCommunity($event)"></app-communities-slides-v2>
+      </ion-item>
 
       <!--
       <div class="feed-community-slides" >

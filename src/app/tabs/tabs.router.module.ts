@@ -12,7 +12,7 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: () =>
+            loadChildren: () =>              
               import('../pages/live-feed/live-feed.module').then(m => m.LiveFeedPageModule)
           }
         ]

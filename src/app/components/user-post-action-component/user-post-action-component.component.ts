@@ -87,6 +87,8 @@ export class UserPostActionComponent implements OnInit {
 
         let popover = await this.popoverCtrl.create({
           component: SocialSharingPopoverComponent,
+          event: myEvent,
+          translucent: true,
           componentProps: {
             storyID: sub.ID,
             mediaType: this.MediaType,
