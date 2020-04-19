@@ -41,7 +41,7 @@ import { OpenGraphServiceProvider } from '../app/providers/open-graph-service/op
 import { GeoProviderServiceProvider } from '../app/providers/geo-provider-service/geo-provider-service';
 import { BaseLinkProvider } from '../app/providers/base-link/base-link';
 import { FacebookApiProvider } from '../app/providers/facebook-api/facebook-api';
-import { EventProvider } from '../app/providers/event/event';
+
 import { CameraPluginProvider } from '../app/providers/camera-plugin/camera-plugin';
 import { HelperProvider } from '../app/providers/helper/helper';
 import { ErrorLogServiceProvider } from './providers/error-log-service/error-log-service';
@@ -52,7 +52,6 @@ import { ForgetPasswordComponent } from '../app/components/forget-password/forge
 import { LoginComponent } from '../app/components/login-component/login-component.component';
 
 import { NewCommentComponent } from '../app/components/new-comment-component/new-comment-component.component';
-import { NewEventComponent } from '../app/components/new-event/new-event.component';
 import { RegisterUserComponent } from '../app/components/register-user-component/register-user-component.component';
 import { SocialSharingPopoverComponent } from '../app/components/social-sharing-popover/social-sharing-popover.component';
 import { UserCommentsComponent } from '../app/components/user-comments-component/user-comments-component.component';
@@ -77,7 +76,7 @@ import {MenuComponent} from '../app/components/menu/menu.component';
     LoginComponent,
     
     NewCommentComponent,
-    NewEventComponent,
+    
     RegisterUserComponent,
     SocialSharingPopoverComponent,
     UserCommentsComponent,
@@ -96,7 +95,7 @@ import {MenuComponent} from '../app/components/menu/menu.component';
     LoginComponent,
     
     NewCommentComponent,
-    NewEventComponent,
+    
     RegisterUserComponent,
     SocialSharingPopoverComponent,
     UserCommentsComponent,
@@ -125,7 +124,7 @@ import {MenuComponent} from '../app/components/menu/menu.component';
     ErrorLogServiceProvider,
     Facebook,
     FacebookApiProvider,
-    EventProvider,
+    
     Camera,
     Keyboard,
     MediaCapture,

@@ -52,10 +52,10 @@ export class CommunityTopicMarkerComponent implements OnInit {
 
 
   @Input() CommunityID: number;
-  private communityCreated: boolean = false;
-  private hideButtons: boolean = true;
-  private hideCreate: boolean = false;
-  private showDelete: boolean = false;
+  public communityCreated: boolean = false;
+  public hideButtons: boolean = true;
+  public hideCreate: boolean = false;
+  public showDelete: boolean = false;
 
   constructor(
 

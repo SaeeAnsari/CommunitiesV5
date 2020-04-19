@@ -28,10 +28,10 @@ import { UserSearchPage } from '../../pages/user-search/user-search.page';
 })
 export class LiveFeedPage implements OnInit {
 
-  private posts = [];
-  private communityID: number = 0;
-  private pageIndex: number = 1;
-  private communityName: string = "";
+  public posts = [];
+  public communityID: number = 0;
+  public pageIndex: number = 1;
+  public communityName: string = "";
 
   constructor(
     public navCtrl: NavController,

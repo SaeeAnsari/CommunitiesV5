@@ -39,9 +39,12 @@ export class CommunityPage implements OnInit {
   name: string;
   public communityImage: string = '';
   private uploadMessage: string = '';
-  private uploaded: boolean = false;
-  private gotLocationEntry: boolean = false;
+  public uploaded: boolean = false;
+  public gotLocationEntry: boolean = false;
   private location;
+
+  public buttonText = "";
+  public buttonIcon = "";
 
 
   constructor(

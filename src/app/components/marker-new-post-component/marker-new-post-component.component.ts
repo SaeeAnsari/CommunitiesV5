@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { UserService } from '../../providers/user-service';
 import { NewCommentComponent } from '../new-comment-component/new-comment-component.component';
-import {NewEventComponent} from '../new-event/new-event.component';
 
 
 import { ModalController } from '@ionic/angular';
@@ -26,7 +25,7 @@ export class MarkerNewPostComponent implements OnInit {
   @Input() CommunityID: number = 0;
   @Output() OnStorySave = new EventEmitter();
 
-  private user;
+  public user;
   constructor(private _userService: UserService, public modalCtrl: ModalController) { }
 
   ngOnInit() {
@@ -45,18 +44,7 @@ export class MarkerNewPostComponent implements OnInit {
 
     if(this.FeedType == "Event"){
 
-      let eventsModal = await this.modalCtrl.create({component:NewEventComponent, 
-      componentProps:{ storyID: this.StoryID, FeedType: this.FeedType }}); 
-        
-
-        eventsModal.onDidDismiss().then(data => {
-
-        if (data) {
-          this.StoryID = data.data.storyID;
-          this.OnStorySave.emit();
-        }
-      });
-      eventsModal.present();
+     
     }
     else{
 

@@ -21,7 +21,7 @@ export class CreateTopicComponent {
  
 
   @Input() CommunityID:number=0;
-  private topicName: string = '';
+  public topicName: string = '';
 
   public topicForm: FormGroup;
 

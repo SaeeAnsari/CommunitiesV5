@@ -27,12 +27,12 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./user-search.page.scss'],
 })
 export class UserSearchPage implements OnInit {
-  private communityID: number = -1;
+  public communityID: number = -1;
   public searchInput: FormControl;
-  private userItems: User[] = [];
+  public userItems: User[] = [];
   searchVal: string;
 
-  private nextPageIndex: number = 1;
+  public nextPageIndex: number = 1;
 
 
   constructor

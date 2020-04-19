@@ -28,7 +28,7 @@ export class RegisterUserComponent {
   private isUploadingImage: boolean = false;
   private uploaded: boolean = false;
   private selfieURL: string = "";
-  private passwordMatch: boolean = true;
+  public passwordMatch: boolean = true;
 
 
   constructor(private _fb: FormBuilder,

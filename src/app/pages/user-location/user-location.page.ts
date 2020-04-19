@@ -20,7 +20,7 @@ import { Router } from '@angular/router';
 })
 export class UserLocationPage {
 
-  private completed: boolean = false;
+  public completed: boolean = false;
   private defaultCommunityID: number = 0;
   @Input() LaunchType: string = "Registration";
 

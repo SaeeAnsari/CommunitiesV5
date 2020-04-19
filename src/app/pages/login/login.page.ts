@@ -19,7 +19,7 @@ import { ErrorLogServiceProvider } from '../../providers/error-log-service/error
 import { ForgetPasswordComponent } from '../../components/forget-password/forget-password.component';
 
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 
 
 
@@ -239,8 +239,9 @@ export class LoginPage {
 
       if (data.data) {
         if (data.data.id) {
-          
-          this.navCtrl.navigateForward("/user-location/" + data.data.id)
+          sessionStorage.setItem('userID', data.data.id);
+          this.router.navigate(['user-location']);
+          //this.navCtrl.navigateForward("/user-location/" + data.data.id)
           
           //this.navCtrl.push(UserLocation, data);
 

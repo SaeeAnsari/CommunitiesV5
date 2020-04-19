@@ -39,8 +39,8 @@ export class ViewTopicsComponent implements OnInit {
     console.log('ionViewDidLoad LiveFeed');
   }
 
-  private CommunityID: number = 0;
-  private topics = [];
+  public CommunityID: number = 0;
+  public topics = [];
 
   constructor(
     private _communityService: CommunityService,

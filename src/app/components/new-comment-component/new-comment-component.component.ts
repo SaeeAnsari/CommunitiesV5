@@ -42,7 +42,7 @@ export class NewCommentComponent implements OnInit {
 
   private user;
   public uploaded: boolean = false;
-  private postText: string = "";
+  public postText: string = "";
   private postTextUploaded: string = "";
   public mediaType: string = "";
   public uploadedMediaURL: string = "";
@@ -54,22 +54,22 @@ export class NewCommentComponent implements OnInit {
   private videoSelected: boolean = false;
   private imageSelected: boolean = false;
 
-  private activeCommunity;
+  public activeCommunity;
 
-  private userCommunities = [];
+  public userCommunities = [];
 
   PostTextControl = new FormControl();
 
 
-  private optionsModel: number[] = [];
+  public optionsModel: number[] = [];
 
 
-  private graphFound: boolean = false;
-  private graphDescription: string = "";
-  private graphTitle: string = "";
-  private graphImage: string = "";
-  private graphExternalURL: string = "";
-  private videoMimeType: string = "";
+  public graphFound: boolean = false;
+  public graphDescription: string = "";
+  public graphTitle: string = "";
+  public graphImage: string = "";
+  public graphExternalURL: string = "";
+  public videoMimeType: string = "";
 
 
   private keyboardShowing: boolean;

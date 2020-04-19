@@ -66,15 +66,15 @@ export class UserCommentsComponent implements OnInit {
     }    
   }
 
-  private commentPost: string;
-  private comments = [];
-  private postMediaURL;//Collection of images for a post
-  private postMessage: string;
-  private storyExternalURL: string = "";
-  private eventAddress: string = "";
-  private eventDate: string = "";
-  private eventID: number;
-  private replyParentID: number;
+  public commentPost: string;
+  public comments = [];
+  public postMediaURL;//Collection of images for a post
+  public postMessage: string;
+  public storyExternalURL: string = "";
+  public eventAddress: string = "";
+  public eventDate: string = "";
+  public eventID: number;
+  public replyParentID: number;
 
   @Input() storyID: number;
 

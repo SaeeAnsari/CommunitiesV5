@@ -72,4 +72,8 @@ export class UserSearchItemComponent {
 
     return false;
   }
+
+  navigate(){
+    
+  }
 }

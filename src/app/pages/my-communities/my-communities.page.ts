@@ -209,4 +209,8 @@ export class MyCommunitiesPage implements OnInit {
     this.navCtrl.navigateForward("/community");
     //this.navCtrl.push(CommunityPage);
   }
+
+  searchCommunities(){
+    
+  }
 }

@@ -28,6 +28,10 @@ export class UploadedMediaPostComponent implements OnInit{
 
   }
 
+  openComments(){
+    
+  }
+
 
 
 }
