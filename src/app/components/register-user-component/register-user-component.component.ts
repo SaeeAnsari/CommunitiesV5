@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
-import { NavController, NavParams, ModalController } from '@ionic/angular';
+import { NavController, NavParams, ModalController, LoadingController } from '@ionic/angular';
 //import { NativeStorage } from '@ionic-native/native-storage';
-import {Storage} from '@ionic/storage';
+import { Storage } from '@ionic/storage';
 
 import { Observable } from 'rxjs/Rx';
 import { UserService } from '../../providers/user-service';
 
 import { MediaPostService } from '../../providers/media-post-service';
+import { StoryService } from '../../providers/story-service';
 
 /**
  * Generated class for the RegisterUserComponent component.
@@ -19,7 +20,7 @@ import { MediaPostService } from '../../providers/media-post-service';
   selector: 'register-user-component',
   templateUrl: 'register-user-component.component.html',
   styleUrls: ['./register-user-component.component.scss'],
-  providers: [UserService, MediaPostService]
+  providers: [UserService, MediaPostService, StoryService]
 })
 export class RegisterUserComponent {
 
@@ -37,7 +38,9 @@ export class RegisterUserComponent {
     private _userService: UserService,
     private _mediaPost: MediaPostService,
     public vc: ModalController,
-    private storage: Storage) {
+    private storage: Storage,
+    private storyService: StoryService,
+    public loadingController: LoadingController) {
     this.registerationForm = this._fb.group({
       firstName: ['', [<any>Validators.required, <any>Validators.minLength(2)]],
       lastName: ['', [<any>Validators.required, <any>Validators.minLength(2)]],
@@ -45,6 +48,11 @@ export class RegisterUserComponent {
       password: ['', [<any>Validators.required, <any>Validators.minLength(6)]],
       confirmPassword: ['', [Validators.required, <any>Validators.minLength(6)]]
     });
+
+    //Test variable
+    //this.selfieURL = "https://res.cloudinary.com/http-communities-me/image/upload/v1587493414/vweie6ybfixsgxu6agjb.jpg";
+
+    
   }
 
   fileChange(event) {
@@ -67,7 +75,8 @@ export class RegisterUserComponent {
     }
   }
 
-  saveUser(model, isValid: boolean) {
+  async saveUser(model, isValid: boolean) {
+
     this.passwordMatch = model.password == model.confirmPassword;
 
     if (isValid && isValid == true) {
@@ -75,6 +84,7 @@ export class RegisterUserComponent {
         if (this.selfieURL != "") {
           model.imageURL = this.selfieURL;
         }
+
 
         model.authenticationPortalID = 1;//Custom
         this._userService.RegisterUser(model).subscribe(sub => {
@@ -84,16 +94,20 @@ export class RegisterUserComponent {
           let data = {
             id: this.id
           };
-
+          
           this.vc.dismiss(data);
-
         });
       }
     }
   }
 
 
-  mediaSelectedForPosting(data) {
+  async mediaSelectedForPosting(data) {
+
+    const loading = await this.loadingController.create({
+      message: 'Please wait...',
+      duration: 2000
+    });
 
     console.log("inside the imageSelectedForPosting");
     if (data != null) {
@@ -103,11 +117,47 @@ export class RegisterUserComponent {
 
         data.imageList.forEach(element => {
 
-          this.selfieURL = element.fileName;
+
+          let options = {
+            fileKey: 'file',
+            fileName: element.fileName,
+            mimeType: 'image/jpeg',
+            chunkedMode: false,
+            headers: {
+              'Content-Type': undefined
+            },
+            params: {}
+          };
+
+          loading.present();
+
+          var results = this.storyService.uploadMedia(element.fileName, options, "User", "Image");
+          console.log("New Comment: Uploaded Result " + results);
+
+          results.then(result => {
+            console.log("Return variable");
+            console.log(result);
+
+            var parsingString = result.response;
+            var fileName = parsingString.substring(parsingString.indexOf("<FileName>"), parsingString.indexOf("</FileName>")).replace("<FileName>", "");
+            var publicID = parsingString.substring(parsingString.indexOf("<PublicID>"), parsingString.indexOf("</PublicID>")).replace("<PublicID>", "");
+            var versionID = parsingString.substring(parsingString.indexOf("<VersionID>"), parsingString.indexOf("</VersionID>")).replace("<VersionID>", "")
+
+            this.selfieURL = fileName;
+            console.log(this.selfieURL);
+
+            console.log("Register User Upload : Filename " + fileName);
+            console.log(fileName);
+
+            setTimeout(() => {
+              loading.dismiss();
+            }, 5000);            
+          })                  
         });
       }
     }
   }
+
 
 
   closeModal() {

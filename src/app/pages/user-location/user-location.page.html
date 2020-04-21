@@ -7,26 +7,44 @@
 
 
 
-<ion-content class="ion-padding">
+<ion-content class="ion-padding" >
 
-  <div class="containerlocation">
-    <div *ngIf="LaunchType=='Registration'">
-      <h2>
-        Almost done!
-      </h2>
+  <ion-item lines="full" color  ="dark">
+
+    <div class="containerlocation">
+      <div *ngIf="LaunchType=='Registration'">
+        <h2>
+          Almost done!
+        </h2>
+      </div>
+      <div>
+
+        Press the <i>"Locate Me"</i> button so that we can show you everything that is happening around you
+      </div>
+
+      <ul>
+        <li>
+
+          <ion-button ion-button block shape="block"  color="light" (click)="locateMe()">
+            <ion-icon name="compass"></ion-icon>&nbsp;Locate Me
+          </ion-button>
+
+        </li>
+        <li>
+          <div *ngIf="completed == true">
+
+            <ion-button ion-button block   class="nextButton" (click)="SendUserToApp()">
+              
+              <ion-icon name="arrow-forward"></ion-icon>&nbsp; All Done
+
+             
+            </ion-button>
+           
+          </div>
+        </li>        
+      </ul>
+
     </div>
-    <div>
-
-      Press the <i>"Locate Me"</i> button so that we can show you everything that is happening around you
-    </div>
-
-    <ul>
-      <li><button ion-button primary (click)="locateMe()"><ion-icon name="compass">&nbsp;</ion-icon>Locate Me</button></li>
-    </ul>
-
-  </div>
-  <div *ngIf="completed">
-    <button ion-button class="nextButton" (click)="SendUserToApp()"><i class="checkMark  fa fa-check-circle fa-2x" aria-hidden="true"></i>&nbsp; All Done</button>
-  </div>
-  
+   
+  </ion-item>
 </ion-content>

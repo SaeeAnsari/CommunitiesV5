@@ -11,7 +11,7 @@
 .containerRegister  img {
     //padding: 10px 0 50px;
     
-    width: 80px;    
+    //width: 80px;    
 }
 
 .btn-login{
@@ -109,3 +109,13 @@
         font-size: 18px;
     z-index: 1;
     }
+
+    
+.image-object {
+    border: 1px solid #07e5d8;
+    border-radius: 50%;
+    height: 70px;
+    margin: 1px;
+    width: 70px;    
+    margin-bottom: 10px;
+}

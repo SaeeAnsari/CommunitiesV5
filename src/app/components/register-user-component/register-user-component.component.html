@@ -42,6 +42,10 @@
         <image-upload ImageCategory="User" UpdateIconImageOnUpload="true" (OnFileSaved)="mediaSelectedForPosting($event)"></image-upload>
  
         <local-gallery-upload ImageCategory="User" UpdateIconImageOnUpload="true" (OnFileSaved) = "mediaSelectedForPosting($event)" ></local-gallery-upload>
+
+        <div *ngIf="selfieURL != ''">        
+          <img src="{{selfieURL}}" class="image-object">
+        </div>
         
       </ion-item>
 
