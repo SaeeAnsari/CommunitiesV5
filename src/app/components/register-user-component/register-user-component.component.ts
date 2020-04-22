@@ -106,7 +106,7 @@ export class RegisterUserComponent {
 
     const loading = await this.loadingController.create({
       message: 'Please wait...',
-      duration: 2000
+      duration: 90000
     });
 
     console.log("inside the imageSelectedForPosting");
@@ -149,9 +149,7 @@ export class RegisterUserComponent {
             console.log("Register User Upload : Filename " + fileName);
             console.log(fileName);
 
-            setTimeout(() => {
-              loading.dismiss();
-            }, 5000);            
+            loading.dismiss();            
           })                  
         });
       }
