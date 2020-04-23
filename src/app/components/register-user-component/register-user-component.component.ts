@@ -28,7 +28,7 @@ export class RegisterUserComponent {
   private id: number;
   private isUploadingImage: boolean = false;
   private uploaded: boolean = false;
-  private selfieURL: string = "";
+  public selfieURL: string = "";
   public passwordMatch: boolean = true;
 
 
