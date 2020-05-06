@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {  NavController, ModalController, Platform, LoadingController } from '@ionic/angular';
+import { NavController, ModalController, Platform, LoadingController } from '@ionic/angular';
 //import { NativeStorage } from '@ionic-native/native-storage/ngx';
-import {Storage} from '@ionic/storage';
+import { Storage } from '@ionic/storage';
 import { TabsPage } from '../tabs/tabs.page';
 import { LoginComponent } from '../../components/login-component/login-component.component';
 import { RegisterUserComponent } from '../../components/register-user-component/register-user-component.component';
@@ -30,7 +30,7 @@ import { Router, NavigationExtras } from '@angular/router';
   providers: [UserService, Facebook, ErrorLogServiceProvider]
 })
 export class LoginPage {
-  
+
 
 
   private userLoaded: boolean = false; //Hack to make sure we only load the user once
@@ -93,7 +93,7 @@ export class LoginPage {
           this.getFacebookUserDetails(userID, res);
         }
       })
-      .catch(e => {       
+      .catch(e => {
         loading.message = "Facebook Authentication Failed";
         loading.present();
 
@@ -110,20 +110,20 @@ export class LoginPage {
 
   async getFacebookUserDetails(userID: string, res: any) {
 
-     
+
     let loading = await this.loadingCtrl.create({
       message: 'Signing on ...',
       spinner: 'dots'
     });
     loading.present();
-    
+
     this.fb.api('/' + userID + '?fields=id,name,email,first_name,last_name,picture,gender', []).then(data => {
       console.log(data);
 
       this._userService.AuthenticateThirdPartyUser(data.id).subscribe(sub => {
         console.log("RAW got : " + sub)
         if (sub != null && +sub > 0) {
-          console.log("Found the User : " + sub);          
+          console.log("Found the User : " + sub);
           this.ionViewDidLoad(sub);
         }
         else {
@@ -142,7 +142,7 @@ export class LoginPage {
           console.log(user);
 
           this._userService.RegisterSocialAuthUser(user).subscribe(sub => {
-            console.log("loaded :" + sub);            
+            console.log("loaded :" + sub);
             this.ionViewDidLoad(sub);
           });
         }
@@ -170,7 +170,7 @@ export class LoginPage {
     this._userService.AuthenticateThirdPartyUser(user.thirdPartyAuthID).subscribe(sub => {
       console.log("RAW got : " + sub)
       if (sub != null && +sub > 0) {
-        console.log("Found the User : " + sub);        
+        console.log("Found the User : " + sub);
         this.ionViewDidLoad(sub);
       }
       else {
@@ -189,7 +189,7 @@ export class LoginPage {
         console.log(user2);
 
         this._userService.RegisterSocialAuthUser(user2).subscribe(sub => {
-          console.log("loaded :" + sub);          
+          console.log("loaded :" + sub);
           this.ionViewDidLoad(sub);
         });
       }
@@ -242,7 +242,7 @@ export class LoginPage {
           sessionStorage.setItem('userID', data.data.id);
           this.router.navigate(['user-location']);
           //this.navCtrl.navigateForward("/user-location/" + data.data.id)
-          
+
           //this.navCtrl.push(UserLocation, data);
 
         }
@@ -254,8 +254,8 @@ export class LoginPage {
   ionViewDidLoad(userID: number) {
     console.log("User Loaded: " + this.userLoaded);
     if (!this.userLoaded) {
-      console.log("Loading User");      
-      if (userID > 0){
+      console.log("Loading User");
+      if (userID > 0) {
         console.log("selected UserID from Storage");
         console.log("User ID: " + userID);
         sessionStorage.setItem("userID", userID.toString());//Temporary removeit later
@@ -268,19 +268,19 @@ export class LoginPage {
             if (s.DefaultCommunityID <= 0) {
               this.err.logError("Login: No default Location found, we neeed the user to sett the location");
               //this.navCtrl.push(UserLocation);
-              
+
               this.navCtrl.navigateForward("/tabs/tab1");
             }
-            else {              
-              this.userLoaded = true;             
-              this.navCtrl.navigateForward("/tabs/tab1/");           
+            else {
+              this.userLoaded = true;
+              this.navCtrl.navigateForward("/tabs/tab1/");
             }
           }
         });
       }
-        console.log('ionViewDidLoad Login');
+      console.log('ionViewDidLoad Login');
     }
-    else{
+    else {
       this.navCtrl.navigateForward("/tabs/tab1");
     }
 
@@ -290,85 +290,100 @@ export class LoginPage {
       err => this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.CAMERA)
     );*/
     this.androidPermissions.requestPermissions([this.androidPermissions.PERMISSION.CAMERA, this.androidPermissions.PERMISSION.READ_EXTERNAL_STORAGE, this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE]);
-    
+
   }
 
 
 
-  async googleLogin2(){
+  async googleLogin2() {
     console.log("Google Login 2");
   }
 
 
-  async googleLogin() {
+  googleLogin() {
     console.log("Google Auth");
 
+    let loading = this.loadingCtrl.create({
+      message: 'Connecting to Google...',
+      spinner: 'dots'
+    });
+
+    /*
     let loading = await this.loadingCtrl.create({
       message: 'Connecting to Google...',
       spinner: 'dots'
     });
 
     loading.present();
+    */
 
-    console.log("starting google login process");
+    loading.then(ret => {
+      ret.present();
 
-    this.googlePlus.login({})
-      .then(res => {
-        console.log("Google Authentication");
+      console.log("starting google login process");
 
-        let _googleID = res.userId;
-        let name = res.displayName;
-        let email = res.email;
-        let photo = res.imageUrl;
+      this.googlePlus.login({})
+        .then(res => {
+          console.log("Google Authentication");
 
-        let firstname = res.givenName;
-        let lastName = res.familyName;
+          let _googleID = res.userId;
+          let name = res.displayName;
+          let email = res.email;
+          let photo = res.imageUrl;
 
-        loading.message = "Signing on ...";
+          let firstname = res.givenName;
+          let lastName = res.familyName;
 
-        console.log("About to Call AthenticateThirdPartyUser");
+          ret.message = "Signing on ...";
 
-        this._userService.AuthenticateThirdPartyUser(_googleID).subscribe(sub => {
-          console.log("RAW got : " + sub);
+          console.log("About to Call AthenticateThirdPartyUser");
 
-          if (sub != null && +sub > 0) {
-            console.log("Found the User : " + sub);            
-            this.ionViewDidLoad(sub);
-          }
-          else {
+          this._userService.AuthenticateThirdPartyUser(_googleID).subscribe(sub => {
+            console.log("RAW got : " + sub);
 
-            var user = {
-              id: -1,
-              firstName: firstname,
-              lastName: lastName,
-              gender: null,
-              email: email,
-              imageURL: photo,
-              thirdPartyAuthID: _googleID,
-              authenticationPortalID: 3,
-              active: true
-            }
-
-            console.log(user);
-
-            this._userService.RegisterSocialAuthUser(user).subscribe(sub => {
-              console.log("loaded :" + sub);              
-              loading.dismiss();
+            if (sub != null && +sub > 0) {
+              console.log("Found the User : " + sub);
               this.ionViewDidLoad(sub);
-            });
-          }
+            }
+            else {
+
+              var user = {
+                id: -1,
+                firstName: firstname,
+                lastName: lastName,
+                gender: null,
+                email: email,
+                imageURL: photo,
+                thirdPartyAuthID: _googleID,
+                authenticationPortalID: 3,
+                active: true
+              }
+
+              console.log(user);
+
+              this._userService.RegisterSocialAuthUser(user).subscribe(sub => {
+                console.log("loaded :" + sub);
+                loading.then(ret => {
+                  ret.dismiss();
+                })
+                this.ionViewDidLoad(sub);
+              });
+            }
+          });
+          ret.dismiss();
+        })
+        .catch(err => {
+          console.error(err);
+
+          ret.message = "Google login failed";
+          ret.present();
+
+          
+          setTimeout(() => {
+            ret.dismiss();
+          }, 5000);   
+          
         });
-        loading.dismiss();
-      })
-      .catch(err => {
-        console.error(err);
-        
-        loading.message = "Google login failed";
-        loading.present();
-        
-        setTimeout(() => {
-          loading.dismiss();
-        }, 5000);        
-      });
+    });
   }
 }
