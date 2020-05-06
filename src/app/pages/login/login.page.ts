@@ -370,6 +370,9 @@ export class LoginPage {
               });
             }
           });
+          //ret.dismiss();
+        })
+        .finally(function() {
           ret.dismiss();
         })
         .catch(err => {
