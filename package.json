@@ -27,6 +27,7 @@
     "@babel/compat-data": "^7.8.0",
     "@capacitor/android": "^2.0.1",
     "@capacitor/core": "1.5.1",
+    "@capacitor/ios": "^2.1.0",
     "@fortawesome/angular-fontawesome": "^0.5.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.28",
     "@fortawesome/free-brands-svg-icons": "^5.12.1",
@@ -59,6 +60,7 @@
     "again": "0.0.1",
     "angular-ui-bootstrap": "^2.5.6",
     "bootstrap": "^4.4.1",
+    "com.telerik.plugins.nativepagetransitions": "^0.6.5",
     "cordova-android": "8.1.0",
     "cordova-plugin-actionsheet": "^2.3.3",
     "cordova-plugin-android-permissions": "^1.0.2",
@@ -159,9 +161,6 @@
         "FACEBOOK_HYBRID_APP_EVENTS": "false",
         "FACEBOOK_ANDROID_SDK_VERSION": "5.2.0"
       },
-      "cordova-plugin-googleplus": {
-        "PLAY_SERVICES_VERSION": "15.0.1"
-      },
       "cordova-plugin-firebase-crashlytics": {
         "ANDROID_FIREBASE_ANALYTICS_VERSION": "17.2.1"
       },
@@ -178,7 +177,12 @@
       "cordova-plugin-background-upload": {},
       "cordova-plugin-ionic-webview": {
         "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+"
-      }
+      },
+      "cordova-plugin-googleplus": {
+        "REVERSED_CLIENT_ID": "com.googleusercontent.apps.634674165562-lc8asnp5v644bce9ftcbfi2alue7i10f",
+        "PLAY_SERVICES_VERSION": "15.0.1"
+      },
+      "com.telerik.plugins.nativepagetransitions": {}
     },
     "platforms": [
       "android"

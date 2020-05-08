@@ -126,4 +126,9 @@
     <plugin name="cordova-plugin-nativestorage" spec="^2.3.2" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.2.0" />
     <engine name="android" spec="8.1.0" />
+    <plugin name="cordova-plugin-googleplus" spec="^8.4.0">
+        <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.634674165562-lc8asnp5v644bce9ftcbfi2alue7i10f" />
+        <variable name="PLAY_SERVICES_VERSION" value="15.0.1" />
+    </plugin>
+    <plugin name="com.telerik.plugins.nativepagetransitions" spec="^0.6.5" />
 </widget>

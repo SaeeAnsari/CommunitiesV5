@@ -269,7 +269,7 @@ export class LoginPage {
               this.err.logError("Login: No default Location found, we neeed the user to sett the location");
               //this.navCtrl.push(UserLocation);
 
-              this.navCtrl.navigateForward("/tabs/tab1");
+              this.navCtrl.navigateForward("/user-location");
             }
             else {
               this.userLoaded = true;
@@ -322,7 +322,15 @@ export class LoginPage {
 
       console.log("starting google login process");
 
-      this.googlePlus.login({})
+      this.googlePlus.login(
+
+        /*
+        { 'scopes': 'email', // optional, space-separated list of scopes, If not included or empty, defaults to profileandemail. 
+        'webClientId': '', // optional clientId of your Web application from Credentials settings of your project - On Android, this MUST be included to get an idToken. On iOS, it is not required. 
+        'offline': true }
+*/
+{}
+      )
         .then(res => {
           console.log("Google Authentication");
 
@@ -373,7 +381,7 @@ export class LoginPage {
           //ret.dismiss();
         })
         .finally(function() {
-          ret.dismiss();
+          
         })
         .catch(err => {
           console.error(err);
