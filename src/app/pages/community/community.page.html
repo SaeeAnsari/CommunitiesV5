@@ -10,7 +10,9 @@
 
   <ion-toolbar color="dark" >
     <ion-buttons slot="start">       
-      <ion-back-button [text]="buttonText" [icon]="buttonIcon"></ion-back-button>
+      <ion-button (click)="backButton_click()">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
     </ion-buttons>    
     <ion-title>Create new community</ion-title>
   </ion-toolbar>

@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-toolbar color="dark">
-    <ion-buttons slot="secondary">
+    <ion-buttons slot="end">
       <ion-button (click)="navigateToFeed()">
         Done
       </ion-button>
@@ -20,6 +20,8 @@
 </ion-header>
 
 
+
+
 <ion-content class="ion-padding">
 
   <section id="communiti_list">
@@ -27,9 +29,11 @@
       <div class="login_form">
         <form action="#" method="post">
           <div class="search_feild">
+            <ion-item lines="full" color="dark">
 
-            <ion-searchbar [formControl]="searchInput">
-            </ion-searchbar>
+              <ion-searchbar [formControl]="searchInput">
+              </ion-searchbar>
+            </ion-item>
 
           </div>
         </form>
@@ -37,10 +41,10 @@
 
       <div *ngFor="let item of userItems">
         <user-search-item-component ID="{{item.id}}" Name='{{item.firstName + " " + item.lastName}}'
-            Image='{{item.imageURL}}' AlreadyMember='{{item.alreadyMember}}' CommunityID='{{communityID}}'
-            (UserAction)="userAddedorRemoved()"></user-search-item-component>
+          Image='{{item.imageURL}}' AlreadyMember='{{item.alreadyMember}}' CommunityID='{{communityID}}'
+          (UserAction)="userAddedorRemoved()"></user-search-item-component>
       </div>
-<!--
+      <!--
       <ion-list>
         <ion-item *ngFor="let item of userItems">
           <user-search-item-component ID="{{item.id}}" Name='{{item.firstName + " " + item.lastName}}'

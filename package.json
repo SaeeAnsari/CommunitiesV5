@@ -50,7 +50,6 @@
     "@ionic-native/keyboard": "^5.22.0",
     "@ionic-native/launch-navigator": "^5.22.0",
     "@ionic-native/media-capture": "^5.22.0",
-    "@ionic-native/native-page-transitions": "^4.20.0",
     "@ionic-native/native-storage": "^5.22.0",
     "@ionic-native/social-sharing": "^5.22.0",
     "@ionic-native/splash-screen": "^5.22.0",
@@ -60,7 +59,6 @@
     "again": "0.0.1",
     "angular-ui-bootstrap": "^2.5.6",
     "bootstrap": "^4.4.1",
-    "com.telerik.plugins.nativepagetransitions": "^0.6.5",
     "cordova-android": "8.1.0",
     "cordova-plugin-actionsheet": "^2.3.3",
     "cordova-plugin-android-permissions": "^1.0.2",
@@ -181,8 +179,7 @@
       "cordova-plugin-googleplus": {
         "REVERSED_CLIENT_ID": "com.googleusercontent.apps.634674165562-lc8asnp5v644bce9ftcbfi2alue7i10f",
         "PLAY_SERVICES_VERSION": "15.0.1"
-      },
-      "com.telerik.plugins.nativepagetransitions": {}
+      }
     },
     "platforms": [
       "android"

@@ -352,6 +352,7 @@ export class LoginPage {
             if (sub != null && +sub > 0) {
               console.log("Found the User : " + sub);
               this.ionViewDidLoad(sub);
+              
             }
             else {
 
@@ -371,17 +372,14 @@ export class LoginPage {
 
               this._userService.RegisterSocialAuthUser(user).subscribe(sub => {
                 console.log("loaded :" + sub);
-                loading.then(ret => {
-                  ret.dismiss();
-                })
                 this.ionViewDidLoad(sub);
               });
             }
+            ret.dismiss();
           });
           //ret.dismiss();
         })
         .finally(function() {
-          ret.dismiss();
         })
         .catch(err => {
           console.error(err);

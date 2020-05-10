@@ -16,5 +16,8 @@
       "SplashScreenDelay": "3000",
       "AndroidPersistentFileLocation": "Compatibility"
     }
+  },
+  "server": {
+    "url": "http://localhost:8100"
   }
 }

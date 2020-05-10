@@ -192,4 +192,8 @@ export class CommunityPage implements OnInit {
     console.log('ionViewDidLoad Community');
   }
 
+  backButton_click(){
+    this.router.navigate(['tabs/Communities']);
+  }
+
 }
