@@ -1,4 +1,4 @@
-package io.ionic.starter;
+package com.ionicframework.communities54284;
 
 import android.os.Bundle;
 

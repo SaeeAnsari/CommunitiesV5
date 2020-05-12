@@ -25,7 +25,7 @@
     "@angular/platform-browser-dynamic": "~8.1.2",
     "@angular/router": "~8.1.2",
     "@babel/compat-data": "^7.8.0",
-    "@capacitor/android": "^2.0.1",
+    "@capacitor/android": "^2.1.0",
     "@capacitor/core": "1.5.1",
     "@capacitor/ios": "^2.1.0",
     "@fortawesome/angular-fontawesome": "^0.5.0",
@@ -38,7 +38,7 @@
     "@ionic-native/core": "^5.22.0",
     "@ionic-native/deeplinks": "^5.22.0",
     "@ionic-native/facebook": "^5.22.0",
-    "@ionic-native/fcm": "^5.23.0",
+    "@ionic-native/fcm": "^5.25.0",
     "@ionic-native/file": "^5.22.0",
     "@ionic-native/file-transfer": "^5.22.0",
     "@ionic-native/firebase-crashlytics": "^5.23.0",
@@ -69,7 +69,7 @@
     "cordova-plugin-device": "^2.0.3",
     "cordova-plugin-dialogs": "^2.0.2",
     "cordova-plugin-facebook4": "^6.4.0",
-    "cordova-plugin-fcm-with-dependecy-updated": "^4.6.4",
+    "cordova-plugin-fcm-with-dependecy-updated": "^6.3.1",
     "cordova-plugin-file": "^6.0.2",
     "cordova-plugin-file-transfer": "^1.7.1",
     "cordova-plugin-firebase-crashlytics": "^1.0.0",
@@ -162,13 +162,6 @@
       "cordova-plugin-firebase-crashlytics": {
         "ANDROID_FIREBASE_ANALYTICS_VERSION": "17.2.1"
       },
-      "cordova-plugin-fcm-with-dependecy-updated": {
-        "FCM_VERSION": "19.0.0",
-        "GRADLE_TOOLS_VERSION": "3.5.3",
-        "GOOGLE_SERVICES_VERSION": "4.3.3",
-        "SUPPORT_LIBRARY_VERSION": "28.0.0",
-        "ANDROID_DEFAULT_NOTIFICATION_ICON": "@mipmap/ic_launcher"
-      },
       "cordova-plugin-androidx": {},
       "cordova-plugin-androidx-adapter": {},
       "cordova-plugin-telerik-imagepicker": {},
@@ -179,6 +172,13 @@
       "cordova-plugin-googleplus": {
         "REVERSED_CLIENT_ID": "com.googleusercontent.apps.634674165562-lc8asnp5v644bce9ftcbfi2alue7i10f",
         "PLAY_SERVICES_VERSION": "15.0.1"
+      },
+      "cordova-plugin-fcm-with-dependecy-updated": {
+        "FCM_VERSION": "19.0.0",
+        "GRADLE_TOOLS_VERSION": "3.5.3",
+        "GOOGLE_SERVICES_VERSION": "4.3.3",
+        "SUPPORT_LIBRARY_VERSION": "28.0.0",
+        "ANDROID_DEFAULT_NOTIFICATION_ICON": "@mipmap/ic_launcher"
       }
     },
     "platforms": [
