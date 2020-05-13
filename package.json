@@ -25,7 +25,6 @@
     "@angular/platform-browser-dynamic": "~8.1.2",
     "@angular/router": "~8.1.2",
     "@babel/compat-data": "^7.8.0",
-    "@capacitor/android": "^2.1.0",
     "@capacitor/core": "1.5.1",
     "@capacitor/ios": "^2.1.0",
     "@fortawesome/angular-fontawesome": "^0.5.0",

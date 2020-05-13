@@ -1,4 +1,3 @@
-import { Injectable } from '@angular/core';
 import { Animation } from '@ionic/core';
 
 export function EnterAnimation(AnimationC: Animation, baseEl: HTMLElement): Promise<Animation> {
@@ -12,7 +11,7 @@ export function EnterAnimation(AnimationC: Animation, baseEl: HTMLElement): Prom
     wrapperAnimation.addElement(baseEl.querySelector('.modal-wrapper'));
 
     wrapperAnimation.beforeStyles({ 'opacity': 1 })
-        .fromTo('translateY', '100%', '0%');
+        .fromTo('translateX', '-100%', '0%');
 
     backdropAnimation.fromTo('opacity', 0.01, 0.4);
 
@@ -25,4 +24,3 @@ export function EnterAnimation(AnimationC: Animation, baseEl: HTMLElement): Prom
         .add(wrapperAnimation));
 
 }
-
