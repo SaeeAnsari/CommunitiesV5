@@ -129,6 +129,7 @@
         <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.634674165562-lc8asnp5v644bce9ftcbfi2alue7i10f" />
         <variable name="PLAY_SERVICES_VERSION" value="15.0.1" />
     </plugin>
+    <engine name="android" spec="8.1.0" />
     <plugin name="cordova-plugin-fcm-with-dependecy-updated" spec="^6.3.1">
         <variable name="FCM_VERSION" value="19.0.0" />
         <variable name="GRADLE_TOOLS_VERSION" value="3.5.3" />
@@ -136,5 +137,4 @@
         <variable name="SUPPORT_LIBRARY_VERSION" value="28.0.0" />
         <variable name="ANDROID_DEFAULT_NOTIFICATION_ICON" value="@mipmap/ic_launcher" />
     </plugin>
-    <engine name="android" spec="8.1.0" />
 </widget>

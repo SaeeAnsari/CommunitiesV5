@@ -122,10 +122,10 @@ export class CommunitiesSlidesV2Component implements OnInit {
   
               var community = {
                 id: element.ID,
-                name: element.Name,
+                name: element.Type == 2 ? "Neighbourhood" : element.Name,
                 description: element.Description,
                 ownerID: element.OwnerID,
-                typeName: 'City',
+                typeName: element.Type,
                 imageURL: element.ImageURL
               };
   

@@ -62,6 +62,7 @@
 	<string>To Pick Photos from Library</string>
 	<key>REVERSED_CLIENT_ID</key>
 	<string>com.googleusercontent.apps.634674165562-lc8asnp5v644bce9ftcbfi2alue7i10f</string>
+	
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

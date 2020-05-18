@@ -20,6 +20,7 @@ export class BaseLinkProvider {
     
     return 'http://saeedansari-001-site6.itempurl.com/api';
     //return 'http://localhost/Change.API/api';
+    //return 'http://localhost:49520/api';
   }
 
   static GetMediaURL(){

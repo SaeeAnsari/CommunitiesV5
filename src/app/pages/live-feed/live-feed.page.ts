@@ -55,7 +55,7 @@ export class LiveFeedPage implements OnInit {
   getCommunityDetails() {
     this._communityService.GetCommunity(this.communityID)
       .subscribe(sub => {
-        this.communityName = sub.Name;
+        this.communityName = sub.Type == 2? "My Neighbourhood" : sub.Name;
       })
   }
 
