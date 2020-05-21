@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { NavController, ModalController} from '@ionic/angular';
+import { NavController, ModalController, LoadingController } from '@ionic/angular';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { UserService } from '../../providers/user-service';
 import { TabsPage } from '../../pages/tabs/tabs.page';
@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'page-user-location',
   templateUrl: 'user-location.page.html',
-  styleUrls: ['./user-location.page.scss'],  
+  styleUrls: ['./user-location.page.scss'],
   providers: [UserService]
 })
 export class UserLocationPage {
@@ -29,7 +29,8 @@ export class UserLocationPage {
     private _geolocation: Geolocation,
     private _userService: UserService,
     private vc: ModalController,
-    private router: Router
+    private router: Router,
+    public loadingCtrl: LoadingController
   ) {
 
 
@@ -42,20 +43,31 @@ export class UserLocationPage {
   }
 
   locateMe() {
-    this._geolocation.getCurrentPosition().then((resp) => {
 
+    let loading = this.loadingCtrl.create({
+      message: 'Locating ...',
+      spinner: 'dots'
+    });
 
-      let userID = this._userService.GetLoggedInUserID();
+    loading.then(ret => {
+      ret.present();
 
-      this._userService.SaveUserLocation(userID, resp.coords.latitude, resp.coords.longitude).subscribe(sub => {
-        if (sub > 0) {
-          this.defaultCommunityID = sub;//returns the defaultcommunityid
-          this.completed = true;
-        }
+      this._geolocation.getCurrentPosition().then((resp) => {
+
+        let userID = this._userService.GetLoggedInUserID();
+
+        this._userService.SaveUserLocation(userID, resp.coords.latitude, resp.coords.longitude).subscribe(sub => {
+          if (sub > 0) {
+            this.defaultCommunityID = sub;//returns the defaultcommunityid
+            this.completed = true;
+          }
+        });
+
+        ret.dismiss();
+      }).catch((error) => {
+        console.log('Error getting location', error);
+        ret.dismiss();
       });
-
-    }).catch((error) => {
-      console.log('Error getting location', error);
     });
   }
 
@@ -63,12 +75,12 @@ export class UserLocationPage {
     //f (this.LaunchType == "Registration") {
 
     this.router.navigate(['tabs/tab1']);
-      //this.navCtrl.navigateRoot("/tabs/" + this.defaultCommunityID)
-      //this.navCtrl.push(TabsPage, { communityID: this.defaultCommunityID });
-      //communityID
+    //this.navCtrl.navigateRoot("/tabs/" + this.defaultCommunityID)
+    //this.navCtrl.push(TabsPage, { communityID: this.defaultCommunityID });
+    //communityID
     //}
     //else if (this.LaunchType == "Settings") {
-      //this.vc.dismiss();
+    //this.vc.dismiss();
     //}
   }
 
