@@ -85,7 +85,12 @@ export class TabsPage {
     let popover = await this.popoverCtrl.create({
       component: MenuComponent,
       event: ev,
-      translucent: true
+      translucent: true,
+      componentProps:{
+        onDismiss: () =>{
+          popover.dismiss();
+        }
+      }
     });
 
 

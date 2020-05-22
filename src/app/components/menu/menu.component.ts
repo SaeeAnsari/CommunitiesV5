@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {Storage} from '@ionic/storage';
+import { Storage } from '@ionic/storage';
 import { UserLocationPage } from 'src/app/pages/user-location/user-location.page';
-import {FirebaseMessagingProvider} from '../../providers/firebase-messaging/firebase-messaging'
+import { FirebaseMessagingProvider } from '../../providers/firebase-messaging/firebase-messaging'
 import { NavController, NavParams, ModalController, MenuController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { Input } from '@angular/core';
 
 
 @Component({
@@ -19,16 +20,16 @@ export class MenuComponent implements OnInit {
     public fcm: FirebaseMessagingProvider,
     private router: Router,
     private menu: MenuController
-    ) { }
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   public SignOut() {
     this.storage.clear();
-    sessionStorage.setItem('userID', null);    
+    sessionStorage.setItem('userID', null);
     this.storage.set("userID", null);
 
-    this.menu.close();
+    this.onDismiss();
 
     this.router.navigate(['/login']);
 
@@ -39,14 +40,19 @@ export class MenuComponent implements OnInit {
     //this.navCtrl.push(Login);
   }
 
-  async launchUpdateLocation() {    
-   this.router.navigate(["/user-location"]);
-   this.modalCtrl.dismiss();
+  async launchUpdateLocation() {
+    this.onDismiss();
+    this.router.navigate(["/user-location"]);
+
+
+
   }
 
-  SubscribeTest(){
-    this.menu.close();
+  SubscribeTest() {
+
     this.fcm.SubscibeToTopic("1338");
   }
 
+  @Input()
+  public onDismiss = () => { }
 }
