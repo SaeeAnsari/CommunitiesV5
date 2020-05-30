@@ -104,7 +104,7 @@ export class CommunityService {
         Description: community.description,
         ImageURL: community.imageURL,
         OwnerID: userID,
-        Type: 2,
+        Type: 4,
         ID: community.id,
         Location: null
       };

@@ -29,7 +29,7 @@ import { Router, NavigationExtras } from '@angular/router';
   styleUrls: ['./login.page.scss'],
   providers: [UserService, Facebook, ErrorLogServiceProvider]
 })
-export class LoginPage {
+export class LoginPage implements OnInit {
 
 
 
@@ -51,6 +51,13 @@ export class LoginPage {
   ) {
     //this.onNotification();
 
+  }
+  ngOnInit(): void {
+    
+    var userID = localStorage.getItem("userID");
+    if(userID != null && userID != ''){
+      this.ionViewDidLoad(+userID);
+    }
   }
   /*
     async onNotification() {
@@ -106,6 +113,11 @@ export class LoginPage {
       });
 
     this.fb.logEvent(this.fb.EVENTS.EVENT_NAME_ADDED_TO_CART);
+  }
+
+  saveUserID(userID){
+    sessionStorage.setItem('userID', userID);
+    localStorage.setItem('userID', userID);
   }
 
   async getFacebookUserDetails(userID: string, res: any) {
@@ -239,7 +251,7 @@ export class LoginPage {
 
       if (data.data) {
         if (data.data.id) {
-          sessionStorage.setItem('userID', data.data.id);
+          this.saveUserID(data.data.id);          
           this.router.navigate(['user-location']);
           //this.navCtrl.navigateForward("/user-location/" + data.data.id)
 
@@ -258,7 +270,7 @@ export class LoginPage {
       if (userID > 0) {
         console.log("selected UserID from Storage");
         console.log("User ID: " + userID);
-        sessionStorage.setItem("userID", userID.toString());//Temporary removeit later
+        this.saveUserID(userID.toString());           
         console.log("Saved User to Session");
         this._userService.getLoggedinInUser().subscribe(s => {
           if (s != null && s.ID > 0) {
