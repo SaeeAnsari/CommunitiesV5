@@ -35,7 +35,7 @@ export class NotificationsPage {
 
   loadNotifications() {
     console.log("Inside Notifiation On Enter");
-    let notificationString = sessionStorage.getItem("userNotification");
+    let notificationString = localStorage.getItem("userNotification");
 
     if (notificationString != null && notificationString.length > 3) {
       this.notifications = JSON.parse(notificationString);

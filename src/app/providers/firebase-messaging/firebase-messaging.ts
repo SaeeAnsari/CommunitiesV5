@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { FCM } from '@ionic-native/fcm/ngx';
+//import { FCM } from '@ionic-native/fcm/ngx';
 
 
 // Observable class extensions
@@ -28,65 +28,68 @@ export class FirebaseMessagingProvider {
 
   private _url: string = 'https://fcm.googleapis.com/v1/projects/communities-386e8/messages:send';
   private messagingToken: string;
-  
-    constructor(public http: Http,public firebaseIonic:FCM) {
-      
-    }
+
+  constructor(
+    public http: Http
+
+    //, public firebaseIonic:FCM
+  ) {
+
+  }
 
 
 
 
-    public SubscibeToTopic(topic:string){
-      
-      this.firebaseIonic.subscribeToTopic(topic).then(ret=>{
-        console.log(ret);
-      })
-      .catch(this.handleError);
-    }
-  
-  
-    public SendNotificationToTopic(storyID: number, message: string): Observable<any> {
-      this.messagingToken = sessionStorage.getItem("messagingToken");
-      
+  public SubscibeToTopic(topic: string) {
+    /*
+    this.firebaseIonic.subscribeToTopic(topic).then(ret=>{
+      console.log(ret);
+    })
+    .catch(this.handleError);
+    */
+  }
 
-      console.log("fcm : " + this.messagingToken);
-      var headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-      headers.append('Authorization', 'Bearer ' + this.messagingToken);
-  
-      let data = {
-        
-        "message":{
-          "topic" : storyID.toString(),
-          "notification" : {
-            "body" : message,
-            "title" : "Communities",
-            }
-         }
-        
-        /*"condition": storyID.toString(),
-        "data": {
-          "message": message,
-        }*/
-      };
 
-      console.log("FCM Data: " + JSON.stringify(data));
-  
-      return this.http.post(
-        this._url,
-        data,
-        { headers: headers }
-      ).map(res => res.json())
-        .catch(this.handleError)
-  
-    }
-  
-    private handleError(error: any) {
-      let errMsg = (error.message) ? error.message :
-        error.status ? `${error.status} - ${error.statusText}` : 'Server error';
-      console.error("fcm: " + errMsg);
-      console.log("fcm: " + error._body);
-      return Observable.throw(errMsg);
-    }
+  public SendNotificationToTopic(storyID: number, message: string): Observable<any> {
+
+
+    this.messagingToken = sessionStorage.getItem("messagingToken");
+
+
+    console.log("fcm : " + this.messagingToken);
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Authorization', 'Bearer ' + this.messagingToken);
+
+    let data = {
+
+      "message": {
+        "topic": storyID.toString(),
+        "notification": {
+          "body": message,
+          "title": "Communities",
+        }
+      }
+    };
+
+    console.log("FCM Data: " + JSON.stringify(data));
+
+    return this.http.post(
+      this._url,
+      data,
+      { headers: headers }
+    ).map(res => res.json())
+      .catch(this.handleError)
+
+    return null;
+  }
+
+  private handleError(error: any) {
+    let errMsg = (error.message) ? error.message :
+      error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+    console.error("fcm: " + errMsg);
+    console.log("fcm: " + error._body);
+    return Observable.throw(errMsg);
+  }
 
 }

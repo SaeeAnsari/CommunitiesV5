@@ -4,5 +4,6 @@
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">localhost</domain>
         <domain includeSubdomains="true">http://saeedansari-001-site6.itempurl.com</domain>
+        <domain includeSubdomains="true">http://res.cloudinary.com/</domain>
     </domain-config>
 </network-security-config>

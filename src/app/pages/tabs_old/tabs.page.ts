@@ -9,7 +9,7 @@ import { EventFeedPage } from '../event-feed/event-feed.page';
 import { MyCommunitiesPage } from '../my-communities/my-communities.page';
 import { UserSearchPage } from '../user-search/user-search.page';
 import { NotificationsPage } from '../notifications/notifications.page';
-import { FCM } from '@ionic-native/fcm/ngx';
+//import { FCM } from '@ionic-native/fcm/ngx';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { StoryService } from '../../providers/story-service';
@@ -37,14 +37,14 @@ export class TabsPage {
   tab3Root = NotificationsPage;
 
   constructor(
-    private firebaseIonic: FCM,
+    //private firebaseIonic: FCM,
     private platform: Platform,
     private toast: ToastController,
     private ev: Events,
     private transfer: FileTransfer,
     private file: File,
     private _storyService: StoryService,
-    private fcm: FirebaseMessagingProvider
+    //private fcm: FirebaseMessagingProvider
   ) {
     this.onNotification();
 
@@ -113,7 +113,7 @@ export class TabsPage {
       videoObj,
       postVideoObject.ImageListObj,
       postVideoObject.GraphExternalURL).subscribe(sub => {
-        this.fcm.SubscibeToTopic(sub);
+        //this.fcm.SubscibeToTopic(sub);
         console.log("tabs--Post Saved");
       });
   }
@@ -129,7 +129,7 @@ export class TabsPage {
       }
 
       await this.platform.ready();
-
+/*
       this.firebaseIonic.onNotification().subscribe(sub => {
         console.log("Notification Opened");
         console.log(sub);
@@ -145,6 +145,7 @@ export class TabsPage {
 
         sessionStorage.setItem("commentCount", this.commentCount.toString());
       });
+      */
     }
     catch (e) {
       console.log('erroring');

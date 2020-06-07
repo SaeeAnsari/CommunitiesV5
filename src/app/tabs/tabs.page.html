@@ -11,9 +11,10 @@
       <ion-label>Communities</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="Notifications">
+    <ion-tab-button tab="Notifications" >
       <ion-icon name="send"></ion-icon>
       <ion-label>Messages</ion-label>
+      <ion-badge color="danger" >{{commentCount}}</ion-badge>
     </ion-tab-button>
 
     <ion-tab-button tab="Settings" (click)="launchSettingsModel($event)">

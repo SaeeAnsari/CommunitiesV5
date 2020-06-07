@@ -2,13 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, ModalController, Platform, LoadingController } from '@ionic/angular';
 //import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { Storage } from '@ionic/storage';
-import { TabsPage } from '../tabs/tabs.page';
 import { LoginComponent } from '../../components/login-component/login-component.component';
 import { RegisterUserComponent } from '../../components/register-user-component/register-user-component.component';
 import { UserLocationPage } from '../user-location/user-location.page';
 import { UserService } from '../../providers/user-service';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
-import { FCM } from '@ionic-native/fcm/ngx';
+//import { FCM } from '@ionic-native/fcm/ngx';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 
 import { ErrorLogServiceProvider } from '../../providers/error-log-service/error-log-service';
@@ -17,6 +16,9 @@ import { ErrorLogServiceProvider } from '../../providers/error-log-service/error
 
 
 import { ForgetPasswordComponent } from '../../components/forget-password/forget-password.component';
+
+import '@codetrix-studio/capacitor-google-auth';
+import { Plugins } from '@capacitor/core';
 
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { Router, NavigationExtras } from '@angular/router';
@@ -43,7 +45,7 @@ export class LoginPage implements OnInit {
     private fb: Facebook,
     private err: ErrorLogServiceProvider,
     private platform: Platform,
-    private firebaseIonic: FCM,
+    //private firebaseIonic: FCM,
     private googlePlus: GooglePlus,
     public loadingCtrl: LoadingController,
     private androidPermissions: AndroidPermissions,
@@ -284,8 +286,8 @@ export class LoginPage implements OnInit {
               this.navCtrl.navigateForward("/user-location");
             }
             else {
-              this.userLoaded = true;
-              this.navCtrl.navigateForward("/tabs/tab1/");
+              this.userLoaded = true;              
+              this.navCtrl.navigateForward("/tabs");
             }
           }
         });
@@ -293,7 +295,7 @@ export class LoginPage implements OnInit {
       console.log('ionViewDidLoad Login');
     }
     else {
-      this.navCtrl.navigateForward("/tabs/tab1");
+      this.navCtrl.navigateForward("/tabs");
     }
 
 

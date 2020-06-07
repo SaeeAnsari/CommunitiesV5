@@ -5,13 +5,7 @@ import { Router } from '@angular/router';
 //import { NativeStorage } from '@ionic-native/native-storage/ngx';
 
 import { Storage } from '@ionic/storage';
-
 import { UserService } from '../../providers/user-service';
-
-
-
-import { TabsPage } from '../../pages/tabs/tabs.page';
-
 import { PopoverController } from '@ionic/angular';
 
 

@@ -51,6 +51,11 @@ export class ErrorLogServiceProvider {
       { headers: this.headers })
       .map(res => res.json())
       ._catch(this.handleError);
+  }  
+
+  public UXLogError(page, errorMessage){
+    console.log(page + ' -- ' + errorMessage);
+    this.logError(errorMessage);
   }
 
   private handleError(error: any) {

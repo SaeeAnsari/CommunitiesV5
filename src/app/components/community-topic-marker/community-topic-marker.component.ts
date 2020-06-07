@@ -6,7 +6,6 @@ import { ViewTopicsComponent } from '../../components/view-topics/view-topics.co
 import { SocialSharingPopoverComponent } from '../../components/social-sharing-popover/social-sharing-popover.component';
 import { CommunityService } from '../../providers/community-service';
 import {LiveFeedPage} from '../../pages/live-feed/live-feed.page';
-import {TabsPage} from '../../pages/tabs/tabs.page';
 
 /**
  * Generated class for the CommunityTopicMarkerComponent component.
@@ -121,10 +120,10 @@ export class CommunityTopicMarkerComponent implements OnInit {
             this._communityService.DeleteCommunity(this.CommunityID).subscribe(sub=>{
               if(sub != null){
                 if(sub == -1){
-                  this.navCtrl.navigateForward('/tabspage');
+                  this.navCtrl.navigateForward('/tabs');
                 }
                 else if(sub > 0){
-                  this.navCtrl.navigateForward('/livefeed/' + sub);
+                  this.navCtrl.navigateForward('/tabs/' + sub);
                 }
               }
             });

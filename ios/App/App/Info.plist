@@ -62,7 +62,14 @@
 	<string>To Pick Photos from Library</string>
 	<key>REVERSED_CLIENT_ID</key>
 	<string>com.googleusercontent.apps.634674165562-lc8asnp5v644bce9ftcbfi2alue7i10f</string>
-	
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>audio</string>
+		<string>fetch</string>
+		<string>location</string>
+		<string>remote-notification</string>
+		<string>voip</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -86,5 +93,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+	<key>FacebookAdvertiserIDCollectionEnabled</key>
+	<false/>
 </dict>
 </plist>

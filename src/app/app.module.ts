@@ -10,7 +10,6 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { Deeplinks } from '@ionic-native/deeplinks/ngx';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
@@ -20,7 +19,7 @@ import { Keyboard } from '@ionic-native/keyboard/ngx';
 import { MediaCapture } from '@ionic-native/media-capture/ngx';
 import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 import { File } from '@ionic-native/file/ngx';
-import { FCM } from '@ionic-native/fcm/ngx';
+//import { FCM } from '@ionic-native/fcm/ngx';
 import { LaunchNavigator } from '@ionic-native/launch-navigator/ngx';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 
@@ -45,7 +44,6 @@ import { FacebookApiProvider } from '../app/providers/facebook-api/facebook-api'
 import { CameraPluginProvider } from '../app/providers/camera-plugin/camera-plugin';
 import { HelperProvider } from '../app/providers/helper/helper';
 import { ErrorLogServiceProvider } from './providers/error-log-service/error-log-service';
-import { TabsPage } from './pages/tabs/tabs.page';
 
 import { CreateTopicComponent } from '../app/components/create-topic/create-topic.component';
 import { ForgetPasswordComponent } from '../app/components/forget-password/forget-password.component';
@@ -132,7 +130,7 @@ import {MenuComponent} from '../app/components/menu/menu.component';
     File,
     CameraPluginProvider,
     HelperProvider,
-    FCM,
+    //FCM,
     LaunchNavigator,
     //NativeStorage,
     

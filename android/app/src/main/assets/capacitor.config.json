@@ -1,6 +1,6 @@
 {
   "appId": "com.ionicframework.communities54284",
-  "appName": "Communities",
+  "appName": "Communites",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",
@@ -15,6 +15,13 @@
       "SplashScreen": "screen",
       "SplashScreenDelay": "3000",
       "AndroidPersistentFileLocation": "Compatibility"
+    }
+  },
+  "plugins": {
+    "GoogleAuth": {
+      "scopes": ["profile", "email"],
+      "serverClientId": "634674165562-uoec4hmm3d3mh6imb5qm7egvv6tcn0l2.apps.googleusercontent.com",
+      "forceCodeForRefreshToken" : true
     }
   }
 }

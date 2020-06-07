@@ -2,7 +2,6 @@ import { Component, Input } from '@angular/core';
 import { NavController, ModalController, LoadingController } from '@ionic/angular';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { UserService } from '../../providers/user-service';
-import { TabsPage } from '../../pages/tabs/tabs.page';
 import { Router } from '@angular/router';
 
 /**
@@ -74,7 +73,7 @@ export class UserLocationPage {
   SendUserToApp() {
     //f (this.LaunchType == "Registration") {
 
-    this.router.navigate(['tabs/tab1']);
+    this.router.navigate(['tabs']);
     //this.navCtrl.navigateRoot("/tabs/" + this.defaultCommunityID)
     //this.navCtrl.push(TabsPage, { communityID: this.defaultCommunityID });
     //communityID

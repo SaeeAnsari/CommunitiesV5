@@ -1,7 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">SaeedApp</string>
-    <string name="title_activity_main">SaeedApp</string>
+    <string name="app_name">Communites</string>
+    <string name="title_activity_main">Communites</string>
     <string name="package_name">com.ionicframework.communities54284</string>
     <string name="custom_url_scheme">com.ionicframework.communities54284</string>
+    <string name="fb_app_id">1863707417227215</string>
+    <string name="fb_app_name">CommunitiesV2</string>
+    <string name="server_client_id">634674165562-uoec4hmm3d3mh6imb5qm7egvv6tcn0l2.apps.googleusercontent.com</string>
 </resources>

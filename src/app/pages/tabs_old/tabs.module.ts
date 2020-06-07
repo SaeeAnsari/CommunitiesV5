@@ -6,7 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { TabsPage } from './tabs.page';
-import {TabsPageRoutingModule} from '../tabs/tabs.router.module';
+//import {TabsPageRoutingModule} from '../../tabs.router.module';
 
 const routes: Routes = [
   {
@@ -21,7 +21,7 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes),
-    TabsPageRoutingModule
+    //TabsPageRoutingModule
   ],
   declarations: [TabsPage]
 })

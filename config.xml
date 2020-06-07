@@ -22,12 +22,10 @@
     <preference name="SplashScreenDelay" value="3000" />
     <preference name="AndroidPersistentFileLocation" value="Compatibility" />
     <platform name="android">
-        <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application" xmlns:android="http://schemas.android.com/apk/res/android">
-            <application android:networkSecurityConfig="@xml/network_security_config" />
-        </edit-config>
-        <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application" xmlns:android="http://schemas.android.com/apk/res/android">
-            <application android:usesCleartextTraffic="true" />
-        </edit-config>
+        <config-file parent="/resources" target="./res/values/strings.xml">
+            <string name="fb_app_id">1863707417227215</string>
+            <string name="fb_app_name">CommunitiesV2</string>
+        </config-file>
         <resource-file src="resources/android/xml/network_security_config.xml" target="app/src/main/res/xml/network_security_config.xml" />
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
@@ -130,16 +128,5 @@
     </plugin>
     <plugin name="cordova-plugin-nativestorage" spec="^2.3.2" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.2.0" />
-    <plugin name="cordova-plugin-googleplus" spec="^8.4.0">
-        <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.634674165562-lc8asnp5v644bce9ftcbfi2alue7i10f" />
-        <variable name="PLAY_SERVICES_VERSION" value="15.0.1" />
-    </plugin>
-    <plugin name="cordova-plugin-fcm-with-dependecy-updated" spec="^6.3.1">
-        <variable name="FCM_VERSION" value="19.0.0" />
-        <variable name="GRADLE_TOOLS_VERSION" value="3.5.3" />
-        <variable name="GOOGLE_SERVICES_VERSION" value="4.3.3" />
-        <variable name="SUPPORT_LIBRARY_VERSION" value="28.0.0" />
-        <variable name="ANDROID_DEFAULT_NOTIFICATION_ICON" value="@mipmap/ic_launcher" />
-    </plugin>
-    <engine name="android" spec="8.1.0" />
+    <plugin name="cordova-plugin-googleplus" spec="^8.5.0" />
 </widget>
