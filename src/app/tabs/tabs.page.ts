@@ -77,7 +77,25 @@ export class TabsPage implements OnInit {
         this.router.navigate(['tabs/Notifications']);
       }
     );
+
+
+    /*
+    setInterval(() => {
+
+      let notificationsString = localStorage.getItem("userNotification");
+
+      if (notificationsString != null && notificationsString.length > 3) {
+        this.notifications = null;
+        this.notifications = JSON.parse(notificationsString);
+      }     
+      this.commentCount = this.notifications.length;
+      console.log("Tabs - Inside the SetInterval method");
+
+    }, 5000);
+    */
+    
   }
+  
 
   private file_transfer: FileTransferObject = this.transfer.create();
   public notifications = [];
