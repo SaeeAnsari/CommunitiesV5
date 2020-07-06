@@ -24,15 +24,15 @@
 
           <ion-card>
             <ion-card-content>
-              <div class="message-container" (click)="notificationClicked(item.storyID)">
+              <div class="message-container" (click)="notificationClicked(item)">
 
-                <div class="message-header">
-                  <div class="message-name">{{item.title}} :</div>
+                <div class="message-header"  >
+                  <div class="message-name" [class.message-name-unread]="item.isRead == false">{{item.title}} :</div>
                   <div class="message-time"> {{item.timestamp}}</div>
                 </div>
 
                 <span class="message-text">
-                  {{item.text}}
+                  {{item.body}}
                 </span>
 
               </div>

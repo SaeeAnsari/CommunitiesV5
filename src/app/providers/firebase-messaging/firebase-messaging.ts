@@ -16,6 +16,18 @@ import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 
+import { Plugins } from "@capacitor/core";
+const { PushNotifications } = Plugins;
+ 
+//
+// with type support
+import { FCM } from "capacitor-fcm";
+const fcm = new FCM();
+ 
+//
+// alternatively - without types
+const { FCMPlugin } = Plugins;
+
 
 /*
   Generated class for the FirebaseMessagingProvider provider.
@@ -40,13 +52,8 @@ export class FirebaseMessagingProvider {
 
 
 
-  public SubscibeToTopic(topic: string) {
-    /*
-    this.firebaseIonic.subscribeToTopic(topic).then(ret=>{
-      console.log(ret);
-    })
-    .catch(this.handleError);
-    */
+  public SubscibeToTopic(topic): Promise<any> {
+    return fcm.subscribeTo({ topic: topic});    
   }
 
 

@@ -17,6 +17,10 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import { FileTransferObject, FileTransfer } from '@ionic-native/file-transfer/ngx';
 
+import {BehaviorSubject} from 'rxjs';
+
+import {Events} from '../providers/events.service';
+
 
 /*
   Generated class for the StoryService provider.
@@ -27,16 +31,18 @@ import { FileTransferObject, FileTransfer } from '@ionic-native/file-transfer/ng
 @Injectable({ providedIn: 'root' })
 export class StoryService {
 
+  public messagingCount = new BehaviorSubject(0);
+
   private _url = BaseLinkProvider.GetBaseUrl() + '/Story';
 
   private file_transfer: FileTransferObject = this.transfer.create();
 
   headers: Headers;
 
-  constructor(private _http: Http, private transfer: FileTransfer) {
-
-
+  constructor(private _http: Http, private transfer: FileTransfer, private ev: Events) {
   }
+
+
 
   public GetStory(id: number) {
     return this._http.get(this._url + '/' + id)
@@ -226,4 +232,15 @@ export class StoryService {
     return result;
 
   }
+
+  public setCountValue(val){
+    this.messagingCount.next(val);    
+    sessionStorage.setItem("commentCount", val);
+    this.ev.publish("messageCountPublished", val);
+  }
+  
+  public getCountValue(): Observable<number>{
+    return this.messagingCount.asObservable();
+  }
+  
 }

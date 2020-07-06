@@ -50,7 +50,9 @@ export class MenuComponent implements OnInit {
 
   SubscribeTest() {
 
-    this.fcm.SubscibeToTopic("1338");
+    this.fcm.SubscibeToTopic("1628").then(ret=>{
+      console.log("Menu: ubscribed to a topic")
+    })
   }
 
   @Input()

@@ -3,13 +3,12 @@ import { NavController, ModalController } from '@ionic/angular';
 import { UserCommentsComponent } from '../../components/user-comments-component/user-comments-component.component';
 import { StoryService } from '../../providers/story-service';
 //import { NativeStorage} from '@ionic-native/native-storage/ngx';
-import {Storage} from '@ionic/storage';
-
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'page-notifications',
   templateUrl: 'notifications.page.html',
-  styleUrls: ['./notifications.page.scss'],  
+  styleUrls: ['./notifications.page.scss'],
   providers: [StoryService]
 })
 export class NotificationsPage {
@@ -43,20 +42,28 @@ export class NotificationsPage {
       console.log(notificationString);
     }
 
-    this.commentCount = +sessionStorage.getItem("commentCount");
-
-    //this.notifications = [{ "storyID": "1430", "google.sent_time": 1512245779130, "tap": true, "from": "/topics/1430", "text": "sdsds", "timestamp": "12/2/2017 12:16:19 PM", "title": "Saddie West", "google.message_id": "0:1512245779448176%36e44fec36e44fec", "collapse_key": "com.ionicframework.communities54284" }, { "storyID": "1431", "google.sent_time": 1512245776812, "tap": true, "from": "/topics/1430", "text": "sdsdd", "timestamp": "12/2/2017 12:16:16 PM", "title": "Saddie West", "google.message_id": "0:1512245777141663%36e44fec36e44fec", "collapse_key": "com.ionicframework.communities54284" }];
+    //this.notifications = [{"title":"Saeed Ansari Sent a Message","body":"Hey What is this all about","id":"0:1594049344228084%36e44fed36e44fed","storyID":"1628","timestamp":"1,594,049,343,647","isRead":false},{"title":"Saeed Ansari Sent a Message","body":"Hey What is this all about 2","id":"0:1594049588757654%36e44fed36e44fed","storyID":"1628","timestamp":"1,594,049,588,225","isRead":false}];    
+    
+    var countList = this.notifications.filter(ret=>{
+      return ret.isRead == false;
+    })
+    
+    if(countList == null){
+      this.commentCount = null;
+    }
+    else{
+      this.commentCount = countList.length;            
+    }        
+    this.storyService.setCountValue(this.commentCount);
   }
 
-  async notificationClicked(storyID) {
+  async notificationClicked(elem) {
 
     this.loadNotifications();
 
-    let storyIndexSplice = this.notifications.indexOf(this.notifications.filter(item => item.storyID == storyID));
-    this.notifications.splice(storyIndexSplice, 1);
+    this.updateNotificationRead(elem.id);
 
-
-    this.storyService.GetStory(storyID).subscribe(async story => {
+    this.storyService.GetStory(elem.storyID).subscribe(async story => {
       if (story != null) {
         let type = story.MediaType;
 
@@ -71,15 +78,29 @@ export class NotificationsPage {
 
         let commentsModal = await this.modalCtrl.create({
           component: UserCommentsComponent,
-          componentProps: { storyID: storyID, postMediaURL: postMediaURL, postMessage: story.LongDescription, storyExternalURL: story.StoryExternalURL, type: type }
-        })
-
-        //let commentsModal = this.modalCtrl.create(UserCommentsComponent,
-        //  { storyID: storyID, postMediaURL: postMediaURL, postMessage: story.LongDescription, storyExternalURL: story.StoryExternalURL, type: type },
-        //  { showBackdrop: true, enableBackdropDismiss: true });
+          componentProps: { storyID: elem.storyID, postMediaURL: postMediaURL, postMessage: story.LongDescription, storyExternalURL: story.StoryExternalURL, type: type }
+        })       
 
         commentsModal.present();
       }
     })
+  }
+
+  private updateNotificationRead(id) {
+    for (let index = 0; index < this.notifications.length; index++) {
+      if(this.notifications[index].id == id){
+        this.notifications[index].isRead = true;          
+      }          
+    }    
+
+    localStorage.setItem("userNotification", JSON.stringify(this.notifications));
+    try {
+
+      var commentCount = this.notifications.filter(ret=> ret.isRead == false);
+      this.storyService.setCountValue(commentCount.length.toString());          
+      
+    } catch (error) {
+      console.log("Notifications: Error in getting Count " + JSON.stringify(error));  
+    }    
   }
 }

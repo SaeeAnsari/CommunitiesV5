@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../providers/user-service';
-import { NavController, Platform, ModalController, PopoverController, Events } from '@ionic/angular';
+import { NavController, Platform, ModalController, PopoverController } from '@ionic/angular';
 //import { FCM } from '@ionic-native/fcm/ngx';
 import { MenuComponent } from '../components/menu/menu.component';
 import {
@@ -20,6 +20,12 @@ import { FirebaseMessagingProvider } from '../providers/firebase-messaging/fireb
 import { StoryService } from '../providers/story-service';
 
 import { BaseLinkProvider } from '../providers/base-link/base-link';
+import { getLocaleDateTimeFormat } from '@angular/common';
+import { count } from 'rxjs-compat/operator/count';
+
+import {Events} from '../providers/events.service';
+
+
 
 
 const { PushNotifications } = Plugins;
@@ -35,7 +41,7 @@ export class TabsPage implements OnInit {
     //this.commentCount=2;
 
     console.log("TABS - Page Init Fired")
-    this.registerPushNotificationHooks();
+    this.registerPushNotificationHooks();   
   }
 
   public registerPushNotificationHooks() {
@@ -124,8 +130,14 @@ export class TabsPage implements OnInit {
 
       var obj = JSON.parse(videoUpload);
       this.postVideo(videoUpload);
+    });      
 
-    });
+    this.ev.subscribe('messageCountPublished', ret=>{
+      console.log("TABS: new count received " + ret)
+
+      this.commentCount = ret;
+
+    })
   }
 
   async postVideo(videoObject) {
@@ -198,21 +210,42 @@ export class TabsPage implements OnInit {
 
       let notificationsString = localStorage.getItem("userNotification");
       
-
       if (notificationsString != null && notificationsString.length > 3) {
         this.notifications = JSON.parse(notificationsString);
+      }      
+
+      console.log("TABS: Notification Data");
+      console.log(notificationData)
+
+      var item = {
+        title: notificationData.title,
+        body: notificationData.body,
+        id: notificationData.id,
+        storyID : 0,
+        timestamp: Date.now().toLocaleString(),
+        isRead: false
+      };
+
+      if(notificationData.data != null && notificationData.data.storyID != null){
+        item.storyID = notificationData.data.storyID;
       }
 
-      console.log("fcm: Ready to receive new FCM notifications");
+      console.log("FCM: Received new FCM notifications");
+      console.log(item);
 
-      this.notifications.push(notificationData);
+      this.notifications.push(item);
       localStorage.setItem("userNotification", JSON.stringify(this.notifications));
-      this.commentCount = this.notifications.length;
-      sessionStorage.setItem("commentCount", this.commentCount.toString());
+
+      var countList = this.notifications.filter(ret=>{
+        return ret.isRead == false;
+      })
+      
+      this.commentCount = countList.length;      
+      this._storyService.setCountValue(this.commentCount);      
+      console.log("TABS: Published new notification");
     }
     catch (e) {
-      console.log('erroring');
-      console.log(e)
+      console.log('TABS : ' + JSON.stringify(e));      
     }
   }
 
