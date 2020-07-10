@@ -57,23 +57,28 @@ export class UserPostActionComponent implements OnInit {
     this._storyService.SetLike(storyID, userID).subscribe(sub => {
       if (sub != undefined && sub == true) {
         this.firebase.SubscibeToTopic(storyID.toString());
-        this.firebase.SendNotificationToTopic(storyID, "Someone liked a post you interacted on");
-        console.log("fcm: User-Post-Action:: Someone liked your comment");
-        this.LikeCount++;
-      }
-    });
 
+        this._userService.getLoggedinInUser().subscribe(usr => {
+          this.firebase.SendNotificationToTopic(storyID, usr.firstName + ' liked your post!', "People like what you said!").subscribe(sub => {
+            console.log("fcm: User Comment: Fired of Firebase notification");
+          });
+
+          console.log("fcm: User-Post-Action:: Someone liked your comment");
+          this.LikeCount++;
+        });
+      }
+    })
   }
 
   viewComments(storyID: number) {
 
-    this.ViewCommentsClicked.emit({
-      storyID: storyID
-    });
-  }
+      this.ViewCommentsClicked.emit({
+        storyID: storyID
+      });
+    }
 
   async presentPopover(myEvent) {
-    if (this.FeedType == "Event" && this.EventID != '') {
+      if(this.FeedType == "Event" && this.EventID != '') {
       //Get the EventStoryID
       //Sent the Story to Sharing Control
 

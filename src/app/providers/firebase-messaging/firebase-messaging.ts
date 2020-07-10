@@ -3,7 +3,7 @@ import { Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 //import { FCM } from '@ionic-native/fcm/ngx';
 
-
+import {StoryService} from '../story-service';
 // Observable class extensions
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/throw';
@@ -42,9 +42,8 @@ export class FirebaseMessagingProvider {
   private messagingToken: string;
 
   constructor(
-    public http: Http
-
-    //, public firebaseIonic:FCM
+    public http: Http,
+    public storyService: StoryService
   ) {
 
   }
@@ -57,39 +56,10 @@ export class FirebaseMessagingProvider {
   }
 
 
-  public SendNotificationToTopic(storyID: number, message: string): Observable<any> {
-
-
-    this.messagingToken = sessionStorage.getItem("messagingToken");
-
-
-    console.log("fcm : " + this.messagingToken);
-    var headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    headers.append('Authorization', 'Bearer ' + this.messagingToken);
-
-    let data = {
-
-      "message": {
-        "topic": storyID.toString(),
-        "notification": {
-          "body": message,
-          "title": "Communities",
-        }
-      }
-    };
-
-    console.log("FCM Data: " + JSON.stringify(data));
-
-    return this.http.post(
-      this._url,
-      data,
-      { headers: headers }
-    ).map(res => res.json())
-      .catch(this.handleError)
-
-    return null;
+  public SendNotificationToTopic(storyID: number, title: string, body: string): Observable<any> {
+    return this.storyService.SendPushMessage(storyID, title, body);    
   }
+  
 
   private handleError(error: any) {
     let errMsg = (error.message) ? error.message :

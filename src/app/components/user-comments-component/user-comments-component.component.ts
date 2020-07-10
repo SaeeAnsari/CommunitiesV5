@@ -9,6 +9,7 @@ import { FirebaseMessagingProvider } from '../../providers/firebase-messaging/fi
 import { Platform, ModalController, NavParams, NavController } from '@ionic/angular';
 import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator/ngx';
 
+
 /**
  * Generated class for the UserCommentsComponent component.
  *
@@ -42,7 +43,7 @@ export class UserCommentsComponent implements OnInit {
 
     if (this.navParams.get("postMessage")) {
       this.postMessage = this.navParams.get("postMessage");
-      
+
     }
 
     if (this.navParams.get("storyExternalURL")) {
@@ -55,15 +56,15 @@ export class UserCommentsComponent implements OnInit {
 
     if (this.navParams.get("eventID")) {
       this.eventID = this.navParams.get("eventID");
-    }   
+    }
 
     if (this.navParams.get("eventAddress")) {
       this.eventAddress = this.navParams.get("eventAddress");
     }
-    
+
     if (this.navParams.get("eventDate")) {
       this.eventDate = this.navParams.get("eventDate");
-    }    
+    }
   }
 
   public commentPost: string;
@@ -89,7 +90,7 @@ export class UserCommentsComponent implements OnInit {
     private platform: Platform,
     private launchNavigator: LaunchNavigator,
     private firebase: FirebaseMessagingProvider
-    
+
   ) {
 
 
@@ -97,7 +98,7 @@ export class UserCommentsComponent implements OnInit {
 
   loadComments() {
     this.comments = [];
-    
+
     if (this.storyID != null && this.storyID > 0) {
       this._commentService.GetStoryComments(this.storyID).subscribe(comm => {
         comm.forEach(element => {
@@ -116,27 +117,27 @@ export class UserCommentsComponent implements OnInit {
             actions: {
               supportCount: element.CommentSummary.SupportCount > 0 && element.CommentSummary.SupportCount || ''
             }
-          }          
+          }
 
           var tmpDate = new Date(comment.timestamp);
           var nowDate = new Date();
-          
+
           //if same day
-          if(tmpDate.toDateString() == nowDate.toDateString()){
+          if (tmpDate.toDateString() == nowDate.toDateString()) {
             var hours: number = nowDate.getHours() - tmpDate.getHours();
-            if(hours > 0){
+            if (hours > 0) {
               comment.displayTimeDiff = hours + " hr";
             }
-            else{
+            else {
               var minutes: number = nowDate.getMinutes() - tmpDate.getMinutes();
-              comment.displayTimeDiff = minutes + " min";  
+              comment.displayTimeDiff = minutes + " min";
             }
           }
           else {
-            var days = ((nowDate.valueOf() - tmpDate.valueOf())/86400000).toFixed();
+            var days = ((nowDate.valueOf() - tmpDate.valueOf()) / 86400000).toFixed();
             comment.displayTimeDiff = days + " days";
-          }  
-          
+          }
+
           //comment.toDisplayText
           this.comments.push(comment);
         });
@@ -153,32 +154,36 @@ export class UserCommentsComponent implements OnInit {
   }
 
   setLike(storyID: number, commentID: number) {
-      let userID = this._userService.GetLoggedInUserID();
-      let elemIndex = -1;
-      this._storyService.SetLike(storyID, userID, commentID).subscribe(sub => {
-        if (sub != undefined && sub == true) {
+    let userID = this._userService.GetLoggedInUserID();
 
-          //this.firebase.SubscibeToTopic(storyID.toString());
-          this.firebase.SendNotificationToTopic(storyID, "People are liking what you said");
-          console.log("fcm: User Comment: Fired of Firebase notification");
-
-          this.comments.forEach(function (element, index) {
-            if (element.id == commentID) {
-              elemIndex = index;
-            }
+    let elemIndex = -1;
+    this._storyService.SetLike(storyID, userID, commentID).subscribe(sub => {
+      if (sub != undefined && sub == true) {
+        this._userService.getLoggedinInUser().subscribe(usr=>{
+          this.firebase.SendNotificationToTopic(storyID, usr.firstName + ' liked your post!', "People like what you said!").subscribe(sub => {
+            console.log("fcm: User Comment: Fired of Firebase notification");
           });
 
-          this.comments[elemIndex].actions.supportCount++;
-        }
-      });
-    
+          this.firebase.SubscibeToTopic(this.storyID.toString()).then();
+        })        
+
+        this.comments.forEach(function (element, index) {
+          if (element.id == commentID) {
+            elemIndex = index;
+          }
+        });
+
+        this.comments[elemIndex].actions.supportCount++;
+      }
+    });
+
   }
 
-  setReply(storyID: number, commentID: number){
-   this.replyParentID = commentID; 
+  setReply(storyID: number, commentID: number) {
+    this.replyParentID = commentID;
   }
 
-  
+
 
   launch() {
 
@@ -194,9 +199,16 @@ export class UserCommentsComponent implements OnInit {
       let userID = this._userService.GetLoggedInUserID();
       this._commentService.PostComment(this.storyID, userID, this.commentPost, this.replyParentID).subscribe(ret => {
 
-        this.firebase.SendNotificationToTopic(this.storyID, this.commentPost);
-        this.firebase.SubscibeToTopic(this.storyID.toString());
-        console.log("fcm: New Comment : Subscribed to Story: " + this.storyID.toString());
+        this._userService.getLoggedinInUser().subscribe(user=>{
+          this.firebase.SendNotificationToTopic(this.storyID, user.firstName + ' Posted a message', this.commentPost).subscribe(sub=>{
+            console.log("Message posted");
+          })
+        })
+        
+
+        this.firebase.SubscibeToTopic(this.storyID.toString()).then(sub=>{
+          console.log("fcm: New Comment : Subscribed to Story: " + this.storyID.toString());
+        })
 
         this.loadComments();
         this.replyParentID = null;

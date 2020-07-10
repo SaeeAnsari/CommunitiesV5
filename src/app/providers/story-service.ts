@@ -210,6 +210,20 @@ export class StoryService {
       .catch(this.handleError);
   }
 
+  SubscribeToTopic(storyID): Observable<any> {
+
+    return this._http.get(this._url + '/SubscribeToTopic' + '?userTokens=' + storyID + '&topic=' + storyID)
+      .map(post => post.json())
+      .catch(this.handleError);
+  }
+
+  SendPushMessage(storyID, title, body): Observable<any> {
+
+    return this._http.get(this._url + '/SendPushMessage?storyID=' + storyID + '&title=' + title + '&body=' + body)
+      .map(post => post.json())
+      .catch(this.handleError);
+  }
+
 
   public async uploadMedia(uri, options, type, mediaType) {
 
@@ -237,10 +251,5 @@ export class StoryService {
     this.messagingCount.next(val);    
     sessionStorage.setItem("commentCount", val);
     this.ev.publish("messageCountPublished", val);
-  }
-  
-  public getCountValue(): Observable<number>{
-    return this.messagingCount.asObservable();
-  }
-  
+  } 
 }
