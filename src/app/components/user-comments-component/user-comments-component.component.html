@@ -69,7 +69,7 @@
 
       <div *ngIf="MediaType=='Image'">
         <div *ngFor="let img of postMediaURL">
-          <img src="{{img.ImageURL}}" (click)="launch()">
+          <img src="{{img.ImageURL}}">
         </div>
       </div>
       <div *ngIf="MediaType=='Video'">

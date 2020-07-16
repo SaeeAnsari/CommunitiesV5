@@ -218,17 +218,13 @@ export class TabsPage implements OnInit {
       console.log(notificationData)
 
       var item = {
-        title: notificationData.title,
-        body: notificationData.body,
+        title: notificationData.data.title,
+        body: notificationData.data.body,
         id: notificationData.id,
-        storyID : 0,
-        timestamp: Date.now().toLocaleString(),
+        storyID : notificationData.data.storyID,
+        timestamp: Date.now(),
         isRead: false
-      };
-
-      if(notificationData.data != null && notificationData.data.storyID != null){
-        item.storyID = notificationData.data.storyID;
-      }
+      };      
 
       console.log("FCM: Received new FCM notifications");
       console.log(item);

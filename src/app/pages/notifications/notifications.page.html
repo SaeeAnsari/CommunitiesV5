@@ -28,10 +28,10 @@
 
                 <div class="message-header"  >
                   <div class="message-name" [class.message-name-unread]="item.isRead == false">{{item.title}} :</div>
-                  <div class="message-time"> {{item.timestamp}}</div>
+                  <div class="message-time"> {{item.timestamp| date:'medium'}}</div>
                 </div>
 
-                <span class="message-text">
+                <span class="message-text" [class.message-text-unread]="item.isRead == false">
                   {{item.body}}
                 </span>
 

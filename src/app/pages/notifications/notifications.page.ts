@@ -41,6 +41,8 @@ export class NotificationsPage {
       console.log("All Notifications");
       console.log(notificationString);
     }
+    
+    this.notifications = this.notifications.reverse();
 
     //this.notifications = [{"title":"Saeed Ansari Sent a Message","body":"Hey What is this all about","id":"0:1594049344228084%36e44fed36e44fed","storyID":"1628","timestamp":"1,594,049,343,647","isRead":false},{"title":"Saeed Ansari Sent a Message","body":"Hey What is this all about 2","id":"0:1594049588757654%36e44fed36e44fed","storyID":"1628","timestamp":"1,594,049,588,225","isRead":false}];    
     

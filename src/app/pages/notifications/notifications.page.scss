@@ -15,8 +15,19 @@
     font-weight:500;
     
     border-left: 20px;
-    color: #ffffff;
+    color: #F0F0F0;
 }
+
+.message-text-unread {
+    
+    font-size: 14px;
+    float: left;
+    font-weight:500;
+    
+    border-left: 20px;
+    color: #BEBEBE;
+}
+
 .message-header{
     float: left;
     width: 100%;
@@ -25,8 +36,8 @@
 .message-time{
     font-size: 8pt;
     padding-top: 3px;
-    width:200px;
-
+    width:500px;    
+    display: flex;
 }
 
 .message-container{

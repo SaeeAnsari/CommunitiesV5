@@ -159,13 +159,8 @@ export class UserCommentsComponent implements OnInit {
     let elemIndex = -1;
     this._storyService.SetLike(storyID, userID, commentID).subscribe(sub => {
       if (sub != undefined && sub == true) {
-        this._userService.getLoggedinInUser().subscribe(usr=>{
-          this.firebase.SendNotificationToTopic(storyID, usr.firstName + ' liked your post!', "People like what you said!").subscribe(sub => {
-            console.log("fcm: User Comment: Fired of Firebase notification");
-          });
-
-          this.firebase.SubscibeToTopic(this.storyID.toString()).then();
-        })        
+        
+       this.firebase.SubscibeToTopic(this.storyID);
 
         this.comments.forEach(function (element, index) {
           if (element.id == commentID) {
@@ -196,11 +191,13 @@ export class UserCommentsComponent implements OnInit {
   postComment() {
     if (this.storyID != null && this.storyID > 0) {
 
+      var post = this.commentPost;
+
       let userID = this._userService.GetLoggedInUserID();
       this._commentService.PostComment(this.storyID, userID, this.commentPost, this.replyParentID).subscribe(ret => {
 
         this._userService.getLoggedinInUser().subscribe(user=>{
-          this.firebase.SendNotificationToTopic(this.storyID, user.firstName + ' Posted a message', this.commentPost).subscribe(sub=>{
+          this.firebase.SendNotificationToTopic(this.storyID, user.FirstName + ' Posted a message', post).subscribe(sub=>{
             console.log("Message posted");
           })
         })

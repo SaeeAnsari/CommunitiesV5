@@ -56,8 +56,11 @@ export class UserPostActionComponent implements OnInit {
 
     this._storyService.SetLike(storyID, userID).subscribe(sub => {
       if (sub != undefined && sub == true) {
-        this.firebase.SubscibeToTopic(storyID.toString());
-
+        this.firebase.SubscibeToTopic(storyID.toString()).then(ret=>{
+          this.LikeCount++;
+        });
+        
+        /*
         this._userService.getLoggedinInUser().subscribe(usr => {
           this.firebase.SendNotificationToTopic(storyID, usr.firstName + ' liked your post!', "People like what you said!").subscribe(sub => {
             console.log("fcm: User Comment: Fired of Firebase notification");
@@ -66,6 +69,7 @@ export class UserPostActionComponent implements OnInit {
           console.log("fcm: User-Post-Action:: Someone liked your comment");
           this.LikeCount++;
         });
+        */
       }
     })
   }
